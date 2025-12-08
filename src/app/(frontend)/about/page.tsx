@@ -1,23 +1,347 @@
-import React from 'react'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Users, Heart, Wrench, Award, Calendar, MapPin, Trophy } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import Link from 'next/link'
 
 export default function AboutPage() {
   return (
-    <main className="container mx-auto px-4 py-16">
-      <h1 className="text-4xl font-bold mb-6">À propos de Rust-in</h1>
-      <div className="prose max-w-none">
-        <p className="text-lg text-muted-foreground mb-4">
-          Rust-in est votre spécialiste vélos d&apos;occasion et réparation.
-        </p>
-        <p className="text-muted-foreground">
-          Nous proposons des vélos de qualité reconditionnés avec soin, ainsi que des services de
-          réparation pour tous types de vélos.
-        </p>
-      </div>
-    </main>
-  )
-}
+    <div className="min-h-screen flex flex-col">
+      <section className="relative bg-primary text-primary-foreground py-16 md:py-20 overflow-hidden">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: `url('/organized-bike-repair-tools-and-equipment-display.jpg')`,
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/85 via-primary/80 to-accent/75" />
+        <div className="container mx-auto px-4 relative z-10">
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 text-balance handwritten-title">
+            À propos de Rust-in
+          </h1>
+          <p className="text-2xl md:text-3xl text-primary-foreground/95 max-w-3xl text-pretty leading-relaxed">
+            Votre atelier de confiance depuis 2015 - Où chaque vélo retrouve sa jeunesse
+          </p>
+        </div>
+      </section>
 
-export const metadata = {
-  title: 'À propos - Rust-in',
-  description: "Découvrez Rust-in, votre spécialiste vélos d'occasion et réparation",
+      <section className="py-20 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
+            <div className="order-2 md:order-1">
+              <h2 className="text-4xl md:text-5xl font-bold mb-8 handwritten-title text-primary">
+                Notre histoire
+              </h2>
+              <div className="space-y-6 text-lg leading-relaxed text-muted-foreground">
+                <p>
+                  Tout a commencé dans un petit garage en 2015. Passionnés de cyclisme, nous avons
+                  remarqué qu'il manquait un véritable atelier de quartier où les cyclistes
+                  pouvaient venir faire réparer leur vélo dans une ambiance conviviale et
+                  professionnelle.
+                </p>
+                <p>
+                  Le nom <span className="font-bold text-primary">"Rust-in"</span> est né de notre
+                  philosophie : transformer la rouille en or. Nous croyons fermement que chaque
+                  vélo, même le plus abîmé, mérite une seconde vie. C'est devenu notre mission.
+                </p>
+                <p>
+                  Aujourd'hui, nous sommes fiers de servir plus de 500 cyclistes par mois, du
+                  débutant au compétiteur. Notre équipe s'est agrandie, mais notre passion et notre
+                  engagement restent intacts.
+                </p>
+              </div>
+            </div>
+            <div className="order-1 md:order-2">
+              <div className="rounded-3xl overflow-hidden shadow-2xl border-4 border-primary/20 organic-card transform md:rotate-2">
+                <img
+                  src="/friendly-bike-mechanic-man-standing-with-multiple-.jpg"
+                  alt="Notre mécanicien avec des vélos"
+                  className="w-full h-[500px] object-cover"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 bg-gradient-to-b from-accent/20 to-background">
+        <div className="container mx-auto px-4">
+          <h2 className="text-4xl md:text-5xl font-bold mb-16 text-center handwritten-title text-primary">
+            Notre parcours
+          </h2>
+          <div className="max-w-4xl mx-auto space-y-8">
+            <Card className="organic-card shadow-lg border-l-8 border-primary">
+              <CardContent className="p-8">
+                <div className="flex items-start gap-6">
+                  <div className="flex-shrink-0">
+                    <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center">
+                      <Calendar className="h-8 w-8 text-primary" />
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold handwritten-title text-primary mb-2">
+                      2015 - Les débuts
+                    </h3>
+                    <p className="text-muted-foreground text-lg leading-relaxed">
+                      Ouverture de notre premier atelier avec 2 mécaniciens passionnés et un rêve :
+                      créer un espace où chaque cycliste se sente chez lui.
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="organic-card shadow-lg border-l-8 border-accent">
+              <CardContent className="p-8">
+                <div className="flex items-start gap-6">
+                  <div className="flex-shrink-0">
+                    <div className="w-16 h-16 rounded-full bg-accent/20 flex items-center justify-center">
+                      <Trophy className="h-8 w-8 text-accent" />
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold handwritten-title text-primary mb-2">
+                      2018 - Reconnaissance
+                    </h3>
+                    <p className="text-muted-foreground text-lg leading-relaxed">
+                      Élu "Meilleur atelier vélo de la région" par nos clients. Plus de 1000 vélos
+                      réparés et des centaines de sourires.
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="organic-card shadow-lg border-l-8 border-secondary">
+              <CardContent className="p-8">
+                <div className="flex items-start gap-6">
+                  <div className="flex-shrink-0">
+                    <div className="w-16 h-16 rounded-full bg-secondary/20 flex items-center justify-center">
+                      <MapPin className="h-8 w-8 text-secondary" />
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold handwritten-title text-primary mb-2">
+                      2021 - Expansion
+                    </h3>
+                    <p className="text-muted-foreground text-lg leading-relaxed">
+                      Agrandissement de l'atelier et ajout d'une section vente et location de vélos.
+                      L'équipe passe à 5 mécaniciens certifiés.
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="organic-card shadow-lg border-l-8 border-primary">
+              <CardContent className="p-8">
+                <div className="flex items-start gap-6">
+                  <div className="flex-shrink-0">
+                    <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center">
+                      <Heart className="h-8 w-8 text-primary" />
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold handwritten-title text-primary mb-2">
+                      Aujourd'hui
+                    </h3>
+                    <p className="text-muted-foreground text-lg leading-relaxed">
+                      Plus de 6000 vélos réparés, une communauté fidèle et toujours la même passion
+                      pour faire rouler vos deux-roues !
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 bg-background">
+        <div className="container mx-auto px-4">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-center handwritten-title text-primary">
+            Nos valeurs
+          </h2>
+          <p className="text-xl text-center text-muted-foreground mb-16 max-w-2xl mx-auto">
+            Ce qui nous guide au quotidien et fait de Rust-in bien plus qu'un simple atelier
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <Card className="organic-card shadow-xl border-4 border-primary/20 hover:shadow-2xl transition-shadow">
+              <CardHeader>
+                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center mb-4 mx-auto shadow-lg">
+                  <Heart className="h-10 w-10 text-white" />
+                </div>
+                <CardTitle className="text-2xl handwritten-title text-center">Passion</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground text-base leading-relaxed text-center">
+                  Nous aimons les vélos et le cyclisme. Cette passion nous pousse à offrir un
+                  service exceptionnel à chaque fois.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="organic-card shadow-xl border-4 border-accent/20 hover:shadow-2xl transition-shadow">
+              <CardHeader>
+                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-accent to-secondary flex items-center justify-center mb-4 mx-auto shadow-lg">
+                  <Wrench className="h-10 w-10 text-white" />
+                </div>
+                <CardTitle className="text-2xl handwritten-title text-center">Expertise</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground text-base leading-relaxed text-center">
+                  Nos mécaniciens certifiés se tiennent au courant des dernières techniques et
+                  technologies de réparation.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="organic-card shadow-xl border-4 border-secondary/20 hover:shadow-2xl transition-shadow">
+              <CardHeader>
+                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-secondary to-primary flex items-center justify-center mb-4 mx-auto shadow-lg">
+                  <Users className="h-10 w-10 text-white" />
+                </div>
+                <CardTitle className="text-2xl handwritten-title text-center">Communauté</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground text-base leading-relaxed text-center">
+                  Nous sommes plus qu'un atelier - nous faisons partie de la communauté cycliste
+                  locale et nous en sommes fiers.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="organic-card shadow-xl border-4 border-primary/20 hover:shadow-2xl transition-shadow">
+              <CardHeader>
+                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center mb-4 mx-auto shadow-lg">
+                  <Award className="h-10 w-10 text-white" />
+                </div>
+                <CardTitle className="text-2xl handwritten-title text-center">Qualité</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground text-base leading-relaxed text-center">
+                  Nous ne faisons jamais de compromis sur la qualité. Chaque réparation est bien
+                  faite, garantie par notre garantie.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 bg-gradient-to-b from-accent/20 to-background">
+        <div className="container mx-auto px-4">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-center handwritten-title text-primary">
+            Rencontrez notre équipe
+          </h2>
+          <p className="text-xl text-center text-muted-foreground mb-16 max-w-2xl mx-auto">
+            Des passionnés à votre service, prêts à donner le meilleur pour votre vélo
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-5xl mx-auto">
+            <Card className="organic-card shadow-xl border-4 border-accent/30 hover:shadow-2xl transition-all hover:-translate-y-2">
+              <CardHeader>
+                <div className="w-32 h-32 rounded-full overflow-hidden mx-auto mb-6 border-4 border-primary shadow-lg">
+                  <img
+                    src="/man-with-beard-profile-picture.jpg"
+                    alt="Mike Johnson"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <CardTitle className="text-center text-2xl handwritten-title">
+                  Mike Johnson
+                </CardTitle>
+                <p className="text-center text-primary font-semibold text-lg">
+                  Fondateur & Mécanicien en chef
+                </p>
+              </CardHeader>
+              <CardContent>
+                <p className="text-center text-base text-muted-foreground leading-relaxed">
+                  Plus de 15 ans d'expérience. Spécialisé dans les vélos de route et les
+                  constructions personnalisées. Ancien coureur cycliste professionnel.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="organic-card shadow-xl border-4 border-accent/30 hover:shadow-2xl transition-all hover:-translate-y-2">
+              <CardHeader>
+                <div className="w-32 h-32 rounded-full overflow-hidden mx-auto mb-6 border-4 border-accent shadow-lg">
+                  <img
+                    src="/asian-woman-smiling-profile.jpg"
+                    alt="Sarah Chen"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <CardTitle className="text-center text-2xl handwritten-title">Sarah Chen</CardTitle>
+                <p className="text-center text-primary font-semibold text-lg">
+                  Mécanicienne senior
+                </p>
+              </CardHeader>
+              <CardContent>
+                <p className="text-center text-base text-muted-foreground leading-relaxed">
+                  Experte en VTT et systèmes de suspension. 10 ans d'expérience. Championne
+                  régionale de descente VTT.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="organic-card shadow-xl border-4 border-accent/30 hover:shadow-2xl transition-all hover:-translate-y-2">
+              <CardHeader>
+                <div className="w-32 h-32 rounded-full overflow-hidden mx-auto mb-6 border-4 border-secondary shadow-lg">
+                  <img
+                    src="/man-smiling-profile-picture.jpg"
+                    alt="Alex Rivera"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <CardTitle className="text-center text-2xl handwritten-title">
+                  Alex Rivera
+                </CardTitle>
+                <p className="text-center text-primary font-semibold text-lg">
+                  Mécanicien spécialisé
+                </p>
+              </CardHeader>
+              <CardContent>
+                <p className="text-center text-base text-muted-foreground leading-relaxed">
+                  Spécialisé dans les vélos électriques et les systèmes de transmission modernes. 7
+                  ans d'expérience en électronique cycliste.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 bg-gradient-to-br from-primary/10 via-accent/10 to-secondary/10">
+        <div className="container mx-auto px-4">
+          <Card className="max-w-4xl mx-auto organic-card shadow-2xl border-4 border-primary/30">
+            <CardContent className="p-12 text-center">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 handwritten-title text-primary">
+                Prêt à faire revivre votre vélo ?
+              </h2>
+              <p className="text-xl text-muted-foreground mb-8 leading-relaxed max-w-2xl mx-auto">
+                Que ce soit pour une simple révision ou une réparation complète, notre équipe est là
+                pour vous. Passez nous voir ou contactez-nous !
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button
+                  asChild
+                  size="lg"
+                  className="text-lg px-8 py-6 shadow-lg hover:shadow-xl transition-all"
+                >
+                  <Link href="/contact">Nous contacter</Link>
+                </Button>
+                <Button
+                  asChild
+                  variant="outline"
+                  size="lg"
+                  className="text-lg px-8 py-6 border-2 border-primary hover:bg-primary/10 bg-transparent"
+                >
+                  <Link href="/prices">Voir nos tarifs</Link>
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+    </div>
+  )
 }
