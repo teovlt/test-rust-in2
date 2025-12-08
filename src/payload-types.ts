@@ -72,6 +72,7 @@ export interface Config {
     media: Media;
     reviews: Review;
     faq: Faq;
+    team: Team;
     'payload-kv': PayloadKv;
     'payload-folders': FolderInterface;
     'payload-locked-documents': PayloadLockedDocument;
@@ -89,6 +90,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     reviews: ReviewsSelect<false> | ReviewsSelect<true>;
     faq: FaqSelect<false> | FaqSelect<true>;
+    team: TeamSelect<false> | TeamSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-folders': PayloadFoldersSelect<false> | PayloadFoldersSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -332,6 +334,29 @@ export interface Faq {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "team".
+ */
+export interface Team {
+  id: string;
+  name: string;
+  photo: string | Media;
+  /**
+   * Ex: Mécanicien, Fondateur, Responsable atelier...
+   */
+  role: string;
+  /**
+   * Courte biographie ou présentation du membre
+   */
+  description: string;
+  /**
+   * Plus le nombre est petit, plus le membre apparaît en premier
+   */
+  order?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -373,6 +398,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'faq';
         value: string | Faq;
+      } | null)
+    | ({
+        relationTo: 'team';
+        value: string | Team;
       } | null)
     | ({
         relationTo: 'payload-folders';
@@ -570,6 +599,19 @@ export interface ReviewsSelect<T extends boolean = true> {
 export interface FaqSelect<T extends boolean = true> {
   question?: T;
   answer?: T;
+  order?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "team_select".
+ */
+export interface TeamSelect<T extends boolean = true> {
+  name?: T;
+  photo?: T;
+  role?: T;
+  description?: T;
   order?: T;
   updatedAt?: T;
   createdAt?: T;

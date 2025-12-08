@@ -2,8 +2,36 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Users, Heart, Wrench, Award, Calendar, MapPin, Trophy } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import { getPayload } from 'payload'
+import configPromise from '@payload-config'
 
-export default function AboutPage() {
+type TeamMember = {
+  name: string
+  photo: string | null
+  role: string
+  description: string
+}
+
+async function getTeamMembers(): Promise<TeamMember[]> {
+  const payload = await getPayload({ config: configPromise })
+
+  const teamData = await payload.find({
+    collection: 'team',
+    limit: 20,
+    sort: 'order',
+  })
+
+  return teamData.docs.map((member) => ({
+    name: member.name,
+    photo: typeof member.photo === 'object' && member.photo?.url ? member.photo.url : null,
+    role: member.role,
+    description: member.description,
+  }))
+}
+
+export default async function AboutPage() {
+  const teamMembers = await getTeamMembers()
+
   return (
     <div className="min-h-screen flex flex-col">
       <section className="relative bg-primary text-primary-foreground py-16 md:py-20 overflow-hidden">
@@ -228,87 +256,60 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="py-20 bg-gradient-to-b from-accent/20 to-background">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-center handwritten-title text-primary">
-            Rencontrez notre équipe
-          </h2>
-          <p className="text-xl text-center text-muted-foreground mb-16 max-w-2xl mx-auto">
-            Des passionnés à votre service, prêts à donner le meilleur pour votre vélo
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-5xl mx-auto">
-            <Card className="organic-card shadow-xl border-4 border-accent/30 hover:shadow-2xl transition-all hover:-translate-y-2">
-              <CardHeader>
-                <div className="w-32 h-32 rounded-full overflow-hidden mx-auto mb-6 border-4 border-primary shadow-lg">
-                  <img
-                    src="/man-with-beard-profile-picture.jpg"
-                    alt="Mike Johnson"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <CardTitle className="text-center text-2xl handwritten-title">
-                  Mike Johnson
-                </CardTitle>
-                <p className="text-center text-primary font-semibold text-lg">
-                  Fondateur & Mécanicien en chef
-                </p>
-              </CardHeader>
-              <CardContent>
-                <p className="text-center text-base text-muted-foreground leading-relaxed">
-                  Plus de 15 ans d'expérience. Spécialisé dans les vélos de route et les
-                  constructions personnalisées. Ancien coureur cycliste professionnel.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="organic-card shadow-xl border-4 border-accent/30 hover:shadow-2xl transition-all hover:-translate-y-2">
-              <CardHeader>
-                <div className="w-32 h-32 rounded-full overflow-hidden mx-auto mb-6 border-4 border-accent shadow-lg">
-                  <img
-                    src="/asian-woman-smiling-profile.jpg"
-                    alt="Sarah Chen"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <CardTitle className="text-center text-2xl handwritten-title">Sarah Chen</CardTitle>
-                <p className="text-center text-primary font-semibold text-lg">
-                  Mécanicienne senior
-                </p>
-              </CardHeader>
-              <CardContent>
-                <p className="text-center text-base text-muted-foreground leading-relaxed">
-                  Experte en VTT et systèmes de suspension. 10 ans d'expérience. Championne
-                  régionale de descente VTT.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="organic-card shadow-xl border-4 border-accent/30 hover:shadow-2xl transition-all hover:-translate-y-2">
-              <CardHeader>
-                <div className="w-32 h-32 rounded-full overflow-hidden mx-auto mb-6 border-4 border-secondary shadow-lg">
-                  <img
-                    src="/man-smiling-profile-picture.jpg"
-                    alt="Alex Rivera"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <CardTitle className="text-center text-2xl handwritten-title">
-                  Alex Rivera
-                </CardTitle>
-                <p className="text-center text-primary font-semibold text-lg">
-                  Mécanicien spécialisé
-                </p>
-              </CardHeader>
-              <CardContent>
-                <p className="text-center text-base text-muted-foreground leading-relaxed">
-                  Spécialisé dans les vélos électriques et les systèmes de transmission modernes. 7
-                  ans d'expérience en électronique cycliste.
-                </p>
-              </CardContent>
-            </Card>
+      {/* Team Section - Dynamic from Backend */}
+      {teamMembers.length > 0 && (
+        <section className="py-20 bg-gradient-to-b from-accent/20 to-background">
+          <div className="container mx-auto px-4">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-center handwritten-title text-primary">
+              Rencontrez notre équipe
+            </h2>
+            <p className="text-xl text-center text-muted-foreground mb-16 max-w-2xl mx-auto">
+              Des passionnés à votre service, prêts à donner le meilleur pour votre vélo
+            </p>
+            <div
+              className={`grid gap-10 max-w-5xl mx-auto ${
+                teamMembers.length === 1
+                  ? 'grid-cols-1 max-w-md'
+                  : teamMembers.length === 2
+                    ? 'grid-cols-1 md:grid-cols-2 max-w-3xl'
+                    : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
+              }`}
+            >
+              {teamMembers.map((member, index) => (
+                <Card
+                  key={index}
+                  className="organic-card shadow-xl border-4 border-accent/30 hover:shadow-2xl transition-all hover:-translate-y-2"
+                >
+                  <CardHeader>
+                    <div className="w-32 h-32 rounded-full overflow-hidden mx-auto mb-6 border-4 border-primary shadow-lg">
+                      {member.photo ? (
+                        <img
+                          src={member.photo}
+                          alt={member.name}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-primary/20 flex items-center justify-center">
+                          <Users className="w-12 h-12 text-primary" />
+                        </div>
+                      )}
+                    </div>
+                    <CardTitle className="text-center text-2xl handwritten-title">
+                      {member.name}
+                    </CardTitle>
+                    <p className="text-center text-primary font-semibold text-lg">{member.role}</p>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-center text-base text-muted-foreground leading-relaxed">
+                      {member.description}
+                    </p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       <section className="py-20 bg-gradient-to-br from-primary/10 via-accent/10 to-secondary/10">
         <div className="container mx-auto px-4">
