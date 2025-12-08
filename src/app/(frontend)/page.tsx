@@ -19,6 +19,13 @@ export default async function HomePage() {
     sort: 'order',
   })
 
+  // Fetch Opening Hours
+  const openingHoursData = await payload.find({
+    collection: 'opening-hours',
+    limit: 10,
+    sort: 'order',
+  })
+
   // Transform reviews data
   const reviews = reviewsData.docs.map((review) => ({
     name: review.name,
@@ -33,5 +40,22 @@ export default async function HomePage() {
     answer: item.answer,
   }))
 
-  return <HomePageClient reviews={reviews} faq={faq} />
+  // Transform Opening Hours data
+  const dayLabels: Record<string, string> = {
+    lundi: 'Lundi',
+    mardi: 'Mardi',
+    mercredi: 'Mercredi',
+    jeudi: 'Jeudi',
+    vendredi: 'Vendredi',
+    samedi: 'Samedi',
+    dimanche: 'Dimanche',
+  }
+
+  const openingHours = openingHoursData.docs.map((hour) => ({
+    day: dayLabels[hour.day] || hour.day,
+    hours: hour.isClosed ? 'Fermé' : `${hour.openTime || ''} - ${hour.closeTime || ''}`,
+    isClosed: hour.isClosed ?? false,
+  }))
+
+  return <HomePageClient reviews={reviews} faq={faq} openingHours={openingHours} />
 }

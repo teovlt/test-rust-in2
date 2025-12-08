@@ -29,12 +29,30 @@ type FAQItem = {
   answer: string
 }
 
+type OpeningHour = {
+  day: string
+  hours: string
+  isClosed: boolean
+}
+
 type HomePageClientProps = {
   reviews: Review[]
   faq: FAQItem[]
+  openingHours: OpeningHour[]
 }
 
-export function HomePageClient({ reviews, faq }: HomePageClientProps) {
+// Default opening hours if none in backend
+const defaultOpeningHours: OpeningHour[] = [
+  { day: 'Lundi', hours: '9h00 - 18h00', isClosed: false },
+  { day: 'Mardi', hours: '9h00 - 18h00', isClosed: false },
+  { day: 'Mercredi', hours: '9h00 - 18h00', isClosed: false },
+  { day: 'Jeudi', hours: '9h00 - 18h00', isClosed: false },
+  { day: 'Vendredi', hours: '9h00 - 18h00', isClosed: false },
+  { day: 'Samedi', hours: '10h00 - 16h00', isClosed: false },
+  { day: 'Dimanche', hours: 'Fermé', isClosed: true },
+]
+
+export function HomePageClient({ reviews, faq, openingHours }: HomePageClientProps) {
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const [openFaq, setOpenFaq] = useState<number | null>(null)
   const [canScrollLeft, setCanScrollLeft] = useState(false)
@@ -43,6 +61,7 @@ export function HomePageClient({ reviews, faq }: HomePageClientProps) {
   // Use data from backend or fallback to defaults
   const displayReviews = reviews.length > 0 ? reviews : []
   const displayFaq = faq.length > 0 ? faq : []
+  const displayOpeningHours = openingHours.length > 0 ? openingHours : defaultOpeningHours
 
   const checkScrollButtons = () => {
     if (scrollContainerRef.current) {
@@ -146,34 +165,18 @@ export function HomePageClient({ reviews, faq }: HomePageClientProps) {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
-                <div className="flex justify-between text-lg">
-                  <span className="font-semibold">Lundi</span>
-                  <span className="text-muted-foreground">9h00 - 18h00</span>
-                </div>
-                <div className="flex justify-between text-lg">
-                  <span className="font-semibold">Mardi</span>
-                  <span className="text-muted-foreground">9h00 - 18h00</span>
-                </div>
-                <div className="flex justify-between text-lg">
-                  <span className="font-semibold">Mercredi</span>
-                  <span className="text-muted-foreground">9h00 - 18h00</span>
-                </div>
-                <div className="flex justify-between text-lg">
-                  <span className="font-semibold">Jeudi</span>
-                  <span className="text-muted-foreground">9h00 - 18h00</span>
-                </div>
-                <div className="flex justify-between text-lg">
-                  <span className="font-semibold">Vendredi</span>
-                  <span className="text-muted-foreground">9h00 - 18h00</span>
-                </div>
-                <div className="flex justify-between text-lg">
-                  <span className="font-semibold">Samedi</span>
-                  <span className="text-muted-foreground">10h00 - 16h00</span>
-                </div>
-                <div className="flex justify-between text-lg">
-                  <span className="font-semibold">Dimanche</span>
-                  <span className="text-muted-foreground">Fermé</span>
-                </div>
+                {displayOpeningHours.map((hour, index) => (
+                  <div key={index} className="flex justify-between text-lg">
+                    <span className="font-semibold">{hour.day}</span>
+                    <span
+                      className={
+                        hour.isClosed ? 'text-red-500 font-medium' : 'text-muted-foreground'
+                      }
+                    >
+                      {hour.hours}
+                    </span>
+                  </div>
+                ))}
                 <div className="pt-4 border-t border-border">
                   <p className="text-sm text-muted-foreground italic">
                     Bienvenue sans rendez-vous ! Ou appelez à l'avance pour réserver votre créneau.

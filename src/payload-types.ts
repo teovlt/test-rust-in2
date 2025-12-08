@@ -73,6 +73,7 @@ export interface Config {
     reviews: Review;
     faq: Faq;
     team: Team;
+    'opening-hours': OpeningHour;
     'payload-kv': PayloadKv;
     'payload-folders': FolderInterface;
     'payload-locked-documents': PayloadLockedDocument;
@@ -91,6 +92,7 @@ export interface Config {
     reviews: ReviewsSelect<false> | ReviewsSelect<true>;
     faq: FaqSelect<false> | FaqSelect<true>;
     team: TeamSelect<false> | TeamSelect<true>;
+    'opening-hours': OpeningHoursSelect<false> | OpeningHoursSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-folders': PayloadFoldersSelect<false> | PayloadFoldersSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -357,6 +359,32 @@ export interface Team {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "opening-hours".
+ */
+export interface OpeningHour {
+  id: string;
+  day: 'lundi' | 'mardi' | 'mercredi' | 'jeudi' | 'vendredi' | 'samedi' | 'dimanche';
+  /**
+   * Cochez si fermé ce jour-là
+   */
+  isClosed?: boolean | null;
+  /**
+   * Ex: 9h00
+   */
+  openTime?: string | null;
+  /**
+   * Ex: 18h00
+   */
+  closeTime?: string | null;
+  /**
+   * 0 = Lundi, 1 = Mardi, etc.
+   */
+  order?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -402,6 +430,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'team';
         value: string | Team;
+      } | null)
+    | ({
+        relationTo: 'opening-hours';
+        value: string | OpeningHour;
       } | null)
     | ({
         relationTo: 'payload-folders';
@@ -612,6 +644,19 @@ export interface TeamSelect<T extends boolean = true> {
   photo?: T;
   role?: T;
   description?: T;
+  order?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "opening-hours_select".
+ */
+export interface OpeningHoursSelect<T extends boolean = true> {
+  day?: T;
+  isClosed?: T;
+  openTime?: T;
+  closeTime?: T;
   order?: T;
   updatedAt?: T;
   createdAt?: T;

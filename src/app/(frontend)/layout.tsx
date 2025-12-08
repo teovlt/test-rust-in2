@@ -10,6 +10,7 @@ import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { Footer } from '@/Footer/Component'
 import { Header } from '@/Header/Component'
 import { Providers } from '@/providers'
+import { LoadingProvider } from '@/providers/LoadingProvider'
 
 import './globals.css'
 
@@ -30,10 +31,12 @@ export default function FrontendLayout({ children }: { children: React.ReactNode
       )}
     >
       <Providers>
-        <InitTheme />
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <LoadingProvider>
+          <InitTheme />
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </LoadingProvider>
       </Providers>
     </div>
   )

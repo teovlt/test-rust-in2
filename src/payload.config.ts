@@ -7,6 +7,7 @@ import { fileURLToPath } from 'url'
 import { Bikes } from './collections/Bikes'
 import { FAQ } from './collections/FAQ'
 import { Media } from './collections/Media'
+import { OpeningHours } from './collections/OpeningHours'
 import { Reviews } from './collections/Reviews'
 import { Team } from './collections/Team'
 import { Users } from './collections/Users'
@@ -59,7 +60,7 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
   }),
-  collections: [Users, Bikes, Media, Reviews, FAQ, Team],
+  collections: [Users, Bikes, Media, Reviews, FAQ, Team, OpeningHours],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [],
   plugins,
