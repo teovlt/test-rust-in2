@@ -34,20 +34,20 @@ export const Bikes: CollectionConfig = {
       min: 0,
       admin: {
         description: 'Prix en euros',
-      },
+        },
     },
-    {
+            {
       name: 'kilometers',
       label: 'Kilomètres parcourus',
       type: 'number',
-      required: true,
+              required: true,
       min: 0,
       defaultValue: 0,
-      admin: {
+              admin: {
         description: 'Nombre de kilomètres déjà parcourus',
       },
-    },
-    {
+        },
+        {
       name: 'photo',
       label: 'Photo',
       type: 'upload',
@@ -76,7 +76,7 @@ export const Bikes: CollectionConfig = {
       type: 'textarea',
       admin: {
         description: 'Description optionnelle du vélo',
-      },
+    },
     },
   ],
 }

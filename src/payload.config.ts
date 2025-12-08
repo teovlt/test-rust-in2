@@ -5,7 +5,9 @@ import { buildConfig, PayloadRequest } from 'payload'
 import { fileURLToPath } from 'url'
 
 import { Bikes } from './collections/Bikes'
+import { FAQ } from './collections/FAQ'
 import { Media } from './collections/Media'
+import { Reviews } from './collections/Reviews'
 import { Users } from './collections/Users'
 import { plugins } from './plugins'
 import { defaultLexical } from '@/fields/defaultLexical'
@@ -56,7 +58,7 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
   }),
-  collections: [Users, Bikes, Media],
+  collections: [Users, Bikes, Media, Reviews, FAQ],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [],
   plugins,
