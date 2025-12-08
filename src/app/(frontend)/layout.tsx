@@ -1,24 +1,40 @@
 import React from 'react'
+import { cn } from '@/utilities/ui'
+import { GeistMono } from 'geist/font/mono'
+import { GeistSans } from 'geist/font/sans'
+import { InitTheme } from '@/providers/Theme/InitTheme'
+import type { Metadata } from 'next'
+import { getServerSideURL } from '@/utilities/getURL'
+import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 
-import { AdminBar } from '@/components/AdminBar'
 import { Footer } from '@/Footer/Component'
 import { Header } from '@/Header/Component'
 import { Providers } from '@/providers'
-import { draftMode } from 'next/headers'
 
-export default async function FrontendLayout({ children }: { children: React.ReactNode }) {
-  const { isEnabled } = await draftMode()
+import './globals.css'
 
+export const metadata: Metadata = {
+  title: "Rust-in - Vélos d'occasion",
+  description: "Votre spécialiste vélos d'occasion et réparation à Toulouse",
+  metadataBase: new URL(getServerSideURL()),
+  openGraph: mergeOpenGraph(),
+}
+
+export default function FrontendLayout({ children }: { children: React.ReactNode }) {
   return (
-    <Providers>
-      <AdminBar
-        adminBarProps={{
-          preview: isEnabled,
-        }}
-      />
-      <Header />
-      <main className="flex-1">{children}</main>
-      <Footer />
-    </Providers>
+    <div
+      className={cn(
+        GeistSans.variable,
+        GeistMono.variable,
+        'bg-background text-foreground min-h-screen flex flex-col',
+      )}
+    >
+      <Providers>
+        <InitTheme />
+        <Header />
+        <main className="flex-1">{children}</main>
+        <Footer />
+      </Providers>
+    </div>
   )
 }

@@ -1,136 +1,235 @@
-import React from 'react'
-import { MapPin, Phone, Mail, Clock, Send } from 'lucide-react'
+'use client'
+
+import type React from 'react'
+
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
+import { Label } from '@/components/ui/label'
+import { MapPin, Phone, Mail, Clock } from 'lucide-react'
+import { useState } from 'react'
 
 export default function ContactPage() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    bike: '',
+    message: '',
+  })
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    // Handle form submission
+    console.log('Form submitted:', formData)
+    alert('Merci pour votre message ! Nous vous répondrons bientôt.')
+    setFormData({ name: '', email: '', phone: '', bike: '', message: '' })
+  }
+
   return (
-    <main className="min-h-screen">
-      {/* Hero */}
-      <section className="bg-gradient-to-br from-primary/10 via-background to-accent/20 py-16">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            Contactez <span className="text-primary">Rust-in</span>
+    <div className="min-h-screen flex flex-col">
+      {/* Hero Section */}
+      <section className="relative bg-primary text-primary-foreground py-16 md:py-20 overflow-hidden">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: `url('/friendly-bike-shop-storefront-with-welcome-sign.jpg')`,
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/85 via-primary/80 to-accent/75" />
+        <div className="container mx-auto px-4 relative z-10">
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 text-balance handwritten-title">
+            Contactez-nous
           </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Une question ? Besoin d&apos;un devis ? N&apos;hésitez pas à nous contacter !
+          <p className="text-2xl md:text-3xl text-primary-foreground/95 max-w-3xl text-pretty leading-relaxed">
+            Entrez en contact avec notre équipe. Nous sommes là pour vous aider avec tous vos
+            besoins.
           </p>
         </div>
       </section>
 
+      {/* Contact Form & Info */}
       <section className="py-16">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
-            {/* Contact Info */}
-            <div>
-              <h2 className="text-2xl font-bold mb-8">Nos coordonnées</h2>
-              
-              <div className="space-y-6">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <MapPin className="w-6 h-6 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold mb-1">Adresse</h3>
-                    <p className="text-muted-foreground">
-                      123 Rue des Vélos<br />
-                      31000 Toulouse
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <Phone className="w-6 h-6 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold mb-1">Téléphone</h3>
-                    <p className="text-muted-foreground">05 XX XX XX XX</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <Mail className="w-6 h-6 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold mb-1">Email</h3>
-                    <p className="text-muted-foreground">contact@rust-in.fr</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <Clock className="w-6 h-6 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold mb-1">Horaires</h3>
-                    <p className="text-muted-foreground">
-                      Mardi - Samedi : 10h - 19h<br />
-                      Dimanche - Lundi : Fermé
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
             {/* Contact Form */}
-            <div className="bg-card p-8 rounded-2xl border border-border">
-              <h2 className="text-2xl font-bold mb-6">Envoyez-nous un message</h2>
-              
-              <form className="space-y-6">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium mb-2">
-                    Nom complet
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    className="w-full px-4 py-3 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary/50"
-                    placeholder="Votre nom"
-                  />
-                </div>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-2xl">Envoyez-nous un message</CardTitle>
+                <CardDescription>
+                  Remplissez le formulaire ci-dessous et nous vous répondrons dans les 24 heures
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="space-y-2">
+                    <Label htmlFor="name">Nom *</Label>
+                    <Input
+                      id="name"
+                      required
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      placeholder="Votre nom"
+                    />
+                  </div>
 
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium mb-2">
+                  <div className="space-y-2">
+                    <Label htmlFor="email">Email *</Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      required
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      placeholder="votre@email.com"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="phone">Téléphone</Label>
+                    <Input
+                      id="phone"
+                      type="tel"
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      placeholder="(555) 123-4567"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="bike">Marque/Modèle du vélo</Label>
+                    <Input
+                      id="bike"
+                      value={formData.bike}
+                      onChange={(e) => setFormData({ ...formData, bike: e.target.value })}
+                      placeholder="ex: Trek Domane SL 5"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="message">Message *</Label>
+                    <Textarea
+                      id="message"
+                      required
+                      value={formData.message}
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      placeholder="Parlez-nous de vos besoins en réparation de vélo..."
+                      rows={5}
+                    />
+                  </div>
+
+                  <Button type="submit" className="w-full" size="lg">
+                    Envoyer le message
+                  </Button>
+                </form>
+              </CardContent>
+            </Card>
+
+            {/* Contact Information */}
+            <div className="space-y-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <MapPin className="h-5 w-5 text-primary" />
+                    Localisation
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    {/* Address Info */}
+                    <div className="flex-1">
+                      <p className="text-muted-foreground mb-4">
+                        123 Bike Lane
+                        <br />
+                        Cycle City, CC 12345
+                        <br />
+                        France
+                      </p>
+                      <Button variant="outline" className="w-full bg-transparent" asChild>
+                        <a
+                          href="https://www.google.com/maps/search/?api=1&query=123+Bike+Lane+Cycle+City"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Obtenir l'itinéraire
+                        </a>
+                      </Button>
+                    </div>
+                    {/* Google Maps Preview */}
+                    <div className="flex-1 min-h-[180px] rounded-lg overflow-hidden border border-border">
+                      <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2889.1812259805!2d1.4436!3d43.6047!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDPCsDM2JzE3LjAiTiAxwrAyNiczOS40IkU!5e0!3m2!1sfr!2sfr!4v1234567890"
+                        width="100%"
+                        height="100%"
+                        style={{ border: 0, minHeight: '180px' }}
+                        allowFullScreen
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
+                        title="Localisation Rust-in"
+                      />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Clock className="h-5 w-5 text-primary" />
+                    Heures d'ouverture
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-2">
+                  <div className="flex justify-between">
+                    <span className="font-medium">Lundi - Vendredi</span>
+                    <span className="text-muted-foreground">9h00 - 18h00</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="font-medium">Samedi</span>
+                    <span className="text-muted-foreground">10h00 - 16h00</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="font-medium">Dimanche</span>
+                    <span className="text-muted-foreground">Fermé</span>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Phone className="h-5 w-5 text-primary" />
+                    Téléphone
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <a href="tel:5551234567" className="text-lg hover:text-primary transition-colors">
+                    (555) 123-4567
+                  </a>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Mail className="h-5 w-5 text-primary" />
                     Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    className="w-full px-4 py-3 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary/50"
-                    placeholder="votre@email.com"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium mb-2">
-                    Message
-                  </label>
-                  <textarea
-                    id="message"
-                    rows={5}
-                    className="w-full px-4 py-3 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary/50 resize-none"
-                    placeholder="Votre message..."
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full flex items-center justify-center gap-2 bg-primary text-primary-foreground px-6 py-4 rounded-lg font-semibold hover:bg-primary/90 transition-all"
-                >
-                  <Send className="w-5 h-5" />
-                  Envoyer le message
-                </button>
-              </form>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <a
+                    href="mailto:hello@rust-in.com"
+                    className="text-lg hover:text-primary transition-colors"
+                  >
+                    hello@rust-in.com
+                  </a>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </div>
       </section>
-    </main>
+    </div>
   )
 }
-
-export const metadata = {
-  title: 'Contact - Rust-in',
-  description: 'Contactez Rust-in pour vos vélos d\'occasion et réparations à Toulouse',
-}
-
