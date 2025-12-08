@@ -74,7 +74,7 @@ export function Header() {
   return (
     <nav
       id="navbar"
-      className="sticky top-0 z-50 bg-white backdrop-blur supports-bg-white shadow-lg"
+      className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm shadow-lg border-b border-primary/20"
     >
       <div className="container mx-auto px-4 relative">
         <div className="flex items-center justify-between h-20">
