@@ -187,7 +187,7 @@ export function HomePageClient({ reviews, faq, openingHours }: HomePageClientPro
                   className="bg-transparent border-2 border-white/50 text-white hover:bg-white hover:text-primary text-lg px-8 py-6"
                   asChild
                 >
-                  <Link href="/bikes">Voir nos vélos</Link>
+                  <Link href="/shop">Voir la boutique</Link>
                 </Button>
               </div>
 

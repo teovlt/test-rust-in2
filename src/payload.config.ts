@@ -9,6 +9,8 @@ import { FAQ } from './collections/FAQ'
 import { Media } from './collections/Media'
 import { OpeningHours } from './collections/OpeningHours'
 import { Reviews } from './collections/Reviews'
+import { Scooters } from './collections/Scooters'
+import { Skis } from './collections/Skis'
 import { Team } from './collections/Team'
 import { Users } from './collections/Users'
 import { plugins } from './plugins'
@@ -64,7 +66,7 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
   }),
-  collections: [Users, Bikes, Media, Reviews, FAQ, Team, OpeningHours],
+  collections: [Users, Bikes, Skis, Scooters, Media, Reviews, FAQ, Team, OpeningHours],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [],
   plugins,

@@ -33,7 +33,7 @@ export function Header() {
   const links = [
     { href: '/', label: 'Accueil' },
     { href: '/about', label: 'À propos' },
-    { href: '/bikes', label: 'Vélos à vendre' },
+    { href: '/shop', label: 'Boutique' },
     { href: '/prices', label: 'Tarifs' },
     { href: '/contact', label: 'Contact' },
   ]

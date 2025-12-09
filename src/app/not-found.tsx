@@ -51,11 +51,11 @@ export default function NotFound() {
               {/* Quick links */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-lg mx-auto">
                 <Link
-                  href="/bikes"
+                  href="/shop"
                   className="flex flex-col items-center gap-2 p-4 rounded-xl bg-white border border-gray-200 hover:border-orange-300 hover:bg-orange-50 transition-all group"
                 >
                   <Bike className="w-8 h-8 text-gray-400 group-hover:text-orange-500 transition-colors" />
-                  <span className="text-sm font-medium text-gray-700">Nos vélos</span>
+                  <span className="text-sm font-medium text-gray-700">Boutique</span>
                 </Link>
                 <Link
                   href="/about"

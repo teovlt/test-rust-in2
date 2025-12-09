@@ -11,7 +11,7 @@ export function Footer() {
               <span className="text-2xl font-bold text-primary">Rust-in</span>
             </div>
             <p className="text-muted-foreground text-sm">
-              Votre atelier de réparation de vélos de confiance. Nous réparons toutes les marques
+              Votre spécialiste vélos, skis et trottinettes d&apos;occasion. Vente et réparation
               avec soin et expertise.
             </p>
             <div className="flex gap-4 mt-6">
@@ -57,10 +57,10 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="/bikes"
+                  href="/shop"
                   className="text-muted-foreground hover:text-primary transition-colors"
                 >
-                  Vélos à vendre
+                  Boutique
                 </Link>
               </li>
               <li>

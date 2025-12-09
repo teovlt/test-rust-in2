@@ -69,6 +69,8 @@ export interface Config {
   collections: {
     users: User;
     bikes: Bike;
+    skis: Ski;
+    scooters: Scooter;
     media: Media;
     reviews: Review;
     faq: Faq;
@@ -88,6 +90,8 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     bikes: BikesSelect<false> | BikesSelect<true>;
+    skis: SkisSelect<false> | SkisSelect<true>;
+    scooters: ScootersSelect<false> | ScootersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     reviews: ReviewsSelect<false> | ReviewsSelect<true>;
     faq: FaqSelect<false> | FaqSelect<true>;
@@ -308,6 +312,71 @@ export interface FolderInterface {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "skis".
+ */
+export interface Ski {
+  id: string;
+  name: string;
+  /**
+   * Price in euros
+   */
+  price: number;
+  skiType: 'alpine' | 'freestyle' | 'freeride' | 'cross-country' | 'touring';
+  /**
+   * Ski length in centimeters
+   */
+  size: number;
+  level: 'beginner' | 'intermediate' | 'advanced' | 'expert';
+  photo: string | Media;
+  /**
+   * Are bindings included?
+   */
+  withBindings?: boolean | null;
+  /**
+   * Optional ski description
+   */
+  description?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "scooters".
+ */
+export interface Scooter {
+  id: string;
+  name: string;
+  /**
+   * Price in euros
+   */
+  price: number;
+  scooterType: 'urban' | 'freestyle' | 'offroad' | 'kids';
+  /**
+   * Is this an electric scooter?
+   */
+  isElectric?: boolean | null;
+  /**
+   * Maximum speed in km/h (for electric scooters)
+   */
+  maxSpeed?: number | null;
+  /**
+   * Battery range in kilometers (for electric scooters)
+   */
+  range?: number | null;
+  /**
+   * Maximum supported weight in kilograms
+   */
+  maxWeight?: number | null;
+  photo: string | Media;
+  /**
+   * Optional scooter description
+   */
+  description?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "reviews".
  */
 export interface Review {
@@ -419,6 +488,14 @@ export interface PayloadLockedDocument {
         value: string | Bike;
       } | null)
     | ({
+        relationTo: 'skis';
+        value: string | Ski;
+      } | null)
+    | ({
+        relationTo: 'scooters';
+        value: string | Scooter;
+      } | null)
+    | ({
         relationTo: 'media';
         value: string | Media;
       } | null)
@@ -517,6 +594,39 @@ export interface BikesSelect<T extends boolean = true> {
   kilometers?: T;
   photo?: T;
   humanSize?: T;
+  description?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "skis_select".
+ */
+export interface SkisSelect<T extends boolean = true> {
+  name?: T;
+  price?: T;
+  skiType?: T;
+  size?: T;
+  level?: T;
+  photo?: T;
+  withBindings?: T;
+  description?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "scooters_select".
+ */
+export interface ScootersSelect<T extends boolean = true> {
+  name?: T;
+  price?: T;
+  scooterType?: T;
+  isElectric?: T;
+  maxSpeed?: T;
+  range?: T;
+  maxWeight?: T;
+  photo?: T;
   description?: T;
   updatedAt?: T;
   createdAt?: T;
