@@ -12,6 +12,15 @@ import {
   ChevronLeft,
   ChevronRight,
   ChevronDownIcon,
+  MapPin,
+  Star,
+  Users,
+  CheckCircle2,
+  ArrowRight,
+  Sparkles,
+  Heart,
+  Shield,
+  Zap,
 } from 'lucide-react'
 import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
@@ -56,6 +65,7 @@ export function HomePageClient({ reviews, faq, openingHours }: HomePageClientPro
   const [openFaq, setOpenFaq] = useState<number | null>(null)
   const [canScrollLeft, setCanScrollLeft] = useState(false)
   const [canScrollRight, setCanScrollRight] = useState(true)
+  const [currentReviewIndex, setCurrentReviewIndex] = useState(0)
 
   // Use data from backend or fallback to defaults
   const displayReviews = reviews.length > 0 ? reviews : []
@@ -72,7 +82,7 @@ export function HomePageClient({ reviews, faq, openingHours }: HomePageClientPro
 
   const scroll = (direction: 'left' | 'right') => {
     if (scrollContainerRef.current) {
-      const scrollAmount = 340 // Width of card + gap
+      const scrollAmount = 360
       const newScrollPosition =
         scrollContainerRef.current.scrollLeft +
         (direction === 'right' ? scrollAmount : -scrollAmount)
@@ -103,232 +113,355 @@ export function HomePageClient({ reviews, faq, openingHours }: HomePageClientPro
     }
   }, [displayReviews])
 
+  // Auto-scroll reviews
+  useEffect(() => {
+    if (displayReviews.length <= 1) return
+    const interval = setInterval(() => {
+      if (scrollContainerRef.current) {
+        const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current
+        if (scrollLeft >= scrollWidth - clientWidth - 10) {
+          scrollContainerRef.current.scrollTo({ left: 0, behavior: 'smooth' })
+        } else {
+          scroll('right')
+        }
+      }
+    }, 5000)
+    return () => clearInterval(interval)
+  }, [displayReviews])
+
   return (
     <div className="flex flex-col">
-      {/* Hero Section */}
+      {/* Hero Section - Full impact */}
       <section
-        className="relative bg-gradient-to-br from-primary via-primary/90 to-accent text-primary-foreground py-24 md:py-40 overflow-hidden"
+        className="relative bg-gradient-to-br from-primary via-primary/90 to-accent text-primary-foreground overflow-hidden"
         style={{ minHeight: 'calc(100vh - var(--navbar-height))' }}
       >
-        {/* Decorative elements */}
+        {/* Animated background */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute -top-40 -right-40 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
-          <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-accent/30 rounded-full blur-3xl" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-white/5 rounded-full blur-3xl" />
-          {/* Bike silhouettes */}
-          <Bike className="absolute top-20 right-20 w-32 h-32 text-white/10 rotate-12" />
-          <Bike className="absolute bottom-20 left-10 w-24 h-24 text-white/5 -rotate-12" />
-          <Wrench className="absolute top-40 left-1/4 w-16 h-16 text-white/10 rotate-45" />
+          <div className="absolute -top-40 -right-40 w-[500px] h-[500px] bg-white/10 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute -bottom-40 -left-40 w-[400px] h-[400px] bg-accent/30 rounded-full blur-3xl" />
+          <div className="absolute top-1/3 right-1/4 w-[300px] h-[300px] bg-white/5 rounded-full blur-3xl" />
+          {/* Floating icons */}
+          <Bike
+            className="absolute top-[15%] right-[10%] w-40 h-40 text-white/10 rotate-12 animate-bounce"
+            style={{ animationDuration: '3s' }}
+          />
+          <Bike className="absolute bottom-[20%] left-[5%] w-28 h-28 text-white/5 -rotate-12" />
+          <Wrench className="absolute top-[40%] left-[15%] w-20 h-20 text-white/10 rotate-45" />
+          <Sparkles className="absolute top-[25%] right-[30%] w-12 h-12 text-white/20" />
         </div>
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-3xl">
-            <h1 className="text-6xl md:text-8xl font-bold mb-6 text-balance handwritten-title leading-tight">
-              Remettez votre vélo sur la route !
-            </h1>
-            <p className="text-xl md:text-2xl mb-8 text-primary-foreground/95 text-pretty leading-relaxed">
-              Nous réparons les vélos avec amour et soin. Réparations rapides, fiables et abordables
-              pour vous garder en mouvement.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <Button
-                size="lg"
-                variant="secondary"
-                className="text-lg px-8 py-6 shadow-xl hover:scale-105 transition-transform min-w-[280px] h-[56px]"
-                asChild
-              >
-                <Link href="/contact">Réserver une réparation</Link>
-              </Button>
 
-              <Button
-                size="lg"
-                variant="outline"
-                className="bg-transparent border-3 border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary text-lg px-8 py-6 shadow-xl hover:scale-105 transition-transform min-w-[280px] h-[56px]"
-                asChild
-              >
-                <Link href="/prices">Voir les tarifs</Link>
-              </Button>
+        <div className="container mx-auto px-4 relative z-10 flex items-center min-h-[calc(100vh-var(--navbar-height))]">
+          <div className="grid lg:grid-cols-2 gap-12 items-center py-16">
+            {/* Left: Text content */}
+            <div>
+              <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
+                <Sparkles className="w-4 h-4" />
+                <span className="text-sm font-medium">Atelier depuis 2015</span>
+              </div>
+
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 text-balance handwritten-title leading-tight">
+                Remettez votre vélo sur la route !
+              </h1>
+
+              <p className="text-xl md:text-2xl mb-8 text-primary-foreground/90 text-pretty leading-relaxed max-w-xl">
+                Réparations rapides, fiables et abordables. Votre vélo entre de bonnes mains.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-4 mb-12">
+                <Button
+                  size="lg"
+                  variant="secondary"
+                  className="text-lg px-8 py-6 shadow-2xl hover:scale-105 transition-all group"
+                  asChild
+                >
+                  <Link href="/contact" className="flex items-center gap-2">
+                    Prendre rendez-vous
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                </Button>
+
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="bg-transparent border-2 border-white/50 text-white hover:bg-white hover:text-primary text-lg px-8 py-6"
+                  asChild
+                >
+                  <Link href="/bikes">Voir nos vélos</Link>
+                </Button>
+              </div>
+
+              {/* Quick stats */}
+              <div className="grid grid-cols-3 gap-6">
+                <div className="text-center">
+                  <div className="text-3xl md:text-4xl font-bold">500+</div>
+                  <div className="text-sm text-primary-foreground/70">Vélos réparés/mois</div>
+                </div>
+                <div className="text-center border-x border-white/20 px-4">
+                  <div className="text-3xl md:text-4xl font-bold">9 ans</div>
+                  <div className="text-sm text-primary-foreground/70">D'expérience</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl md:text-4xl font-bold">98%</div>
+                  <div className="text-sm text-primary-foreground/70">Clients satisfaits</div>
+                </div>
+              </div>
             </div>
+
+            {/* Right: Contact card */}
+            <div className="hidden lg:block">
+              <Card className="bg-white/10 backdrop-blur-md border-white/20 text-white shadow-2xl">
+                <CardHeader>
+                  <CardTitle className="text-2xl flex items-center gap-3">
+                    <Clock className="w-6 h-6" />
+                    Ouvert maintenant
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="grid grid-cols-2 gap-2 text-sm">
+                    {displayOpeningHours.slice(0, 6).map((hour, i) => (
+                      <div
+                        key={i}
+                        className={`flex justify-between px-3 py-2 rounded-lg ${hour.isClosed ? 'bg-red-500/20' : 'bg-white/10'}`}
+                      >
+                        <span className="font-medium">{hour.day.slice(0, 3)}</span>
+                        <span className="opacity-80">
+                          {hour.isClosed ? 'Fermé' : hour.hours.replace(' - ', '-')}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="pt-4 border-t border-white/20 space-y-3">
+                    <a
+                      href="tel:5551234567"
+                      className="flex items-center gap-3 hover:bg-white/10 p-2 rounded-lg transition-colors"
+                    >
+                      <Phone className="w-5 h-5" />
+                      <span className="font-medium">(555) 123-4567</span>
+                    </a>
+                    <a
+                      href="mailto:hello@rust-in.com"
+                      className="flex items-center gap-3 hover:bg-white/10 p-2 rounded-lg transition-colors"
+                    >
+                      <Mail className="w-5 h-5" />
+                      <span className="font-medium">hello@rust-in.com</span>
+                    </a>
+                  </div>
+
+                  <Button
+                    className="w-full bg-white text-primary hover:bg-white/90 mt-4"
+                    size="lg"
+                    asChild
+                  >
+                    <Link href="/contact">Nous contacter</Link>
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </div>
+
+        {/* Scroll indicator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+          <div className="w-8 h-12 border-2 border-white/50 rounded-full flex justify-center pt-2">
+            <div className="w-1.5 h-3 bg-white/70 rounded-full animate-pulse" />
           </div>
         </div>
       </section>
 
-      {/* Why Choose Us Section - FIRST */}
+      {/* Quick CTA Banner */}
+      <section className="bg-primary py-4">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 text-primary-foreground">
+            <div className="flex items-center gap-2">
+              <CheckCircle2 className="w-5 h-5" />
+              <span className="font-medium">Devis gratuit</span>
+            </div>
+            <div className="hidden md:block w-px h-6 bg-white/30" />
+            <div className="flex items-center gap-2">
+              <Zap className="w-5 h-5" />
+              <span className="font-medium">Réparation express</span>
+            </div>
+            <div className="hidden md:block w-px h-6 bg-white/30" />
+            <div className="flex items-center gap-2">
+              <Shield className="w-5 h-5" />
+              <span className="font-medium">Garantie 90 jours</span>
+            </div>
+            <div className="hidden md:block w-px h-6 bg-white/30" />
+            <Button variant="secondary" size="sm" asChild>
+              <Link href="/prices">Voir les tarifs →</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Services Section */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-center handwritten-title text-primary">
-            Pourquoi nous choisir ?
-          </h2>
-          <p className="text-lg text-center text-muted-foreground mb-16 max-w-2xl mx-auto">
-            Une équipe passionnée à votre service depuis 2015
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-            <Card className="organic-card shadow-xl border-4 border-accent/30 hover:border-primary/50 transition-colors">
-              <CardHeader>
-                <Wrench className="h-16 w-16 text-primary mb-4" />
-                <CardTitle className="text-2xl handwritten-title">Réparations expertes</CardTitle>
-                <CardDescription className="text-base leading-relaxed">
-                  Nos mécaniciens certifiés ont des années d'expérience dans la réparation de tous
-                  types de vélos
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 handwritten-title text-primary">
+              Pourquoi nous choisir ?
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Une équipe passionnée, des réparations de qualité et un service client au top
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <Card className="group hover:shadow-xl transition-all hover:-translate-y-2 border-2 border-transparent hover:border-primary/30">
+              <CardHeader className="text-center">
+                <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-primary group-hover:text-white transition-colors">
+                  <Wrench className="w-8 h-8 text-primary group-hover:text-white transition-colors" />
+                </div>
+                <CardTitle className="text-xl">Expertise</CardTitle>
+                <CardDescription className="text-base">
+                  Mécaniciens certifiés avec 9+ ans d'expérience
                 </CardDescription>
               </CardHeader>
             </Card>
 
-            <Card className="organic-card shadow-xl border-4 border-accent/30 hover:border-primary/50 transition-colors">
-              <CardHeader>
-                <Bike className="h-16 w-16 text-primary mb-4" />
-                <CardTitle className="text-2xl handwritten-title">
-                  Toutes marques bienvenues
-                </CardTitle>
-                <CardDescription className="text-base leading-relaxed">
-                  Nous entretenons toutes les grandes marques de vélos, y compris Trek, Giant,
-                  Specialized et plus encore
+            <Card className="group hover:shadow-xl transition-all hover:-translate-y-2 border-2 border-transparent hover:border-primary/30">
+              <CardHeader className="text-center">
+                <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-primary group-hover:text-white transition-colors">
+                  <Zap className="w-8 h-8 text-primary group-hover:text-white transition-colors" />
+                </div>
+                <CardTitle className="text-xl">Rapidité</CardTitle>
+                <CardDescription className="text-base">
+                  La plupart des réparations en moins de 24h
                 </CardDescription>
               </CardHeader>
             </Card>
 
-            <Card className="organic-card shadow-xl border-4 border-accent/30 hover:border-primary/50 transition-colors">
-              <CardHeader>
-                <Award className="h-16 w-16 text-primary mb-4" />
-                <CardTitle className="text-2xl handwritten-title">Garantie qualité</CardTitle>
-                <CardDescription className="text-base leading-relaxed">
-                  Toutes les réparations sont garanties 90 jours pour votre tranquillité d'esprit
+            <Card className="group hover:shadow-xl transition-all hover:-translate-y-2 border-2 border-transparent hover:border-primary/30">
+              <CardHeader className="text-center">
+                <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-primary group-hover:text-white transition-colors">
+                  <Heart className="w-8 h-8 text-primary group-hover:text-white transition-colors" />
+                </div>
+                <CardTitle className="text-xl">Passion</CardTitle>
+                <CardDescription className="text-base">
+                  On traite votre vélo comme le nôtre
                 </CardDescription>
               </CardHeader>
             </Card>
+
+            <Card className="group hover:shadow-xl transition-all hover:-translate-y-2 border-2 border-transparent hover:border-primary/30">
+              <CardHeader className="text-center">
+                <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-primary group-hover:text-white transition-colors">
+                  <Award className="w-8 h-8 text-primary group-hover:text-white transition-colors" />
+                </div>
+                <CardTitle className="text-xl">Qualité</CardTitle>
+                <CardDescription className="text-base">
+                  Pièces de qualité et garantie 90 jours
+                </CardDescription>
+              </CardHeader>
+            </Card>
+          </div>
+
+          <div className="text-center mt-12">
+            <Button size="lg" variant="outline" asChild className="bg-transparent">
+              <Link href="/about">En savoir plus sur nous →</Link>
+            </Button>
           </div>
         </div>
       </section>
 
-      {/* Opening Hours - Grid display */}
-      {/* <section className="py-16 bg-accent/10">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="flex items-center justify-center gap-3 mb-10">
-              <Clock className="h-10 w-10 text-primary" />
-              <h2 className="text-3xl md:text-4xl font-bold handwritten-title text-primary">
-                Nos horaires
-              </h2>
-            </div>
-
-            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3">
-              {displayOpeningHours.map((hour, index) => (
-                <div
-                  key={index}
-                  className={`text-center p-4 rounded-2xl transition-all hover:scale-105 ${
-                    hour.isClosed
-                      ? 'bg-red-50 border-2 border-red-200'
-                      : 'bg-card border-2 border-primary/20 shadow-md'
-                  }`}
-                >
-                  <div
-                    className={`text-sm font-bold mb-1 ${hour.isClosed ? 'text-red-500' : 'text-primary'}`}
-                  >
-                    {hour.day}
-                  </div>
-                  <div
-                    className={`text-lg font-semibold ${hour.isClosed ? 'text-red-400' : 'text-foreground'}`}
-                  >
-                    {hour.isClosed ? 'Fermé' : hour.hours.split(' - ')[0]}
-                  </div>
-                  {!hour.isClosed && (
-                    <div className="text-sm text-muted-foreground">
-                      {hour.hours.split(' - ')[1]}
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-
-            <p className="text-center text-muted-foreground mt-8">
-              Sans rendez-vous ou appelez pour réserver votre créneau
-            </p>
-          </div>
-        </div>
-      </section> */}
-
-      {/* Customer Reviews Section */}
+      {/* Reviews Section - Beautiful slider */}
       {displayReviews.length > 0 && (
-        <section className="py-16 bg-accent/20">
+        <section className="py-20 bg-gradient-to-br from-accent/30 via-accent/20 to-primary/10">
           <div className="container mx-auto px-4">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-center handwritten-title text-primary">
-              Ce que disent nos clients
-            </h2>
-            <p className="text-lg text-center text-muted-foreground mb-10 max-w-2xl mx-auto">
-              Des centaines de cyclistes nous font confiance
-            </p>
+            <div className="text-center mb-12">
+              <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full mb-4">
+                <Star className="w-4 h-4 fill-current" />
+                <span className="font-medium">4.9/5 sur Google</span>
+              </div>
+              <h2 className="text-4xl md:text-5xl font-bold mb-4 handwritten-title text-primary">
+                Ils nous font confiance
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Découvrez les avis de nos clients satisfaits
+              </p>
+            </div>
 
             <div className="relative max-w-6xl mx-auto">
-              {/* Bouton gauche */}
-              {canScrollLeft && (
-                <button
-                  onClick={() => scroll('left')}
-                  className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-primary text-primary-foreground p-3 rounded-full shadow-xl hover:scale-110 transition-all -translate-x-2 md:-translate-x-6"
-                  aria-label="Avis précédent"
-                >
-                  <ChevronLeft className="h-6 w-6" />
-                </button>
-              )}
+              {/* Navigation buttons */}
+              <button
+                onClick={() => scroll('left')}
+                className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-xl p-3 rounded-full hover:scale-110 transition-all -translate-x-4 ${
+                  !canScrollLeft ? 'opacity-50 cursor-not-allowed' : ''
+                }`}
+                disabled={!canScrollLeft}
+                aria-label="Avis précédent"
+              >
+                <ChevronLeft className="h-6 w-6 text-primary" />
+              </button>
 
-              {/* Conteneur de scroll - Centré */}
+              {/* Reviews container */}
               <div
                 ref={scrollContainerRef}
-                className={`flex gap-6 overflow-x-auto scrollbar-hide scroll-smooth py-4 px-2 ${
-                  displayReviews.length <= 3 ? 'justify-center' : 'justify-start'
-                }`}
+                className="flex gap-6 overflow-x-auto scrollbar-hide scroll-smooth py-4 px-8"
                 style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
               >
                 {displayReviews.map((review, index) => (
                   <Card
                     key={index}
-                    className="organic-card shadow-lg border-2 border-primary/20 flex-shrink-0 w-80 hover:shadow-xl transition-shadow"
+                    className="flex-shrink-0 w-[340px] shadow-lg hover:shadow-2xl transition-all border-0 bg-white"
                   >
-                    <CardContent className="pt-6">
-                      <div className="flex flex-col items-center text-center">
+                    <CardContent className="p-6">
+                      {/* Stars */}
+                      <div className="flex gap-1 mb-4">
+                        {[...Array(5)].map((_, i) => (
+                          <Star
+                            key={i}
+                            className={`w-5 h-5 ${i < review.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-200'}`}
+                          />
+                        ))}
+                      </div>
+
+                      {/* Quote */}
+                      <p className="text-muted-foreground mb-6 leading-relaxed line-clamp-4">
+                        "{review.text}"
+                      </p>
+
+                      {/* Author */}
+                      <div className="flex items-center gap-3 pt-4 border-t">
                         <img
                           src={review.image || '/placeholder.svg'}
                           alt={review.name}
-                          className="w-20 h-20 rounded-full mb-4 border-3 border-primary shadow-lg object-cover"
+                          className="w-12 h-12 rounded-full object-cover ring-2 ring-primary/20"
                         />
-                        <div className="flex gap-1 mb-3">
-                          {[...Array(review.rating)].map((_, i) => (
-                            <span key={i} className="text-primary text-xl">
-                              ★
-                            </span>
-                          ))}
+                        <div>
+                          <p className="font-semibold text-foreground">{review.name}</p>
+                          <p className="text-sm text-muted-foreground">Client vérifié</p>
                         </div>
-                        <p className="text-sm text-muted-foreground mb-3 italic leading-relaxed">
-                          "{review.text}"
-                        </p>
-                        <p className="text-base font-bold text-primary handwritten-title">
-                          {review.name}
-                        </p>
                       </div>
                     </CardContent>
                   </Card>
                 ))}
               </div>
 
-              {/* Bouton droit */}
-              {canScrollRight && displayReviews.length > 3 && (
-                <button
-                  onClick={() => scroll('right')}
-                  className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-primary text-primary-foreground p-3 rounded-full shadow-xl hover:scale-110 transition-all translate-x-2 md:translate-x-6"
-                  aria-label="Avis suivant"
-                >
-                  <ChevronRight className="h-6 w-6" />
-                </button>
-              )}
+              <button
+                onClick={() => scroll('right')}
+                className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-xl p-3 rounded-full hover:scale-110 transition-all translate-x-4 ${
+                  !canScrollRight ? 'opacity-50 cursor-not-allowed' : ''
+                }`}
+                disabled={!canScrollRight}
+                aria-label="Avis suivant"
+              >
+                <ChevronRight className="h-6 w-6 text-primary" />
+              </button>
             </div>
 
-            <div className="text-center mt-10">
-              <Button
-                size="lg"
-                variant="outline"
-                asChild
-                className="hover:scale-105 transition-transform bg-transparent"
-              >
-                <Link href="/contact">Laisser un avis</Link>
-              </Button>
+            {/* Dots indicator */}
+            <div className="flex justify-center gap-2 mt-8">
+              {displayReviews.slice(0, Math.min(5, displayReviews.length)).map((_, i) => (
+                <div
+                  key={i}
+                  className={`w-2 h-2 rounded-full transition-all ${
+                    i === 0 ? 'w-6 bg-primary' : 'bg-primary/30'
+                  }`}
+                />
+              ))}
             </div>
           </div>
         </section>
@@ -338,92 +471,163 @@ export function HomePageClient({ reviews, faq, openingHours }: HomePageClientPro
       {displayFaq.length > 0 && (
         <section className="py-20 bg-background">
           <div className="container mx-auto px-4">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-center handwritten-title text-primary">
-              Questions fréquentes
-            </h2>
-            <p className="text-lg text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-              Vous avez des questions ? Nous avons les réponses !
-            </p>
-            <div className="max-w-3xl mx-auto space-y-4">
-              {displayFaq.map((faqItem, index) => (
-                <Card
-                  key={index}
-                  className={`gap-0 organic-card shadow-lg border-2 border-primary/20 cursor-pointer hover:border-primary/40 transition-all duration-300 ${
-                    openFaq === index ? 'scale-100' : 'scale-95'
-                  }`}
-                  onClick={() => setOpenFaq(openFaq === index ? null : index)}
-                >
-                  <CardHeader className={`transition-all duration-300 ease-in-out`}>
-                    <CardTitle className="flex items-center justify-between text-xl handwritten-title">
-                      <span>{faqItem.question}</span>
-                      <ChevronDownIcon
-                        className={`h-5 w-5 text-primary transition-transform ${openFaq === index ? 'rotate-180' : ''}`}
-                      />
-                    </CardTitle>
-                  </CardHeader>
+            <div className="grid lg:grid-cols-2 gap-12 items-start max-w-6xl mx-auto">
+              {/* Left: Title and CTA */}
+              <div className="lg:sticky lg:top-24">
+                <h2 className="text-4xl md:text-5xl font-bold mb-4 handwritten-title text-primary">
+                  Questions fréquentes
+                </h2>
+                <p className="text-lg text-muted-foreground mb-8">
+                  Vous avez des questions ? Voici les réponses aux questions les plus posées par nos
+                  clients.
+                </p>
 
-                  <CardContent
-                    className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                      openFaq === index ? 'max-h-96 p-6 pt-4' : 'max-h-0 p-0'
-                    }`}
-                  >
-                    <p className="text-muted-foreground leading-relaxed">{faqItem.answer}</p>
+                <Card className="bg-primary/5 border-primary/20">
+                  <CardContent className="p-6">
+                    <h3 className="font-semibold text-lg mb-2">
+                      Vous n'avez pas trouvé votre réponse ?
+                    </h3>
+                    <p className="text-muted-foreground mb-4">
+                      Notre équipe est là pour vous aider. Contactez-nous directement !
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-3">
+                      <Button asChild>
+                        <Link href="/contact">
+                          <Mail className="w-4 h-4 mr-2" />
+                          Nous contacter
+                        </Link>
+                      </Button>
+                      <Button variant="outline" className="bg-transparent" asChild>
+                        <a href="tel:5551234567">
+                          <Phone className="w-4 h-4 mr-2" />
+                          Appeler
+                        </a>
+                      </Button>
+                    </div>
                   </CardContent>
                 </Card>
-              ))}
-            </div>
-            <div className="text-center mt-12">
-              <p className="text-lg text-muted-foreground mb-6">Vous avez d'autres questions ?</p>
-              <Button
-                size="lg"
-                variant="default"
-                asChild
-                className="hover:scale-105 transition-transform"
-              >
-                <Link href="/contact">Contactez-nous</Link>
-              </Button>
+              </div>
+
+              {/* Right: FAQ items */}
+              <div className="space-y-3">
+                {displayFaq.map((faqItem, index) => (
+                  <div
+                    key={index}
+                    className={`bg-card rounded-xl border-2 transition-all cursor-pointer ${
+                      openFaq === index
+                        ? 'border-primary shadow-lg'
+                        : 'border-border hover:border-primary/30'
+                    }`}
+                    onClick={() => setOpenFaq(openFaq === index ? null : index)}
+                  >
+                    <div className="flex items-center justify-between p-5">
+                      <h3 className="font-semibold text-lg pr-4">{faqItem.question}</h3>
+                      <div
+                        className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-colors ${
+                          openFaq === index ? 'bg-primary text-white' : 'bg-primary/10'
+                        }`}
+                      >
+                        <ChevronDownIcon
+                          className={`w-5 h-5 transition-transform ${openFaq === index ? 'rotate-180' : ''}`}
+                        />
+                      </div>
+                    </div>
+                    <div
+                      className={`overflow-hidden transition-all duration-300 ${
+                        openFaq === index ? 'max-h-96' : 'max-h-0'
+                      }`}
+                    >
+                      <p className="px-5 pb-5 text-muted-foreground leading-relaxed">
+                        {faqItem.answer}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
       )}
 
-      {/* Contact Info CTA */}
-      <section className="py-20 bg-gradient-to-br from-primary/10 via-accent/10 to-primary/5">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 handwritten-title text-primary">
-              Prêt à réparer votre vélo ?
+      {/* Final CTA Section */}
+      <section className="py-24 bg-gradient-to-br from-primary via-primary/95 to-accent text-primary-foreground relative overflow-hidden">
+        {/* Background decoration */}
+        <div className="absolute inset-0">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/20 rounded-full blur-3xl" />
+        </div>
+
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-4xl mx-auto text-center">
+            <Bike className="w-16 h-16 mx-auto mb-6 opacity-80" />
+            <h2 className="text-4xl md:text-6xl font-bold mb-6 handwritten-title">
+              Prêt à rouler ?
             </h2>
-            <p className="text-xl text-foreground/80 mb-10 leading-relaxed">
-              Contactez-nous dès aujourd'hui pour planifier votre réparation ou poser vos questions
+            <p className="text-xl md:text-2xl mb-10 opacity-90 max-w-2xl mx-auto">
+              Que ce soit pour une simple révision ou une réparation complète, on s'occupe de tout !
             </p>
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-8">
-              <div className="flex items-center gap-3 bg-card px-6 py-4 rounded-2xl shadow-lg hover:scale-105 transition-transform">
-                <Phone className="h-6 w-6 text-primary" />
-                <a
-                  href="tel:5551234567"
-                  className="text-xl font-semibold hover:text-primary transition-colors"
-                >
-                  (555) 123-4567
-                </a>
-              </div>
-              <div className="flex items-center gap-3 bg-card px-6 py-4 rounded-2xl shadow-lg hover:scale-105 transition-transform">
-                <Mail className="h-6 w-6 text-primary" />
-                <a
-                  href="mailto:hello@rust-in.com"
-                  className="text-xl font-semibold hover:text-primary transition-colors"
-                >
-                  hello@rust-in.com
-                </a>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+              <Button
+                size="lg"
+                variant="secondary"
+                className="text-lg px-10 py-6 shadow-2xl hover:scale-105 transition-all"
+                asChild
+              >
+                <Link href="/contact" className="flex items-center gap-2">
+                  <MapPin className="w-5 h-5" />
+                  Nous trouver
+                </Link>
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="bg-transparent border-2 border-white/50 hover:bg-white hover:text-primary text-lg px-10 py-6"
+                asChild
+              >
+                <Link href="/prices" className="flex items-center gap-2">
+                  Voir les tarifs
+                  <ArrowRight className="w-5 h-5" />
+                </Link>
+              </Button>
+            </div>
+
+            {/* Contact info */}
+            <div className="flex flex-wrap justify-center gap-8 pt-8 border-t border-white/20">
+              <a
+                href="tel:5551234567"
+                className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+              >
+                <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+                  <Phone className="w-5 h-5" />
+                </div>
+                <div className="text-left">
+                  <div className="text-sm opacity-70">Appelez-nous</div>
+                  <div className="font-semibold">(555) 123-4567</div>
+                </div>
+              </a>
+              <a
+                href="mailto:hello@rust-in.com"
+                className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+              >
+                <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+                  <Mail className="w-5 h-5" />
+                </div>
+                <div className="text-left">
+                  <div className="text-sm opacity-70">Écrivez-nous</div>
+                  <div className="font-semibold">hello@rust-in.com</div>
+                </div>
+              </a>
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+                  <Clock className="w-5 h-5" />
+                </div>
+                <div className="text-left">
+                  <div className="text-sm opacity-70">Horaires</div>
+                  <div className="font-semibold">Lun-Sam • 9h-18h</div>
+                </div>
               </div>
             </div>
-            <Button
-              size="lg"
-              asChild
-              className="hover:scale-105 transition-transform text-lg px-10 py-6"
-            >
-              <Link href="/contact">Voir notre adresse et nous contacter</Link>
-            </Button>
           </div>
         </div>
       </section>
