@@ -33,25 +33,6 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
         type: 'row',
         fields: [
           {
-            name: 'type',
-            type: 'radio',
-            admin: {
-              layout: 'horizontal',
-              width: '50%',
-            },
-            defaultValue: 'reference',
-            options: [
-              {
-                label: 'Internal link',
-                value: 'reference',
-              },
-              {
-                label: 'Custom URL',
-                value: 'custom',
-              },
-            ],
-          },
-          {
             name: 'newTab',
             type: 'checkbox',
             admin: {
@@ -67,41 +48,20 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
     ],
   }
 
-  const linkTypes: Field[] = [
-    {
-      name: 'reference',
-      type: 'relationship',
-      admin: {
-        condition: (_, siblingData) => siblingData?.type === 'reference',
-      },
-      label: 'Document to link to',
-      relationTo: ['pages', 'posts'],
-      required: true,
-    },
+  const linkFields: Field[] = [
     {
       name: 'url',
       type: 'text',
-      admin: {
-        condition: (_, siblingData) => siblingData?.type === 'custom',
-      },
-      label: 'Custom URL',
+      label: 'URL',
       required: true,
     },
   ]
 
   if (!disableLabel) {
-    linkTypes.map((linkType) => ({
-      ...linkType,
-      admin: {
-        ...linkType.admin,
-        width: '50%',
-      },
-    }))
-
     linkResult.fields.push({
       type: 'row',
       fields: [
-        ...linkTypes,
+        ...linkFields,
         {
           name: 'label',
           type: 'text',
@@ -114,7 +74,7 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
       ],
     })
   } else {
-    linkResult.fields = [...linkResult.fields, ...linkTypes]
+    linkResult.fields = [...linkResult.fields, ...linkFields]
   }
 
   if (appearances !== false) {
