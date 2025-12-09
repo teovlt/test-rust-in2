@@ -72,10 +72,13 @@ export default buildConfig({
   globals: [],
   plugins: [
     vercelBlobStorage({
+      enabled: true, // Optional, defaults to true
+      // Specify which collections should use Vercel Blob
       collections: {
-        [Media.slug]: true,
+        media: true,
       },
-      token: process.env.BLOB_READ_WRITE_TOKEN || '',
+      // Token provided by Vercel once Blob storage is added to your Vercel project
+      token: process.env.BLOB_READ_WRITE_TOKEN,
     }),
   ],
   secret: process.env.PAYLOAD_SECRET,
