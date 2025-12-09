@@ -13,7 +13,7 @@ interface Header {
       type?: 'reference' | 'custom' | null
       newTab?: boolean | null
       reference?: {
-        relationTo: string
+        relationTo: 'pages' | 'posts'
         value: string | { slug?: string }
       } | null
       url?: string | null
