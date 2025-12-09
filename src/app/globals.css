@@ -2,3 +2,202 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  :root {
+    /* Orange Light Theme */
+    --background: 35 100% 98%;
+    --foreground: 25 30% 15%;
+    --card: 35 80% 96%;
+    --card-foreground: 25 30% 15%;
+    --popover: 35 80% 96%;
+    --popover-foreground: 25 30% 15%;
+    --primary: 25 95% 53%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 35 60% 90%;
+    --secondary-foreground: 25 30% 20%;
+    --muted: 35 30% 90%;
+    --muted-foreground: 25 15% 45%;
+    --accent: 30 80% 85%;
+    --accent-foreground: 25 30% 15%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 30 40% 85%;
+    --input: 30 40% 85%;
+    --ring: 25 95% 53%;
+    --radius: 1rem;
+    --chart-1: 25 95% 53%;
+    --chart-2: 35 80% 60%;
+    --chart-3: 20 70% 45%;
+    --chart-4: 40 85% 55%;
+    --chart-5: 15 90% 50%;
+    --navbar-height: 80px;
+  }
+
+  .dark {
+    /* Orange Dark Theme */
+    --background: 25 25% 8%;
+    --foreground: 35 60% 95%;
+    --card: 25 20% 12%;
+    --card-foreground: 35 60% 95%;
+    --popover: 25 20% 12%;
+    --popover-foreground: 35 60% 95%;
+    --primary: 25 95% 55%;
+    --primary-foreground: 25 30% 10%;
+    --secondary: 25 15% 18%;
+    --secondary-foreground: 35 60% 90%;
+    --muted: 25 15% 20%;
+    --muted-foreground: 35 30% 60%;
+    --accent: 30 40% 20%;
+    --accent-foreground: 35 60% 95%;
+    --destructive: 0 70% 45%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 25 20% 20%;
+    --input: 25 20% 20%;
+    --ring: 25 95% 55%;
+    --chart-1: 25 95% 55%;
+    --chart-2: 35 70% 50%;
+    --chart-3: 20 60% 40%;
+    --chart-4: 40 75% 45%;
+    --chart-5: 15 80% 45%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings:
+      'rlig' 1,
+      'calt' 1;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  /* Organic card style with subtle rotation */
+  .organic-card {
+    @apply rounded-2xl transition-all duration-300;
+    transform: rotate(-0.5deg);
+  }
+
+  .organic-card:hover {
+    transform: rotate(0deg) scale(1.02);
+  }
+
+  /* Handwritten style title */
+  .handwritten-title {
+    font-family: 'Georgia', serif;
+    letter-spacing: -0.02em;
+  }
+
+  /* Custom scrollbar */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Smooth animations */
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.5s ease-out;
+  }
+
+  .animate-bounce-slow {
+    animation: bounce 2s infinite;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes bounce {
+    0%,
+    100% {
+      transform: translateY(-5%);
+      animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+    }
+    50% {
+      transform: translateY(0);
+      animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    }
+  }
+
+  /* Loading animation */
+  @keyframes spin-slow {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .animate-spin-slow {
+    animation: spin-slow 3s linear infinite;
+  }
+
+  /* Pulse animation for loading */
+  @keyframes pulse-orange {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+  .animate-pulse-orange {
+    animation: pulse-orange 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  /* Progress bar animation */
+  @keyframes progress {
+    0% {
+      width: 0%;
+    }
+    100% {
+      width: 100%;
+    }
+  }
+
+  .animate-progress {
+    animation: progress 2s ease-out forwards;
+  }
+}
+
+/* Custom focus styles */
+@layer utilities {
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background;
+  }
+}
