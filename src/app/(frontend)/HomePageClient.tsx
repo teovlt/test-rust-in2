@@ -3,7 +3,6 @@
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import {
-  MapPin,
   Clock,
   Phone,
   Mail,
@@ -153,80 +152,99 @@ export function HomePageClient({ reviews, faq, openingHours }: HomePageClientPro
         </div>
       </section>
 
-      {/* Availability Section */}
+      {/* Why Choose Us Section - FIRST */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl md:text-5xl font-bold mb-16 text-center handwritten-title text-primary">
-            Nos horaires
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-center handwritten-title text-primary">
+            Pourquoi nous choisir ?
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <Card className="organic-card shadow-2xl border-4 border-primary/20">
+          <p className="text-lg text-center text-muted-foreground mb-16 max-w-2xl mx-auto">
+            Une équipe passionnée à votre service depuis 2015
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+            <Card className="organic-card shadow-xl border-4 border-accent/30 hover:border-primary/50 transition-colors">
               <CardHeader>
-                <CardTitle className="flex items-center gap-3 text-2xl handwritten-title">
-                  <Clock className="h-7 w-7 text-primary" />
-                  Heures d'ouverture
-                </CardTitle>
+                <Wrench className="h-16 w-16 text-primary mb-4" />
+                <CardTitle className="text-2xl handwritten-title">Réparations expertes</CardTitle>
+                <CardDescription className="text-base leading-relaxed">
+                  Nos mécaniciens certifiés ont des années d'expérience dans la réparation de tous
+                  types de vélos
+                </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-3">
-                {displayOpeningHours.map((hour, index) => (
-                  <div key={index} className="flex justify-between text-lg">
-                    <span className="font-semibold">{hour.day}</span>
-                    <span
-                      className={
-                        hour.isClosed ? 'text-red-500 font-medium' : 'text-muted-foreground'
-                      }
-                    >
-                      {hour.hours}
-                    </span>
-                  </div>
-                ))}
-                <div className="pt-4 border-t border-border">
-                  <p className="text-sm text-muted-foreground italic">
-                    Bienvenue sans rendez-vous ! Ou appelez à l'avance pour réserver votre créneau.
-                  </p>
-                </div>
-              </CardContent>
             </Card>
 
-            <Card className="organic-card shadow-2xl border-4 border-primary/20">
+            <Card className="organic-card shadow-xl border-4 border-accent/30 hover:border-primary/50 transition-colors">
               <CardHeader>
-                <CardTitle className="flex items-center gap-3 text-2xl handwritten-title">
-                  <MapPin className="h-7 w-7 text-primary" />
-                  Nous trouver
+                <Bike className="h-16 w-16 text-primary mb-4" />
+                <CardTitle className="text-2xl handwritten-title">
+                  Toutes marques bienvenues
                 </CardTitle>
+                <CardDescription className="text-base leading-relaxed">
+                  Nous entretenons toutes les grandes marques de vélos, y compris Trek, Giant,
+                  Specialized et plus encore
+                </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-muted-foreground text-lg leading-relaxed">
-                  123 Bike Lane
-                  <br />
-                  Cycle City, CC 12345
-                </p>
-                <div className="w-full h-64 rounded-xl overflow-hidden border-4 border-primary/20 shadow-lg">
-                  <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3024.2219901290355!2d-74.00369368400567!3d40.71312937933185!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a316e5e1c8d%3A0x7e8d3f3b3c3e3e3e!2sNew%20York%2C%20NY!5e0!3m2!1sen!2sus!4v1234567890123!5m2!1sen!2sus"
-                    width="100%"
-                    height="100%"
-                    style={{ border: 0 }}
-                    allowFullScreen
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                    title="Rust-in Bike Repair Location"
-                  />
-                </div>
-                <Button
-                  variant="outline"
-                  className="w-full bg-transparent border-2 hover:scale-105 transition-transform"
-                  asChild
-                >
-                  <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer">
-                    Obtenir l'itinéraire
-                  </a>
-                </Button>
-              </CardContent>
+            </Card>
+
+            <Card className="organic-card shadow-xl border-4 border-accent/30 hover:border-primary/50 transition-colors">
+              <CardHeader>
+                <Award className="h-16 w-16 text-primary mb-4" />
+                <CardTitle className="text-2xl handwritten-title">Garantie qualité</CardTitle>
+                <CardDescription className="text-base leading-relaxed">
+                  Toutes les réparations sont garanties 90 jours pour votre tranquillité d'esprit
+                </CardDescription>
+              </CardHeader>
             </Card>
           </div>
         </div>
       </section>
+
+      {/* Opening Hours - Grid display */}
+      {/* <section className="py-16 bg-accent/10">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <div className="flex items-center justify-center gap-3 mb-10">
+              <Clock className="h-10 w-10 text-primary" />
+              <h2 className="text-3xl md:text-4xl font-bold handwritten-title text-primary">
+                Nos horaires
+              </h2>
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3">
+              {displayOpeningHours.map((hour, index) => (
+                <div
+                  key={index}
+                  className={`text-center p-4 rounded-2xl transition-all hover:scale-105 ${
+                    hour.isClosed
+                      ? 'bg-red-50 border-2 border-red-200'
+                      : 'bg-card border-2 border-primary/20 shadow-md'
+                  }`}
+                >
+                  <div
+                    className={`text-sm font-bold mb-1 ${hour.isClosed ? 'text-red-500' : 'text-primary'}`}
+                  >
+                    {hour.day}
+                  </div>
+                  <div
+                    className={`text-lg font-semibold ${hour.isClosed ? 'text-red-400' : 'text-foreground'}`}
+                  >
+                    {hour.isClosed ? 'Fermé' : hour.hours.split(' - ')[0]}
+                  </div>
+                  {!hour.isClosed && (
+                    <div className="text-sm text-muted-foreground">
+                      {hour.hours.split(' - ')[1]}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            <p className="text-center text-muted-foreground mt-8">
+              Sans rendez-vous ou appelez pour réserver votre créneau
+            </p>
+          </div>
+        </div>
+      </section> */}
 
       {/* Customer Reviews Section */}
       {displayReviews.length > 0 && (
@@ -369,52 +387,8 @@ export function HomePageClient({ reviews, faq, openingHours }: HomePageClientPro
         </section>
       )}
 
-      {/* Services Overview */}
-      <section className="py-20 bg-accent/20">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl md:text-5xl font-bold mb-16 text-center handwritten-title text-primary">
-            Pourquoi nous choisir ?
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-            <Card className="organic-card shadow-xl border-4 border-accent/30 hover:border-primary/50 transition-colors">
-              <CardHeader>
-                <Wrench className="h-16 w-16 text-primary mb-4" />
-                <CardTitle className="text-2xl handwritten-title">Réparations expertes</CardTitle>
-                <CardDescription className="text-base leading-relaxed">
-                  Nos mécaniciens certifiés ont des années d'expérience dans la réparation de tous
-                  types de vélos
-                </CardDescription>
-              </CardHeader>
-            </Card>
-
-            <Card className="organic-card shadow-xl border-4 border-accent/30 hover:border-primary/50 transition-colors">
-              <CardHeader>
-                <Bike className="h-16 w-16 text-primary mb-4" />
-                <CardTitle className="text-2xl handwritten-title">
-                  Toutes marques bienvenues
-                </CardTitle>
-                <CardDescription className="text-base leading-relaxed">
-                  Nous entretenons toutes les grandes marques de vélos, y compris Trek, Giant,
-                  Specialized et plus encore
-                </CardDescription>
-              </CardHeader>
-            </Card>
-
-            <Card className="organic-card shadow-xl border-4 border-accent/30 hover:border-primary/50 transition-colors">
-              <CardHeader>
-                <Award className="h-16 w-16 text-primary mb-4" />
-                <CardTitle className="text-2xl handwritten-title">Garantie qualité</CardTitle>
-                <CardDescription className="text-base leading-relaxed">
-                  Toutes les réparations sont garanties 90 jours pour votre tranquillité d'esprit
-                </CardDescription>
-              </CardHeader>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Info */}
-      <section className="py-20 bg-background">
+      {/* Contact Info CTA */}
+      <section className="py-20 bg-gradient-to-br from-primary/10 via-accent/10 to-primary/5">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 handwritten-title text-primary">
@@ -423,7 +397,7 @@ export function HomePageClient({ reviews, faq, openingHours }: HomePageClientPro
             <p className="text-xl text-foreground/80 mb-10 leading-relaxed">
               Contactez-nous dès aujourd'hui pour planifier votre réparation ou poser vos questions
             </p>
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-8">
               <div className="flex items-center gap-3 bg-card px-6 py-4 rounded-2xl shadow-lg hover:scale-105 transition-transform">
                 <Phone className="h-6 w-6 text-primary" />
                 <a
@@ -443,6 +417,13 @@ export function HomePageClient({ reviews, faq, openingHours }: HomePageClientPro
                 </a>
               </div>
             </div>
+            <Button
+              size="lg"
+              asChild
+              className="hover:scale-105 transition-transform text-lg px-10 py-6"
+            >
+              <Link href="/contact">Voir notre adresse et nous contacter</Link>
+            </Button>
           </div>
         </div>
       </section>

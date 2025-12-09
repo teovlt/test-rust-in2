@@ -15,7 +15,6 @@ export default function ContactPage() {
     name: '',
     email: '',
     phone: '',
-    bike: '',
     message: '',
   })
 
@@ -24,7 +23,7 @@ export default function ContactPage() {
     // Handle form submission
     console.log('Form submitted:', formData)
     alert('Merci pour votre message ! Nous vous répondrons bientôt.')
-    setFormData({ name: '', email: '', phone: '', bike: '', message: '' })
+    setFormData({ name: '', email: '', phone: '', message: '' })
   }
 
   return (
@@ -99,16 +98,6 @@ export default function ContactPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="bike">Marque/Modèle du vélo</Label>
-                    <Input
-                      id="bike"
-                      value={formData.bike}
-                      onChange={(e) => setFormData({ ...formData, bike: e.target.value })}
-                      placeholder="ex: Trek Domane SL 5"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
                     <Label htmlFor="message">Message *</Label>
                     <Textarea
                       id="message"
@@ -128,102 +117,92 @@ export default function ContactPage() {
             </Card>
 
             {/* Contact Information */}
-            <div className="space-y-6">
+            <div className="space-y-4">
+              {/* Location Card - Compact */}
               <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <MapPin className="h-5 w-5 text-primary" />
-                    Localisation
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex flex-col sm:flex-row gap-4">
-                    {/* Address Info */}
-                    <div className="flex-1">
-                      <p className="text-muted-foreground mb-4">
-                        123 Bike Lane
-                        <br />
-                        Cycle City, CC 12345
-                        <br />
-                        France
-                      </p>
-                      <Button variant="outline" className="w-full bg-transparent" asChild>
-                        <a
-                          href="https://www.google.com/maps/search/?api=1&query=123+Bike+Lane+Cycle+City"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          Obtenir l'itinéraire
-                        </a>
-                      </Button>
+                <CardContent className="p-0">
+                  {/* Map on top */}
+                  <div className="h-48 rounded-t-lg overflow-hidden">
+                    <iframe
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2889.1812259805!2d1.4436!3d43.6047!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDPCsDM2JzE3LjAiTiAxwrAyNiczOS40IkU!5e0!3m2!1sfr!2sfr!4v1234567890"
+                      width="100%"
+                      height="100%"
+                      style={{ border: 0 }}
+                      allowFullScreen
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                      title="Localisation Rust-in"
+                    />
+                  </div>
+                  {/* Address below */}
+                  <div className="p-4">
+                    <div className="flex items-start gap-3">
+                      <MapPin className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
+                      <div className="flex-1">
+                        <p className="font-medium">123 Bike Lane</p>
+                        <p className="text-sm text-muted-foreground">
+                          Cycle City, CC 12345 - France
+                        </p>
+                      </div>
                     </div>
-                    {/* Google Maps Preview */}
-                    <div className="flex-1 min-h-[180px] rounded-lg overflow-hidden border border-border">
-                      <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2889.1812259805!2d1.4436!3d43.6047!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDPCsDM2JzE3LjAiTiAxwrAyNiczOS40IkU!5e0!3m2!1sfr!2sfr!4v1234567890"
-                        width="100%"
-                        height="100%"
-                        style={{ border: 0, minHeight: '180px' }}
-                        allowFullScreen
-                        loading="lazy"
-                        referrerPolicy="no-referrer-when-downgrade"
-                        title="Localisation Rust-in"
-                      />
-                    </div>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="w-full mt-3 bg-transparent"
+                      asChild
+                    >
+                      <a
+                        href="https://www.google.com/maps/search/?api=1&query=123+Bike+Lane+Cycle+City"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Obtenir l'itinéraire
+                      </a>
+                    </Button>
                   </div>
                 </CardContent>
               </Card>
 
+              {/* Hours */}
               <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
+                <CardHeader className="pb-3">
+                  <CardTitle className="flex items-center gap-2 text-lg">
                     <Clock className="h-5 w-5 text-primary" />
                     Heures d'ouverture
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-2">
-                  <div className="flex justify-between">
+                <CardContent className="space-y-2 pt-0">
+                  <div className="flex justify-between text-sm">
                     <span className="font-medium">Lundi - Vendredi</span>
                     <span className="text-muted-foreground">9h00 - 18h00</span>
                   </div>
-                  <div className="flex justify-between">
+                  <div className="flex justify-between text-sm">
                     <span className="font-medium">Samedi</span>
                     <span className="text-muted-foreground">10h00 - 16h00</span>
                   </div>
-                  <div className="flex justify-between">
+                  <div className="flex justify-between text-sm">
                     <span className="font-medium">Dimanche</span>
-                    <span className="text-muted-foreground">Fermé</span>
+                    <span className="text-red-500">Fermé</span>
                   </div>
                 </CardContent>
               </Card>
 
+              {/* Contact Info - Combined */}
               <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
+                <CardContent className="p-4 space-y-3">
+                  <a
+                    href="tel:5551234567"
+                    className="flex items-center gap-3 p-3 rounded-lg bg-primary/5 hover:bg-primary/10 transition-colors"
+                  >
                     <Phone className="h-5 w-5 text-primary" />
-                    Téléphone
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <a href="tel:5551234567" className="text-lg hover:text-primary transition-colors">
-                    (555) 123-4567
+                    <span className="font-medium">(555) 123-4567</span>
                   </a>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Mail className="h-5 w-5 text-primary" />
-                    Email
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
                   <a
                     href="mailto:hello@rust-in.com"
-                    className="text-lg hover:text-primary transition-colors"
+                    className="flex items-center gap-3 p-3 rounded-lg bg-primary/5 hover:bg-primary/10 transition-colors"
                   >
-                    hello@rust-in.com
+                    <Mail className="h-5 w-5 text-primary" />
+                    <span className="font-medium">hello@rust-in.com</span>
                   </a>
                 </CardContent>
               </Card>
