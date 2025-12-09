@@ -347,3 +347,6 @@ export default async function AboutPage() {
     </div>
   )
 }
+
+// Revalidate data every 60 seconds to pick up new content without redeploying
+export const revalidate = 60

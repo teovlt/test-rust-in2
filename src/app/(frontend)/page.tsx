@@ -59,3 +59,6 @@ export default async function HomePage() {
 
   return <HomePageClient reviews={reviews} faq={faq} openingHours={openingHours} />
 }
+
+// Revalidate data every 60 seconds to pick up new content without redeploying
+export const revalidate = 60
