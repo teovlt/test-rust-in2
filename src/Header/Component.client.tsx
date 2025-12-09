@@ -4,10 +4,23 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 
-import type { Header } from '@/payload-types'
-
 import { Logo } from '@/components/Logo/Logo'
 import { HeaderNav } from './Nav'
+
+interface Header {
+  navItems?: Array<{
+    link: {
+      type?: 'reference' | 'custom' | null
+      newTab?: boolean | null
+      reference?: {
+        relationTo: string
+        value: string | { slug?: string }
+      } | null
+      url?: string | null
+      label: string
+    }
+  }> | null
+}
 
 interface HeaderClientProps {
   data: Header
