@@ -8,7 +8,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="fr" suppressHydrationWarning>
       <head>
-        <script src="https://tweakcn.com/live-preview.min.js"></script>
+        <script src="https://tweakcn.com/live-preview.min.js" />
       </head>
       <body className={`${GeistSans.variable} ${GeistMono.variable}`} suppressHydrationWarning>
         {children}

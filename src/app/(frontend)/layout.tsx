@@ -18,15 +18,13 @@ export const metadata: Metadata = {
 
 export default function FrontendLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="bg-background text-foreground min-h-screen flex flex-col">
-      <Providers>
-        <LoadingProvider>
-          <InitTheme />
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
-        </LoadingProvider>
-      </Providers>
-    </div>
+    <Providers>
+      <LoadingProvider>
+        <InitTheme />
+        <Header />
+        <main className="flex-1">{children}</main>
+        <Footer />
+      </LoadingProvider>
+    </Providers>
   )
 }

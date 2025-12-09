@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Wrench, Instagram, Facebook } from 'lucide-react'
+import { Instagram, Facebook } from 'lucide-react'
 
 export function Footer() {
   return (
@@ -8,7 +8,6 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <Wrench className="h-6 w-6 text-primary" />
               <span className="text-2xl font-bold text-primary">Rust-in</span>
             </div>
             <p className="text-muted-foreground text-sm">

@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { Menu, X, Wrench, Bike, User, LogOut, Settings, ChevronDown } from 'lucide-react'
+import { Menu, X, Bike, User, LogOut, Settings, ChevronDown } from 'lucide-react'
 import { useState, useEffect, useRef, useLayoutEffect } from 'react'
 import { Button } from '@/components/ui/button'
 
@@ -137,9 +137,6 @@ export function Header() {
       <div className="container mx-auto px-4 relative">
         <div className="flex items-center justify-between h-20">
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="bg-primary text-primary-foreground p-2 rounded-full transform group-hover:rotate-12 transition-transform">
-              <Wrench className="h-6 w-6" />
-            </div>
             <div className="text-4xl font-bold text-primary handwritten-title">Rust-in</div>
           </Link>
 
