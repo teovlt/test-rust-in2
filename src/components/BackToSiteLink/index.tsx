@@ -1,14 +1,22 @@
 'use client'
 
-import Link from 'next/link'
+import { ArrowLeft } from 'lucide-react'
 
 export const BackToSiteLink = () => {
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault()
+    // Force a full page reload to reset viewport/zoom
+    window.location.href = '/'
+  }
+
   return (
     <div className="back-to-site-container">
-      <Link href="/" className="back-to-site-link">
-        <span>←</span>
-        Retour au site
-      </Link>
+      <a href="/" onClick={handleClick} className="back-to-site-link">
+        <span>
+          <ArrowLeft className="w-4 h-4" />
+        </span>
+        Back to site
+      </a>
 
       <style jsx>{`
         .back-to-site-container {
@@ -29,6 +37,7 @@ export const BackToSiteLink = () => {
           font-size: 14px;
           font-weight: 500;
           transition: all 0.2s;
+          cursor: pointer;
         }
 
         .back-to-site-link:hover {

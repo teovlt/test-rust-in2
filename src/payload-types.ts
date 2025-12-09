@@ -165,20 +165,20 @@ export interface Bike {
   id: string;
   name: string;
   /**
-   * Prix en euros
+   * Price in euros
    */
   price: number;
   /**
-   * Nombre de kilomètres déjà parcourus
+   * Number of kilometers already ridden
    */
   kilometers: number;
   photo: string | Media;
   /**
-   * Taille de la personne pour laquelle ce vélo est adapté
+   * Size of person this bike is suitable for
    */
   humanSize: 'xs' | 's' | 'm' | 'l' | 'xl';
   /**
-   * Description optionnelle du vélo
+   * Optional bike description
    */
   description?: string | null;
   updatedAt: string;
@@ -190,6 +190,9 @@ export interface Bike {
  */
 export interface Media {
   id: string;
+  /**
+   * Image description for accessibility
+   */
   alt?: string | null;
   caption?: {
     root: {
@@ -312,7 +315,7 @@ export interface Review {
   name: string;
   image: string | Media;
   /**
-   * Note de 1 à 5 étoiles
+   * Rating from 1 to 5 stars
    */
   rating: number;
   text: string;
@@ -328,7 +331,7 @@ export interface Faq {
   question: string;
   answer: string;
   /**
-   * Plus le nombre est petit, plus la question apparaît en haut
+   * Lower numbers appear first
    */
   order?: number | null;
   updatedAt: string;
@@ -343,15 +346,15 @@ export interface Team {
   name: string;
   photo: string | Media;
   /**
-   * Ex: Mécanicien, Fondateur, Responsable atelier...
+   * E.g.: Mechanic, Founder, Workshop Manager...
    */
   role: string;
   /**
-   * Courte biographie ou présentation du membre
+   * Short bio or presentation of the team member
    */
   description: string;
   /**
-   * Plus le nombre est petit, plus le membre apparaît en premier
+   * Lower numbers appear first
    */
   order?: number | null;
   updatedAt: string;
@@ -365,19 +368,19 @@ export interface OpeningHour {
   id: string;
   day: 'lundi' | 'mardi' | 'mercredi' | 'jeudi' | 'vendredi' | 'samedi' | 'dimanche';
   /**
-   * Cochez si fermé ce jour-là
+   * Check if closed on this day
    */
   isClosed?: boolean | null;
   /**
-   * Ex: 9h00
+   * E.g.: 9:00 AM
    */
   openTime?: string | null;
   /**
-   * Ex: 18h00
+   * E.g.: 6:00 PM
    */
   closeTime?: string | null;
   /**
-   * 0 = Lundi, 1 = Mardi, etc.
+   * 0 = Monday, 1 = Tuesday, etc.
    */
   order?: number | null;
   updatedAt: string;

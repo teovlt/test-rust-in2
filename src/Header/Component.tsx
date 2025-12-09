@@ -5,6 +5,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import { Menu, X, Bike, User, LogOut, Settings, ChevronDown } from 'lucide-react'
 import { useState, useEffect, useRef, useLayoutEffect } from 'react'
 import { Button } from '@/components/ui/button'
+import { useLoading } from '@/providers/LoadingProvider'
 
 type UserData = {
   id: string
@@ -15,6 +16,7 @@ type UserData = {
 export function Header() {
   const pathname = usePathname()
   const router = useRouter()
+  const { setUserLoaded } = useLoading()
   const [isOpen, setIsOpen] = useState(false)
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
   const [user, setUser] = useState<UserData>(null)
@@ -53,10 +55,12 @@ export function Header() {
         console.error('Error fetching user:', error)
       } finally {
         setIsLoading(false)
+        // Signal to LoadingProvider that user check is complete
+        setUserLoaded()
       }
     }
     fetchUser()
-  }, [])
+  }, [setUserLoaded])
 
   // Close user menu when clicking outside
   useEffect(() => {

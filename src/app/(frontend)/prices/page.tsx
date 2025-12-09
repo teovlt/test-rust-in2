@@ -1,5 +1,5 @@
 import React from 'react'
-import { Wrench, Check, Clock, Shield } from 'lucide-react'
+import { Wrench, Check, Clock, Shield, Bike, Euro } from 'lucide-react'
 import Link from 'next/link'
 
 export default function PricesPage() {
@@ -19,16 +19,24 @@ export default function PricesPage() {
   return (
     <main className="min-h-screen">
       {/* Hero */}
-      <section className="bg-gradient-to-br from-primary/10 via-background to-accent/20 py-16">
-        <div className="container mx-auto px-4 text-center">
-          <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full mb-6">
+      <section className="relative bg-gradient-to-br from-primary via-primary/90 to-accent text-primary-foreground py-16 md:py-24 overflow-hidden">
+        {/* Decorative elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute -top-20 -right-20 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
+          <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-accent/30 rounded-full blur-3xl" />
+          <Wrench className="absolute top-10 right-20 w-24 h-24 text-white/10 rotate-45" />
+          <Euro className="absolute bottom-10 left-1/4 w-16 h-16 text-white/10" />
+          <Bike className="absolute top-1/2 right-10 w-20 h-20 text-white/5 -rotate-12" />
+        </div>
+        <div className="container mx-auto px-4 text-center relative z-10">
+          <div className="inline-flex items-center gap-2 bg-white/20 text-primary-foreground px-4 py-2 rounded-full mb-6 backdrop-blur-sm">
             <Wrench className="w-5 h-5" />
             <span className="font-medium">Atelier de réparation</span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            Nos <span className="text-primary">tarifs</span>
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 handwritten-title">
+            Nos tarifs
           </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-xl md:text-2xl text-primary-foreground/90 max-w-2xl mx-auto">
             Des prix transparents pour toutes vos réparations vélo
           </p>
         </div>

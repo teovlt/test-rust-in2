@@ -108,16 +108,19 @@ export function HomePageClient({ reviews, faq, openingHours }: HomePageClientPro
     <div className="flex flex-col">
       {/* Hero Section */}
       <section
-        className="relative bg-primary text-primary-foreground py-24 md:py-40 overflow-hidden"
+        className="relative bg-gradient-to-br from-primary via-primary/90 to-accent text-primary-foreground py-24 md:py-40 overflow-hidden"
         style={{ minHeight: 'calc(100vh - var(--navbar-height))' }}
       >
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: `url('/bike-mechanic-repairing-bicycle-in-workshop.jpg')`,
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/60 via-primary/50 to-accent/40" />
+        {/* Decorative elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute -top-40 -right-40 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
+          <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-accent/30 rounded-full blur-3xl" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-white/5 rounded-full blur-3xl" />
+          {/* Bike silhouettes */}
+          <Bike className="absolute top-20 right-20 w-32 h-32 text-white/10 rotate-12" />
+          <Bike className="absolute bottom-20 left-10 w-24 h-24 text-white/5 -rotate-12" />
+          <Wrench className="absolute top-40 left-1/4 w-16 h-16 text-white/10 rotate-45" />
+        </div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl">
             <h1 className="text-6xl md:text-8xl font-bold mb-6 text-balance handwritten-title leading-tight">

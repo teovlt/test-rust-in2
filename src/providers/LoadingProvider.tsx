@@ -1,52 +1,42 @@
 'use client'
 
-import { createContext, useContext, useEffect, useState, ReactNode } from 'react'
-import { Bike, Wrench } from 'lucide-react'
+import { createContext, useContext, useEffect, useState, ReactNode, useCallback } from 'react'
+import { Bike } from 'lucide-react'
 
 type LoadingContextType = {
-  hasLoaded: boolean
+  isAppReady: boolean
+  setUserLoaded: () => void
 }
 
-const LoadingContext = createContext<LoadingContextType>({ hasLoaded: true })
+const LoadingContext = createContext<LoadingContextType>({
+  isAppReady: false,
+  setUserLoaded: () => {},
+})
 
 export const useLoading = () => useContext(LoadingContext)
 
-function LoadingScreen({ onComplete }: { onComplete: () => void }) {
+function LoadingScreen() {
   const [progress, setProgress] = useState(0)
 
   useEffect(() => {
-    // Simulate loading progress
+    // Animate progress bar (visual only, doesn't control actual loading)
     const interval = setInterval(() => {
       setProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval)
-          return 100
+        if (prev >= 90) {
+          return 90 // Stay at 90% until actually ready
         }
-        return prev + Math.random() * 15
+        return prev + Math.random() * 10
       })
-    }, 100)
+    }, 150)
 
-    // Complete after minimum time
-    const timer = setTimeout(() => {
-      onComplete()
-    }, 1500)
-
-    return () => {
-      clearInterval(interval)
-      clearTimeout(timer)
-    }
-  }, [onComplete])
+    return () => clearInterval(interval)
+  }, [])
 
   return (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-background">
       <div className="flex flex-col items-center gap-8">
         {/* Animated Logo */}
         <div className="relative">
-          {/* Rotating wrench */}
-          <div className="absolute -top-2 -right-2 animate-spin" style={{ animationDuration: '3s' }}>
-            <Wrench className="h-8 w-8 text-primary" />
-          </div>
-
           {/* Bouncing bike */}
           <div className="animate-bounce" style={{ animationDuration: '2s' }}>
             <div className="bg-primary/10 p-6 rounded-full">
@@ -90,34 +80,51 @@ function LoadingScreen({ onComplete }: { onComplete: () => void }) {
 }
 
 export function LoadingProvider({ children }: { children: ReactNode }) {
-  const [showLoading, setShowLoading] = useState(false)
-  const [hasLoaded, setHasLoaded] = useState(true)
+  const [showLoading, setShowLoading] = useState(true)
+  const [userLoaded, setUserLoadedState] = useState(false)
+  const [minimumTimePassed, setMinimumTimePassed] = useState(false)
 
+  // Check session storage on mount
   useEffect(() => {
-    // Check if this is the first visit in this session
     const hasVisited = sessionStorage.getItem('rust-in-visited')
-
-    if (!hasVisited) {
-      setShowLoading(true)
-      setHasLoaded(false)
+    if (hasVisited) {
+      // If already visited this session, skip loading
+      setShowLoading(false)
+      setMinimumTimePassed(true)
+      setUserLoadedState(true)
+    } else {
+      // Minimum loading time for first visit
+      const timer = setTimeout(() => {
+        setMinimumTimePassed(true)
+      }, 1000)
+      return () => clearTimeout(timer)
     }
   }, [])
 
-  const handleLoadingComplete = () => {
-    sessionStorage.setItem('rust-in-visited', 'true')
-    setShowLoading(false)
-    setHasLoaded(true)
-  }
+  // Hide loading when both conditions are met
+  useEffect(() => {
+    if (userLoaded && minimumTimePassed && showLoading) {
+      // Small delay for smooth transition
+      const hideTimer = setTimeout(() => {
+        sessionStorage.setItem('rust-in-visited', 'true')
+        setShowLoading(false)
+      }, 300)
+      return () => clearTimeout(hideTimer)
+    }
+  }, [userLoaded, minimumTimePassed, showLoading])
+
+  const setUserLoaded = useCallback(() => {
+    setUserLoadedState(true)
+  }, [])
 
   return (
-    <LoadingContext.Provider value={{ hasLoaded }}>
-      {showLoading && <LoadingScreen onComplete={handleLoadingComplete} />}
+    <LoadingContext.Provider value={{ isAppReady: !showLoading, setUserLoaded }}>
+      {showLoading && <LoadingScreen />}
       <div
-        className={`transition-opacity duration-500 ${showLoading ? 'opacity-0' : 'opacity-100'}`}
+        className={`transition-opacity duration-500 ${showLoading ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
       >
         {children}
       </div>
     </LoadingContext.Provider>
   )
 }
-

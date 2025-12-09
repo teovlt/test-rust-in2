@@ -6,8 +6,8 @@ import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 export const Reviews: CollectionConfig = {
   slug: 'reviews',
   labels: {
-    singular: 'Avis',
-    plural: 'Avis',
+    singular: 'Review',
+    plural: 'Reviews',
   },
   access: {
     create: authenticated,
@@ -22,35 +22,34 @@ export const Reviews: CollectionConfig = {
   fields: [
     {
       name: 'name',
-      label: 'Nom du client',
+      label: 'Customer Name',
       type: 'text',
       required: true,
     },
     {
       name: 'image',
-      label: 'Photo du client',
+      label: 'Customer Photo',
       type: 'upload',
       relationTo: 'media',
       required: true,
     },
     {
       name: 'rating',
-      label: 'Note',
+      label: 'Rating',
       type: 'number',
       required: true,
       min: 1,
       max: 5,
       defaultValue: 5,
       admin: {
-        description: 'Note de 1 à 5 étoiles',
+        description: 'Rating from 1 to 5 stars',
       },
     },
     {
       name: 'text',
-      label: 'Commentaire',
+      label: 'Comment',
       type: 'textarea',
       required: true,
     },
   ],
 }
-

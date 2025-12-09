@@ -1,5 +1,5 @@
 import React from 'react'
-import { Bike, Filter, MapPin, Phone } from 'lucide-react'
+import { Bike, Filter, MapPin, Phone, Tag, Sparkles } from 'lucide-react'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import Image from 'next/image'
@@ -31,19 +31,27 @@ export default async function BikesPage() {
   return (
     <main className="min-h-screen">
       {/* Hero */}
-      <section className="bg-gradient-to-br from-primary/10 via-background to-accent/20 py-16 md:py-20">
-        <div className="container mx-auto px-4 text-center">
-          <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full mb-6">
+      <section className="relative bg-gradient-to-br from-primary via-primary/90 to-accent text-primary-foreground py-16 md:py-24 overflow-hidden">
+        {/* Decorative elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute -top-20 -right-20 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
+          <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-accent/30 rounded-full blur-3xl" />
+          <Bike className="absolute top-10 right-20 w-24 h-24 text-white/10 rotate-12" />
+          <Tag className="absolute bottom-10 left-1/4 w-16 h-16 text-white/10 -rotate-12" />
+          <Sparkles className="absolute top-1/2 right-10 w-20 h-20 text-white/5" />
+        </div>
+        <div className="container mx-auto px-4 text-center relative z-10">
+          <div className="inline-flex items-center gap-2 bg-white/20 text-primary-foreground px-4 py-2 rounded-full mb-6 backdrop-blur-sm">
             <Bike className="w-5 h-5" />
             <span className="font-medium">
               {bikes.length} vélo{bikes.length > 1 ? 's' : ''} disponible
               {bikes.length > 1 ? 's' : ''}
             </span>
           </div>
-          <h1 className="text-4xl md:text-6xl font-bold mb-4">
-            Nos <span className="text-primary">vélos</span> à vendre
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 handwritten-title">
+            Nos vélos à vendre
           </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-xl md:text-2xl text-primary-foreground/90 max-w-2xl mx-auto">
             Découvrez notre sélection de vélos d&apos;occasion reconditionnés avec soin par nos
             experts
           </p>

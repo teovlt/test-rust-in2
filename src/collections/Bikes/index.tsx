@@ -5,6 +5,10 @@ import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 
 export const Bikes: CollectionConfig = {
   slug: 'bikes',
+  labels: {
+    singular: 'Bike',
+    plural: 'Bikes',
+  },
   access: {
     create: authenticated,
     delete: authenticated,
@@ -22,32 +26,32 @@ export const Bikes: CollectionConfig = {
   fields: [
     {
       name: 'name',
-      label: 'Nom',
+      label: 'Name',
       type: 'text',
       required: true,
     },
     {
       name: 'price',
-      label: 'Prix',
+      label: 'Price',
       type: 'number',
       required: true,
       min: 0,
       admin: {
-        description: 'Prix en euros',
-        },
+        description: 'Price in euros',
+      },
     },
-            {
+    {
       name: 'kilometers',
-      label: 'Kilomètres parcourus',
+      label: 'Kilometers',
       type: 'number',
-              required: true,
+      required: true,
       min: 0,
       defaultValue: 0,
-              admin: {
-        description: 'Nombre de kilomètres déjà parcourus',
+      admin: {
+        description: 'Number of kilometers already ridden',
       },
-        },
-        {
+    },
+    {
       name: 'photo',
       label: 'Photo',
       type: 'upload',
@@ -56,7 +60,7 @@ export const Bikes: CollectionConfig = {
     },
     {
       name: 'humanSize',
-      label: 'Taille humain associée',
+      label: 'Human Size',
       type: 'select',
       required: true,
       options: [
@@ -67,7 +71,7 @@ export const Bikes: CollectionConfig = {
         { label: 'XL (> 1m85)', value: 'xl' },
       ],
       admin: {
-        description: 'Taille de la personne pour laquelle ce vélo est adapté',
+        description: 'Size of person this bike is suitable for',
       },
     },
     {
@@ -75,8 +79,8 @@ export const Bikes: CollectionConfig = {
       label: 'Description',
       type: 'textarea',
       admin: {
-        description: 'Description optionnelle du vélo',
-    },
+        description: 'Optional bike description',
+      },
     },
   ],
 }

@@ -6,7 +6,7 @@ import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 export const FAQ: CollectionConfig = {
   slug: 'faq',
   labels: {
-    singular: 'Question FAQ',
+    singular: 'FAQ Question',
     plural: 'FAQ',
   },
   access: {
@@ -28,19 +28,18 @@ export const FAQ: CollectionConfig = {
     },
     {
       name: 'answer',
-      label: 'Réponse',
+      label: 'Answer',
       type: 'textarea',
       required: true,
     },
     {
       name: 'order',
-      label: 'Ordre d\'affichage',
+      label: 'Display Order',
       type: 'number',
       defaultValue: 0,
       admin: {
-        description: 'Plus le nombre est petit, plus la question apparaît en haut',
+        description: 'Lower numbers appear first',
       },
     },
   ],
 }
-

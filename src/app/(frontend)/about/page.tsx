@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Users, Heart, Wrench, Award, Calendar, MapPin, Trophy } from 'lucide-react'
+import { Users, Heart, Wrench, Award, Calendar, MapPin, Trophy, Bike } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { getPayload } from 'payload'
@@ -34,14 +34,15 @@ export default async function AboutPage() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <section className="relative bg-primary text-primary-foreground py-16 md:py-20 overflow-hidden">
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: `url('/organized-bike-repair-tools-and-equipment-display.jpg')`,
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/85 via-primary/80 to-accent/75" />
+      <section className="relative bg-gradient-to-br from-primary via-primary/90 to-accent text-primary-foreground py-16 md:py-24 overflow-hidden">
+        {/* Decorative elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute -top-20 -right-20 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
+          <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-accent/30 rounded-full blur-3xl" />
+          <Wrench className="absolute top-10 right-20 w-24 h-24 text-white/10 rotate-45" />
+          <Heart className="absolute bottom-10 left-1/4 w-16 h-16 text-white/10" />
+          <Bike className="absolute top-1/2 right-10 w-20 h-20 text-white/5 -rotate-12" />
+        </div>
         <div className="container mx-auto px-4 relative z-10">
           <h1 className="text-5xl md:text-7xl font-bold mb-6 text-balance handwritten-title">
             À propos de Rust-in

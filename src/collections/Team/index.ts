@@ -6,8 +6,8 @@ import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 export const Team: CollectionConfig = {
   slug: 'team',
   labels: {
-    singular: 'Membre de l\'équipe',
-    plural: 'Équipe',
+    singular: 'Team Member',
+    plural: 'Team',
   },
   access: {
     create: authenticated,
@@ -22,7 +22,7 @@ export const Team: CollectionConfig = {
   fields: [
     {
       name: 'name',
-      label: 'Nom',
+      label: 'Name',
       type: 'text',
       required: true,
     },
@@ -35,11 +35,11 @@ export const Team: CollectionConfig = {
     },
     {
       name: 'role',
-      label: 'Rôle / Poste',
+      label: 'Role / Position',
       type: 'text',
       required: true,
       admin: {
-        description: 'Ex: Mécanicien, Fondateur, Responsable atelier...',
+        description: 'E.g.: Mechanic, Founder, Workshop Manager...',
       },
     },
     {
@@ -48,18 +48,17 @@ export const Team: CollectionConfig = {
       type: 'textarea',
       required: true,
       admin: {
-        description: 'Courte biographie ou présentation du membre',
+        description: 'Short bio or presentation of the team member',
       },
     },
     {
       name: 'order',
-      label: 'Ordre d\'affichage',
+      label: 'Display Order',
       type: 'number',
       defaultValue: 0,
       admin: {
-        description: 'Plus le nombre est petit, plus le membre apparaît en premier',
+        description: 'Lower numbers appear first',
       },
     },
   ],
 }
-
