@@ -16,11 +16,27 @@ type OpeningHour = {
   isClosed: boolean
 }
 
+type ContactInfo = {
+  address: string
+  city: string
+  postalCode: string
+  country: string
+  email: string
+  phone: string
+  socialLinks?: {
+    facebook?: string
+    instagram?: string
+    twitter?: string
+    linkedin?: string
+  }
+} | null
+
 type ContactClientProps = {
   openingHours: OpeningHour[]
+  contactInfo: ContactInfo
 }
 
-export function ContactClient({ openingHours }: ContactClientProps) {
+export function ContactClient({ openingHours, contactInfo }: ContactClientProps) {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -158,31 +174,33 @@ export function ContactClient({ openingHours }: ContactClientProps) {
                     />
                   </div>
                   {/* Address below */}
-                  <div className="p-4">
-                    <div className="flex items-start gap-3">
-                      <MapPin className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                      <div className="flex-1">
-                        <p className="font-medium">123 Bike Lane</p>
-                        <p className="text-sm text-muted-foreground">
-                          Cycle City, CC 12345 - France
-                        </p>
+                  {contactInfo && (
+                    <div className="p-4">
+                      <div className="flex items-start gap-3">
+                        <MapPin className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
+                        <div className="flex-1">
+                          <p className="font-medium">{contactInfo.address}</p>
+                          <p className="text-sm text-muted-foreground">
+                            {contactInfo.city}, {contactInfo.postalCode} - {contactInfo.country}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="w-full mt-3 bg-transparent"
-                      asChild
-                    >
-                      <a
-                        href="https://www.google.com/maps/search/?api=1&query=123+Bike+Lane+Cycle+City"
-                        target="_blank"
-                        rel="noopener noreferrer"
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="w-full mt-3 bg-transparent"
+                        asChild
                       >
-                        Obtenir l'itinéraire
-                      </a>
-                    </Button>
-                  </div>
+                        <a
+                          href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${contactInfo.address} ${contactInfo.city} ${contactInfo.postalCode}`)}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Obtenir l'itinéraire
+                        </a>
+                      </Button>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
 
@@ -207,24 +225,30 @@ export function ContactClient({ openingHours }: ContactClientProps) {
               </Card>
 
               {/* Contact Info - Combined */}
-              <Card>
-                <CardContent className="p-4 space-y-3">
-                  <a
-                    href="tel:5551234567"
-                    className="flex items-center gap-3 p-3 rounded-lg bg-primary/5 hover:bg-primary/10 transition-colors"
-                  >
-                    <Phone className="h-5 w-5 text-primary" />
-                    <span className="font-medium">(555) 123-4567</span>
-                  </a>
-                  <a
-                    href="mailto:hello@rust-in.com"
-                    className="flex items-center gap-3 p-3 rounded-lg bg-primary/5 hover:bg-primary/10 transition-colors"
-                  >
-                    <Mail className="h-5 w-5 text-primary" />
-                    <span className="font-medium">hello@rust-in.com</span>
-                  </a>
-                </CardContent>
-              </Card>
+              {contactInfo && (
+                <Card>
+                  <CardContent className="p-4 space-y-3">
+                    {contactInfo.phone && (
+                      <a
+                        href={`tel:${contactInfo.phone.replace(/\s/g, '')}`}
+                        className="flex items-center gap-3 p-3 rounded-lg bg-primary/5 hover:bg-primary/10 transition-colors"
+                      >
+                        <Phone className="h-5 w-5 text-primary" />
+                        <span className="font-medium">{contactInfo.phone}</span>
+                      </a>
+                    )}
+                    {contactInfo.email && (
+                      <a
+                        href={`mailto:${contactInfo.email}`}
+                        className="flex items-center gap-3 p-3 rounded-lg bg-primary/5 hover:bg-primary/10 transition-colors"
+                      >
+                        <Mail className="h-5 w-5 text-primary" />
+                        <span className="font-medium">{contactInfo.email}</span>
+                      </a>
+                    )}
+                  </CardContent>
+                </Card>
+              )}
             </div>
           </div>
         </div>

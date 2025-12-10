@@ -5,9 +5,11 @@ import { buildConfig, PayloadRequest } from 'payload'
 import { fileURLToPath } from 'url'
 
 import { Bikes } from './collections/Bikes'
+import { ContactInfo } from './collections/ContactInfo'
 import { FAQ } from './collections/FAQ'
 import { Media } from './collections/Media'
 import { OpeningHours } from './collections/OpeningHours'
+import { Prices } from './collections/Prices'
 import { Reviews } from './collections/Reviews'
 import { Scooters } from './collections/Scooters'
 import { Skis } from './collections/Skis'
@@ -67,7 +69,7 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
   }),
-  collections: [Users, Bikes, Skis, Scooters, Media, Reviews, FAQ, Team, OpeningHours],
+  collections: [Users, Bikes, Skis, Scooters, Media, Reviews, FAQ, Team, OpeningHours, ContactInfo, Prices],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [],
   plugins: [

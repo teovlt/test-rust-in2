@@ -44,10 +44,26 @@ type OpeningHour = {
   isClosed: boolean
 }
 
+type ContactInfo = {
+  address: string
+  city: string
+  postalCode: string
+  country: string
+  email: string
+  phone: string
+  socialLinks?: {
+    facebook?: string
+    instagram?: string
+    twitter?: string
+    linkedin?: string
+  }
+} | null
+
 type HomePageClientProps = {
   reviews: Review[]
   faq: FAQItem[]
   openingHours: OpeningHour[]
+  contactInfo: ContactInfo
 }
 
 // Default opening hours if none in backend
@@ -61,7 +77,7 @@ const defaultOpeningHours: OpeningHour[] = [
   { day: 'Dimanche', hours: 'Fermé', isClosed: true },
 ]
 
-export function HomePageClient({ reviews, faq, openingHours }: HomePageClientProps) {
+export function HomePageClient({ reviews, faq, openingHours, contactInfo }: HomePageClientProps) {
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const [openFaq, setOpenFaq] = useState<number | null>(null)
   const [canScrollLeft, setCanScrollLeft] = useState(false)
@@ -242,20 +258,24 @@ export function HomePageClient({ reviews, faq, openingHours }: HomePageClientPro
                   </div>
 
                   <div className="pt-4 border-t border-white/20 space-y-3">
-                    <a
-                      href="tel:5551234567"
-                      className="flex items-center gap-3 hover:bg-white/10 p-2 rounded-lg transition-colors"
-                    >
-                      <Phone className="w-5 h-5" />
-                      <span className="font-medium">(555) 123-4567</span>
-                    </a>
-                    <a
-                      href="mailto:hello@rust-in.com"
-                      className="flex items-center gap-3 hover:bg-white/10 p-2 rounded-lg transition-colors"
-                    >
-                      <Mail className="w-5 h-5" />
-                      <span className="font-medium">hello@rust-in.com</span>
-                    </a>
+                    {contactInfo?.phone && (
+                      <a
+                        href={`tel:${contactInfo.phone.replace(/\s/g, '')}`}
+                        className="flex items-center gap-3 hover:bg-white/10 p-2 rounded-lg transition-colors"
+                      >
+                        <Phone className="w-5 h-5" />
+                        <span className="font-medium">{contactInfo.phone}</span>
+                      </a>
+                    )}
+                    {contactInfo?.email && (
+                      <a
+                        href={`mailto:${contactInfo.email}`}
+                        className="flex items-center gap-3 hover:bg-white/10 p-2 rounded-lg transition-colors"
+                      >
+                        <Mail className="w-5 h-5" />
+                        <span className="font-medium">{contactInfo.email}</span>
+                      </a>
+                    )}
                   </div>
 
                   <Button
@@ -656,40 +676,51 @@ export function HomePageClient({ reviews, faq, openingHours }: HomePageClientPro
             </div>
 
             {/* Contact info */}
-            <div className="flex flex-col sm:flex-row flex-wrap justify-start gap-4 md:gap-8 pt-6 md:pt-8 border-t border-white/20">
-              <a
-                href="tel:5551234567"
-                className="flex items-center gap-2 md:gap-3 hover:opacity-80 transition-opacity"
-              >
-                <div className="w-10 h-10 md:w-12 md:h-12 bg-white/20 rounded-full flex items-center justify-center">
-                  <Phone className="w-4 h-4 md:w-5 md:h-5" />
-                </div>
-                <div className="text-left">
-                  <div className="text-xs md:text-sm opacity-70">Appelez-nous</div>
-                  <div className="font-semibold text-sm md:text-base">(555) 123-4567</div>
-                </div>
-              </a>
-              <a
-                href="mailto:hello@rust-in.com"
-                className="flex items-center gap-2 md:gap-3 hover:opacity-80 transition-opacity"
-              >
-                <div className="w-10 h-10 md:w-12 md:h-12 bg-white/20 rounded-full flex items-center justify-center">
-                  <Mail className="w-4 h-4 md:w-5 md:h-5" />
-                </div>
-                <div className="text-left">
-                  <div className="text-xs md:text-sm opacity-70">Écrivez-nous</div>
-                  <div className="font-semibold text-sm md:text-base">hello@rust-in.com</div>
-                </div>
-              </a>
-              <div className="flex items-center gap-2 md:gap-3">
-                <div className="w-10 h-10 md:w-12 md:h-12 bg-white/20 rounded-full flex items-center justify-center">
-                  <Clock className="w-4 h-4 md:w-5 md:h-5" />
-                </div>
-                <div className="text-left">
-                  <div className="text-xs md:text-sm opacity-70">Horaires</div>
-                  <div className="font-semibold text-sm md:text-base">Lun-Sam • 9h-18h</div>
-                </div>
-              </div>
+            <div className="flex flex-col sm:flex-row flex-wrap justify-start md:justify-center gap-4 md:gap-8 pt-6 md:pt-8 border-t border-white/20">
+              {contactInfo?.phone && (
+                <a
+                  href={`tel:${contactInfo.phone.replace(/\s/g, '')}`}
+                  className="flex items-center gap-2 md:gap-3 hover:opacity-80 transition-opacity"
+                >
+                  <div className="w-10 h-10 md:w-12 md:h-12 bg-white/20 rounded-full flex items-center justify-center">
+                    <Phone className="w-4 h-4 md:w-5 md:h-5" />
+                  </div>
+                  <div className="text-left">
+                    <div className="text-xs md:text-sm opacity-70">Appelez-nous</div>
+                    <div className="font-semibold text-sm md:text-base">{contactInfo.phone}</div>
+                  </div>
+                </a>
+              )}
+              {contactInfo?.email && (
+                <a
+                  href={`mailto:${contactInfo.email}`}
+                  className="flex items-center gap-2 md:gap-3 hover:opacity-80 transition-opacity"
+                >
+                  <div className="w-10 h-10 md:w-12 md:h-12 bg-white/20 rounded-full flex items-center justify-center">
+                    <Mail className="w-4 h-4 md:w-5 md:h-5" />
+                  </div>
+                  <div className="text-left">
+                    <div className="text-xs md:text-sm opacity-70">Écrivez-nous</div>
+                    <div className="font-semibold text-sm md:text-base">{contactInfo.email}</div>
+                  </div>
+                </a>
+              )}
+              {contactInfo && (
+                <a
+                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${contactInfo.address} ${contactInfo.city} ${contactInfo.postalCode}`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 md:gap-3 hover:opacity-80 transition-opacity"
+                >
+                  <div className="w-10 h-10 md:w-12 md:h-12 bg-white/20 rounded-full flex items-center justify-center">
+                    <MapPin className="w-4 h-4 md:w-5 md:h-5" />
+                  </div>
+                  <div className="text-left">
+                    <div className="text-xs md:text-sm opacity-70">Notre adresse</div>
+                    <div className="font-semibold text-sm md:text-base">{contactInfo.city}</div>
+                  </div>
+                </a>
+              )}
             </div>
           </div>
         </div>

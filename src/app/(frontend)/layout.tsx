@@ -6,7 +6,7 @@ import type { Metadata, Viewport } from 'next'
 import { getServerSideURL } from '@/utilities/getURL'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 
-import { Footer } from '@/Footer/Component'
+import { FooterWrapper } from '@/Footer/FooterWrapper'
 import { Header } from '@/Header/Component'
 import { Providers } from '@/providers'
 import { LoadingProvider } from '@/providers/LoadingProvider'
@@ -36,7 +36,7 @@ export default function FrontendLayout({ children }: { children: React.ReactNode
               <InitTheme />
               <Header />
               <main className="flex-1">{children}</main>
-              <Footer />
+              <FooterWrapper />
             </LoadingProvider>
           </Providers>
         </div>

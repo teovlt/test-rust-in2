@@ -76,6 +76,8 @@ export interface Config {
     faq: Faq;
     team: Team;
     'opening-hours': OpeningHour;
+    'contact-info': ContactInfo;
+    prices: Price;
     'payload-kv': PayloadKv;
     'payload-folders': FolderInterface;
     'payload-locked-documents': PayloadLockedDocument;
@@ -97,6 +99,8 @@ export interface Config {
     faq: FaqSelect<false> | FaqSelect<true>;
     team: TeamSelect<false> | TeamSelect<true>;
     'opening-hours': OpeningHoursSelect<false> | OpeningHoursSelect<true>;
+    'contact-info': ContactInfoSelect<false> | ContactInfoSelect<true>;
+    prices: PricesSelect<false> | PricesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-folders': PayloadFoldersSelect<false> | PayloadFoldersSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -457,6 +461,70 @@ export interface OpeningHour {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-info".
+ */
+export interface ContactInfo {
+  id: string;
+  /**
+   * Full address of the business
+   */
+  address: string;
+  city: string;
+  postalCode: string;
+  country: string;
+  email: string;
+  /**
+   * Phone number with format (e.g., (555) 123-4567)
+   */
+  phone: string;
+  socialLinks?: {
+    /**
+     * Optional Facebook page URL
+     */
+    facebook?: string | null;
+    /**
+     * Optional Instagram profile URL
+     */
+    instagram?: string | null;
+    /**
+     * Optional Twitter/X profile URL
+     */
+    twitter?: string | null;
+    /**
+     * Optional LinkedIn page URL
+     */
+    linkedin?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "prices".
+ */
+export interface Price {
+  id: string;
+  /**
+   * Name of the service (e.g., "Révision complète", "Réparation freins")
+   */
+  label: string;
+  /**
+   * Price in euros
+   */
+  price: number;
+  /**
+   * Estimated time for the service (e.g., "30 min", "1h", "2-3h")
+   */
+  time: string;
+  /**
+   * Lower numbers appear first
+   */
+  order?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -514,6 +582,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'opening-hours';
         value: string | OpeningHour;
+      } | null)
+    | ({
+        relationTo: 'contact-info';
+        value: string | ContactInfo;
+      } | null)
+    | ({
+        relationTo: 'prices';
+        value: string | Price;
       } | null)
     | ({
         relationTo: 'payload-folders';
@@ -770,6 +846,40 @@ export interface OpeningHoursSelect<T extends boolean = true> {
   isClosed?: T;
   openTime?: T;
   closeTime?: T;
+  order?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-info_select".
+ */
+export interface ContactInfoSelect<T extends boolean = true> {
+  address?: T;
+  city?: T;
+  postalCode?: T;
+  country?: T;
+  email?: T;
+  phone?: T;
+  socialLinks?:
+    | T
+    | {
+        facebook?: T;
+        instagram?: T;
+        twitter?: T;
+        linkedin?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "prices_select".
+ */
+export interface PricesSelect<T extends boolean = true> {
+  label?: T;
+  price?: T;
+  time?: T;
   order?: T;
   updatedAt?: T;
   createdAt?: T;

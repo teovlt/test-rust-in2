@@ -12,6 +12,12 @@ export default async function ContactPage() {
     sort: 'order',
   })
 
+  // Fetch Contact Info
+  const contactInfoData = await payload.find({
+    collection: 'contact-info',
+    limit: 1,
+  })
+
   // Transform Opening Hours data
   const dayLabels: Record<string, string> = {
     lundi: 'Lundi',
@@ -29,7 +35,18 @@ export default async function ContactPage() {
     isClosed: hour.isClosed ?? false,
   }))
 
-  return <ContactClient openingHours={openingHours} />
+  // Transform Contact Info data
+  const contactInfo = contactInfoData.docs.length > 0 ? {
+    address: contactInfoData.docs[0].address || '',
+    city: contactInfoData.docs[0].city || '',
+    postalCode: contactInfoData.docs[0].postalCode || '',
+    country: contactInfoData.docs[0].country || '',
+    email: contactInfoData.docs[0].email || '',
+    phone: contactInfoData.docs[0].phone || '',
+    socialLinks: contactInfoData.docs[0].socialLinks || {},
+  } : null
+
+  return <ContactClient openingHours={openingHours} contactInfo={contactInfo} />
 }
 
 // Revalidate data every 60 seconds to pick up new content without redeploying

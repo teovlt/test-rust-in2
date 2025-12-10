@@ -1,7 +1,30 @@
 import Link from 'next/link'
-import { Instagram, Facebook } from 'lucide-react'
+import { Instagram, Facebook, Twitter, Linkedin } from 'lucide-react'
 
-export function Footer() {
+type ContactInfo = {
+  address: string
+  city: string
+  postalCode: string
+  country: string
+  email: string
+  phone: string
+  socialLinks?: {
+    facebook?: string
+    instagram?: string
+    twitter?: string
+    linkedin?: string
+  }
+} | null
+
+type FooterProps = {
+  contactInfo: ContactInfo
+}
+
+export function Footer({ contactInfo }: FooterProps) {
+  const fullAddress = contactInfo
+    ? `${contactInfo.address}, ${contactInfo.city} ${contactInfo.postalCode}, ${contactInfo.country}`
+    : '123 Bike Lane, Cycle City'
+
   return (
     <footer className="bg-muted mt-20">
       <div className="container mx-auto px-4 py-12">
@@ -15,24 +38,50 @@ export function Footer() {
               avec soin et expertise.
             </p>
             <div className="flex gap-4 mt-6">
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-primary text-primary-foreground p-2 rounded-full hover:scale-110 transition-transform"
-                aria-label="Instagram"
-              >
-                <Instagram className="h-5 w-5" />
-              </a>
-              <a
-                href="https://facebook.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-primary text-primary-foreground p-2 rounded-full hover:scale-110 transition-transform"
-                aria-label="Facebook"
-              >
-                <Facebook className="h-5 w-5" />
-              </a>
+              {contactInfo?.socialLinks?.instagram && (
+                <a
+                  href={contactInfo.socialLinks.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-primary text-primary-foreground p-2 rounded-full hover:scale-110 transition-transform"
+                  aria-label="Instagram"
+                >
+                  <Instagram className="h-5 w-5" />
+                </a>
+              )}
+              {contactInfo?.socialLinks?.facebook && (
+                <a
+                  href={contactInfo.socialLinks.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-primary text-primary-foreground p-2 rounded-full hover:scale-110 transition-transform"
+                  aria-label="Facebook"
+                >
+                  <Facebook className="h-5 w-5" />
+                </a>
+              )}
+              {contactInfo?.socialLinks?.twitter && (
+                <a
+                  href={contactInfo.socialLinks.twitter}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-primary text-primary-foreground p-2 rounded-full hover:scale-110 transition-transform"
+                  aria-label="Twitter/X"
+                >
+                  <Twitter className="h-5 w-5" />
+                </a>
+              )}
+              {contactInfo?.socialLinks?.linkedin && (
+                <a
+                  href={contactInfo.socialLinks.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-primary text-primary-foreground p-2 rounded-full hover:scale-110 transition-transform"
+                  aria-label="LinkedIn"
+                >
+                  <Linkedin className="h-5 w-5" />
+                </a>
+              )}
             </div>
           </div>
 
@@ -85,9 +134,29 @@ export function Footer() {
           <div>
             <h3 className="font-semibold mb-4">Coordonnées</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>123 Bike Lane, Cycle City</li>
-              <li>Téléphone: (555) 123-4567</li>
-              <li>Email: hello@rust-in.com</li>
+              <li>{fullAddress}</li>
+              {contactInfo?.phone && (
+                <li>
+                  Téléphone:{' '}
+                  <a
+                    href={`tel:${contactInfo.phone.replace(/\s/g, '')}`}
+                    className="hover:text-primary transition-colors"
+                  >
+                    {contactInfo.phone}
+                  </a>
+                </li>
+              )}
+              {contactInfo?.email && (
+                <li>
+                  Email:{' '}
+                  <a
+                    href={`mailto:${contactInfo.email}`}
+                    className="hover:text-primary transition-colors"
+                  >
+                    {contactInfo.email}
+                  </a>
+                </li>
+              )}
             </ul>
           </div>
         </div>
