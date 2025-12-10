@@ -9,10 +9,10 @@ type ContactInfo = {
   email: string
   phone: string
   socialLinks?: {
-    facebook?: string
-    instagram?: string
-    twitter?: string
-    linkedin?: string
+    facebook?: string | null
+    instagram?: string | null
+    twitter?: string | null
+    linkedin?: string | null
   }
 } | null
 

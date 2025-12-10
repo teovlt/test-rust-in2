@@ -20,7 +20,22 @@ export async function FooterWrapper() {
         country: contactInfoData.docs[0].country || '',
         email: contactInfoData.docs[0].email || '',
         phone: contactInfoData.docs[0].phone || '',
-        socialLinks: contactInfoData.docs[0].socialLinks || {},
+        socialLinks: contactInfoData.docs[0].socialLinks
+          ? {
+              ...(contactInfoData.docs[0].socialLinks.facebook && {
+                facebook: contactInfoData.docs[0].socialLinks.facebook,
+              }),
+              ...(contactInfoData.docs[0].socialLinks.instagram && {
+                instagram: contactInfoData.docs[0].socialLinks.instagram,
+              }),
+              ...(contactInfoData.docs[0].socialLinks.twitter && {
+                twitter: contactInfoData.docs[0].socialLinks.twitter,
+              }),
+              ...(contactInfoData.docs[0].socialLinks.linkedin && {
+                linkedin: contactInfoData.docs[0].socialLinks.linkedin,
+              }),
+            }
+          : {},
       }
     : null
 
