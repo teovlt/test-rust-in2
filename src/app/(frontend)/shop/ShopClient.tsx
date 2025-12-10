@@ -82,7 +82,12 @@ export function ShopClient({ bikes, skis, scooters }: ShopClientProps) {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
 
   const categories = [
-    { id: 'all' as const, label: 'Tout', icon: Grid3X3, count: bikes.length + skis.length + scooters.length },
+    {
+      id: 'all' as const,
+      label: 'Tout',
+      icon: Grid3X3,
+      count: bikes.length + skis.length + scooters.length,
+    },
     { id: 'bikes' as const, label: 'Vélos', icon: Bike, count: bikes.length },
     { id: 'skis' as const, label: 'Skis', icon: Mountain, count: skis.length },
     { id: 'scooters' as const, label: 'Trottinettes', icon: Zap, count: scooters.length },
@@ -102,38 +107,41 @@ export function ShopClient({ bikes, skis, scooters }: ShopClientProps) {
   }
 
   const { bikes: filteredBikes, skis: filteredSkis, scooters: filteredScooters } = filteredItems()
-  const hasItems = filteredBikes.length > 0 || filteredSkis.length > 0 || filteredScooters.length > 0
+  const hasItems =
+    filteredBikes.length > 0 || filteredSkis.length > 0 || filteredScooters.length > 0
 
   return (
-    <section className="py-12">
+    <section className="py-6 md:py-12">
       <div className="container mx-auto px-4">
         {/* Filters bar */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
-          {/* Category tabs */}
-          <div className="flex flex-wrap gap-2">
+        <div className="flex flex-col gap-3 md:flex-row md:items-center justify-between md:gap-4 mb-6 md:mb-8">
+          {/* Category tabs - horizontal scroll on mobile */}
+          <div className="flex gap-2 overflow-x-auto pb-2 md:pb-0 scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0 md:flex-wrap">
             {categories.map((cat) => (
               <button
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.id)}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-medium transition-all ${
+                className={`flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-2 md:py-2.5 rounded-lg md:rounded-xl font-medium transition-all whitespace-nowrap text-sm md:text-base flex-shrink-0 ${
                   activeCategory === cat.id
                     ? 'bg-primary text-primary-foreground shadow-lg'
                     : 'bg-card hover:bg-accent border border-border'
                 }`}
               >
-                <cat.icon className="w-4 h-4" />
+                <cat.icon className="w-3.5 h-3.5 md:w-4 md:h-4" />
                 <span>{cat.label}</span>
-                <span className={`text-xs px-2 py-0.5 rounded-full ${
-                  activeCategory === cat.id ? 'bg-white/20' : 'bg-muted'
-                }`}>
+                <span
+                  className={`text-[10px] md:text-xs px-1.5 md:px-2 py-0.5 rounded-full ${
+                    activeCategory === cat.id ? 'bg-white/20' : 'bg-muted'
+                  }`}
+                >
                   {cat.count}
                 </span>
               </button>
             ))}
           </div>
 
-          {/* View mode toggle */}
-          <div className="flex items-center gap-2 bg-card border rounded-xl p-1">
+          {/* View mode toggle - hidden on mobile (always grid) */}
+          <div className="hidden md:flex items-center gap-2 bg-card border rounded-xl p-1">
             <button
               onClick={() => setViewMode('grid')}
               className={`p-2 rounded-lg transition-colors ${
@@ -164,7 +172,8 @@ export function ShopClient({ bikes, skis, scooters }: ShopClientProps) {
             </div>
             <h2 className="text-2xl font-bold mb-2">Aucun article disponible</h2>
             <p className="text-muted-foreground max-w-md mx-auto">
-              Nous n&apos;avons pas d&apos;articles dans cette catégorie pour le moment. Revenez bientôt !
+              Nous n&apos;avons pas d&apos;articles dans cette catégorie pour le moment. Revenez
+              bientôt !
             </p>
           </div>
         ) : (
@@ -173,22 +182,35 @@ export function ShopClient({ bikes, skis, scooters }: ShopClientProps) {
             {filteredBikes.length > 0 && (
               <div>
                 {activeCategory === 'all' && (
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center">
-                      <Bike className="w-5 h-5 text-primary" />
+                  <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6">
+                    <div className="w-8 h-8 md:w-10 md:h-10 bg-primary/10 rounded-lg md:rounded-xl flex items-center justify-center">
+                      <Bike className="w-4 h-4 md:w-5 md:h-5 text-primary" />
                     </div>
-                    <h2 className="text-2xl font-bold">Vélos</h2>
-                    <span className="text-muted-foreground">({filteredBikes.length})</span>
+                    <h2 className="text-lg md:text-2xl font-bold">Vélos</h2>
+                    <span className="text-sm md:text-base text-muted-foreground">
+                      ({filteredBikes.length})
+                    </span>
                   </div>
                 )}
-                <div className={viewMode === 'grid' 
-                  ? 'grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6'
-                  : 'space-y-4'
-                }>
+                <div
+                  className={
+                    viewMode === 'grid'
+                      ? 'grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-6'
+                      : 'hidden md:block space-y-4'
+                  }
+                >
                   {filteredBikes.map((bike: any) => (
                     <BikeCard key={bike.id} bike={bike} viewMode={viewMode} />
                   ))}
                 </div>
+                {/* Mobile grid fallback when list view is selected */}
+                {viewMode === 'list' && (
+                  <div className="grid grid-cols-2 gap-3 md:hidden">
+                    {filteredBikes.map((bike: any) => (
+                      <BikeCard key={bike.id} bike={bike} viewMode="grid" />
+                    ))}
+                  </div>
+                )}
               </div>
             )}
 
@@ -196,22 +218,34 @@ export function ShopClient({ bikes, skis, scooters }: ShopClientProps) {
             {filteredSkis.length > 0 && (
               <div>
                 {activeCategory === 'all' && (
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center">
-                      <Mountain className="w-5 h-5 text-primary" />
+                  <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6">
+                    <div className="w-8 h-8 md:w-10 md:h-10 bg-primary/10 rounded-lg md:rounded-xl flex items-center justify-center">
+                      <Mountain className="w-4 h-4 md:w-5 md:h-5 text-primary" />
                     </div>
-                    <h2 className="text-2xl font-bold">Skis</h2>
-                    <span className="text-muted-foreground">({filteredSkis.length})</span>
+                    <h2 className="text-lg md:text-2xl font-bold">Skis</h2>
+                    <span className="text-sm md:text-base text-muted-foreground">
+                      ({filteredSkis.length})
+                    </span>
                   </div>
                 )}
-                <div className={viewMode === 'grid' 
-                  ? 'grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6'
-                  : 'space-y-4'
-                }>
+                <div
+                  className={
+                    viewMode === 'grid'
+                      ? 'grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-6'
+                      : 'hidden md:block space-y-4'
+                  }
+                >
                   {filteredSkis.map((ski: any) => (
                     <SkiCard key={ski.id} ski={ski} viewMode={viewMode} />
                   ))}
                 </div>
+                {viewMode === 'list' && (
+                  <div className="grid grid-cols-2 gap-3 md:hidden">
+                    {filteredSkis.map((ski: any) => (
+                      <SkiCard key={ski.id} ski={ski} viewMode="grid" />
+                    ))}
+                  </div>
+                )}
               </div>
             )}
 
@@ -219,22 +253,34 @@ export function ShopClient({ bikes, skis, scooters }: ShopClientProps) {
             {filteredScooters.length > 0 && (
               <div>
                 {activeCategory === 'all' && (
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center">
-                      <Zap className="w-5 h-5 text-primary" />
+                  <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6">
+                    <div className="w-8 h-8 md:w-10 md:h-10 bg-primary/10 rounded-lg md:rounded-xl flex items-center justify-center">
+                      <Zap className="w-4 h-4 md:w-5 md:h-5 text-primary" />
                     </div>
-                    <h2 className="text-2xl font-bold">Trottinettes</h2>
-                    <span className="text-muted-foreground">({filteredScooters.length})</span>
+                    <h2 className="text-lg md:text-2xl font-bold">Trottinettes</h2>
+                    <span className="text-sm md:text-base text-muted-foreground">
+                      ({filteredScooters.length})
+                    </span>
                   </div>
                 )}
-                <div className={viewMode === 'grid' 
-                  ? 'grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6'
-                  : 'space-y-4'
-                }>
+                <div
+                  className={
+                    viewMode === 'grid'
+                      ? 'grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-6'
+                      : 'hidden md:block space-y-4'
+                  }
+                >
                   {filteredScooters.map((scooter: any) => (
                     <ScooterCard key={scooter.id} scooter={scooter} viewMode={viewMode} />
                   ))}
                 </div>
+                {viewMode === 'list' && (
+                  <div className="grid grid-cols-2 gap-3 md:hidden">
+                    {filteredScooters.map((scooter: any) => (
+                      <ScooterCard key={scooter.id} scooter={scooter} viewMode="grid" />
+                    ))}
+                  </div>
+                )}
               </div>
             )}
           </div>
@@ -275,11 +321,13 @@ function BikeCard({ bike, viewMode }: { bike: any; viewMode: 'grid' | 'list' }) 
               <p className="text-sm text-muted-foreground line-clamp-2">{bike.description}</p>
             )}
           </div>
-          <div className="flex items-center justify-between pt-4">
-            <span className="text-2xl font-bold text-primary">{bike.price?.toLocaleString('fr-FR')} €</span>
+          <div className="flex items-center justify-between pt-4 gap-2">
+            <span className="text-xl md:text-2xl font-bold text-primary truncate min-w-0">
+              {bike.price?.toLocaleString('fr-FR')} €
+            </span>
             <Link
               href="/contact"
-              className="bg-primary text-primary-foreground px-6 py-2 rounded-xl font-semibold hover:bg-primary/90 transition-all"
+              className="bg-primary text-primary-foreground px-4 md:px-6 py-2 rounded-xl text-sm md:text-base font-semibold hover:bg-primary/90 transition-all whitespace-nowrap flex-shrink-0"
             >
               Intéressé ?
             </Link>
@@ -290,7 +338,7 @@ function BikeCard({ bike, viewMode }: { bike: any; viewMode: 'grid' | 'list' }) 
   }
 
   return (
-    <div className="bg-card rounded-2xl border border-border overflow-hidden hover:border-primary/50 transition-all duration-300 hover:shadow-xl group">
+    <div className="bg-card rounded-xl md:rounded-2xl border border-border overflow-hidden hover:border-primary/50 transition-all duration-300 hover:shadow-xl group">
       <div className="aspect-square relative bg-gradient-to-br from-primary/5 to-accent/10 overflow-hidden">
         {photoUrl ? (
           <Image
@@ -301,26 +349,28 @@ function BikeCard({ bike, viewMode }: { bike: any; viewMode: 'grid' | 'list' }) 
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center">
-            <Bike className="w-20 h-20 text-muted-foreground/20" />
+            <Bike className="w-12 h-12 md:w-20 md:h-20 text-muted-foreground/20" />
           </div>
         )}
-        <div className="absolute top-3 left-3 bg-primary text-primary-foreground px-3 py-1 rounded-full text-xs font-bold">
+        <div className="absolute top-2 left-2 md:top-3 md:left-3 bg-primary text-primary-foreground px-2 py-0.5 md:px-3 md:py-1 rounded-full text-[10px] md:text-xs font-bold">
           VÉLO
         </div>
-        <div className="absolute top-3 right-3 bg-background/95 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-semibold">
+        <div className="absolute top-2 right-2 md:top-3 md:right-3 bg-background/95 backdrop-blur-sm px-2 py-0.5 md:px-3 md:py-1 rounded-full text-xs md:text-sm font-semibold">
           {sizeLabels[bike.humanSize] || bike.humanSize}
         </div>
       </div>
-      <div className="p-5">
-        <h3 className="text-lg font-bold mb-2 line-clamp-2">{bike.name}</h3>
-        <p className="text-sm text-muted-foreground mb-4">
-          {bike.kilometers?.toLocaleString('fr-FR')} km parcourus
+      <div className="p-3 md:p-5">
+        <h3 className="text-sm md:text-lg font-bold mb-1 md:mb-2 line-clamp-2">{bike.name}</h3>
+        <p className="text-xs md:text-sm text-muted-foreground mb-2 md:mb-4">
+          {bike.kilometers?.toLocaleString('fr-FR')} km
         </p>
-        <div className="flex items-center justify-between pt-3 border-t border-border">
-          <span className="text-2xl font-bold text-primary">{bike.price?.toLocaleString('fr-FR')} €</span>
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 pt-2 md:pt-3 border-t border-border">
+          <span className="text-base md:text-2xl font-bold text-primary truncate min-w-0">
+            {bike.price?.toLocaleString('fr-FR')} €
+          </span>
           <Link
             href="/contact"
-            className="bg-primary text-primary-foreground px-4 py-2 rounded-xl text-sm font-semibold hover:bg-primary/90 transition-all"
+            className="bg-primary text-primary-foreground px-3 py-1.5 md:px-4 md:py-2 rounded-lg md:rounded-xl text-xs md:text-sm font-semibold hover:bg-primary/90 transition-all text-center whitespace-nowrap flex-shrink-0"
           >
             Intéressé ?
           </Link>
@@ -368,11 +418,13 @@ function SkiCard({ ski, viewMode }: { ski: any; viewMode: 'grid' | 'list' }) {
               <p className="text-sm text-muted-foreground line-clamp-2">{ski.description}</p>
             )}
           </div>
-          <div className="flex items-center justify-between pt-4">
-            <span className="text-2xl font-bold text-primary">{ski.price?.toLocaleString('fr-FR')} €</span>
+          <div className="flex items-center justify-between pt-4 gap-2">
+            <span className="text-xl md:text-2xl font-bold text-primary truncate min-w-0">
+              {ski.price?.toLocaleString('fr-FR')} €
+            </span>
             <Link
               href="/contact"
-              className="bg-primary text-primary-foreground px-6 py-2 rounded-xl font-semibold hover:bg-primary/90 transition-all"
+              className="bg-primary text-primary-foreground px-4 md:px-6 py-2 rounded-xl text-sm md:text-base font-semibold hover:bg-primary/90 transition-all whitespace-nowrap flex-shrink-0"
             >
               Intéressé ?
             </Link>
@@ -412,14 +464,20 @@ function SkiCard({ ski, viewMode }: { ski: any; viewMode: 'grid' | 'list' }) {
       <div className="p-5">
         <h3 className="text-lg font-bold mb-2 line-clamp-2">{ski.name}</h3>
         <div className="flex gap-2 mb-4">
-          <span className="text-xs bg-muted px-2 py-1 rounded-full">{skiTypeLabels[ski.skiType]}</span>
-          <span className="text-xs bg-muted px-2 py-1 rounded-full">{skiLevelLabels[ski.level]}</span>
+          <span className="text-xs bg-muted px-2 py-1 rounded-full">
+            {skiTypeLabels[ski.skiType]}
+          </span>
+          <span className="text-xs bg-muted px-2 py-1 rounded-full">
+            {skiLevelLabels[ski.level]}
+          </span>
         </div>
-        <div className="flex items-center justify-between pt-3 border-t border-border">
-          <span className="text-2xl font-bold text-primary">{ski.price?.toLocaleString('fr-FR')} €</span>
+        <div className="flex items-center justify-between pt-3 border-t border-border gap-2">
+          <span className="text-base md:text-2xl font-bold text-primary truncate min-w-0">
+            {ski.price?.toLocaleString('fr-FR')} €
+          </span>
           <Link
             href="/contact"
-            className="bg-primary text-primary-foreground px-4 py-2 rounded-xl text-sm font-semibold hover:bg-primary/90 transition-all"
+            className="bg-primary text-primary-foreground px-3 md:px-4 py-1.5 md:py-2 rounded-xl text-xs md:text-sm font-semibold hover:bg-primary/90 transition-all whitespace-nowrap flex-shrink-0"
           >
             Intéressé ?
           </Link>
@@ -466,11 +524,13 @@ function ScooterCard({ scooter, viewMode }: { scooter: any; viewMode: 'grid' | '
               <p className="text-sm text-muted-foreground line-clamp-2">{scooter.description}</p>
             )}
           </div>
-          <div className="flex items-center justify-between pt-4">
-            <span className="text-2xl font-bold text-primary">{scooter.price?.toLocaleString('fr-FR')} €</span>
+          <div className="flex items-center justify-between pt-4 gap-2">
+            <span className="text-xl md:text-2xl font-bold text-primary truncate min-w-0">
+              {scooter.price?.toLocaleString('fr-FR')} €
+            </span>
             <Link
               href="/contact"
-              className="bg-primary text-primary-foreground px-6 py-2 rounded-xl font-semibold hover:bg-primary/90 transition-all"
+              className="bg-primary text-primary-foreground px-4 md:px-6 py-2 rounded-xl text-sm md:text-base font-semibold hover:bg-primary/90 transition-all whitespace-nowrap flex-shrink-0"
             >
               Intéressé ?
             </Link>
@@ -507,7 +567,9 @@ function ScooterCard({ scooter, viewMode }: { scooter: any; viewMode: 'grid' | '
       <div className="p-5">
         <h3 className="text-lg font-bold mb-2 line-clamp-2">{scooter.name}</h3>
         <div className="flex flex-wrap gap-2 mb-4">
-          <span className="text-xs bg-muted px-2 py-1 rounded-full">{scooterTypeLabels[scooter.scooterType]}</span>
+          <span className="text-xs bg-muted px-2 py-1 rounded-full">
+            {scooterTypeLabels[scooter.scooterType]}
+          </span>
           {scooter.isElectric && scooter.maxSpeed && (
             <span className="text-xs bg-muted px-2 py-1 rounded-full">{scooter.maxSpeed} km/h</span>
           )}
@@ -515,11 +577,13 @@ function ScooterCard({ scooter, viewMode }: { scooter: any; viewMode: 'grid' | '
             <span className="text-xs bg-muted px-2 py-1 rounded-full">{scooter.range} km</span>
           )}
         </div>
-        <div className="flex items-center justify-between pt-3 border-t border-border">
-          <span className="text-2xl font-bold text-primary">{scooter.price?.toLocaleString('fr-FR')} €</span>
+        <div className="flex items-center justify-between pt-3 border-t border-border gap-2">
+          <span className="text-base md:text-2xl font-bold text-primary truncate min-w-0">
+            {scooter.price?.toLocaleString('fr-FR')} €
+          </span>
           <Link
             href="/contact"
-            className="bg-primary text-primary-foreground px-4 py-2 rounded-xl text-sm font-semibold hover:bg-primary/90 transition-all"
+            className="bg-primary text-primary-foreground px-3 md:px-4 py-1.5 md:py-2 rounded-xl text-xs md:text-sm font-semibold hover:bg-primary/90 transition-all whitespace-nowrap flex-shrink-0"
           >
             Intéressé ?
           </Link>
@@ -528,4 +592,3 @@ function ScooterCard({ scooter, viewMode }: { scooter: any; viewMode: 'grid' | '
     </div>
   )
 }
-

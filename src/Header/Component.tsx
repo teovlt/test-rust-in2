@@ -136,7 +136,7 @@ export function Header() {
   return (
     <nav
       id="navbar"
-      className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm shadow-lg border-b border-primary/20"
+      className="sticky top-0 z-50 bg-white dark:bg-card shadow-md border-b border-gray-100 dark:border-border"
     >
       <div className="container mx-auto px-4 relative">
         <div className="flex items-center h-20">
@@ -219,13 +219,15 @@ export function Header() {
 
         {/* Mobile Menu */}
         {isOpen && (
-          <div className="md:hidden py-4 space-y-4 border-t border-border">
+          <div className="md:hidden py-6 space-y-2 border-t border-gray-100 dark:border-border bg-white dark:bg-card">
             {links.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`block text-lg font-medium transition-colors hover:text-primary ${
-                  pathname === link.href ? 'text-primary font-bold' : 'text-foreground'
+                className={`block text-lg font-medium transition-all py-3 px-4 rounded-xl ${
+                  pathname === link.href 
+                    ? 'text-primary font-bold bg-primary/10' 
+                    : 'text-foreground hover:text-primary hover:bg-gray-50 dark:hover:bg-muted'
                 }`}
                 onClick={() => setIsOpen(false)}
               >
