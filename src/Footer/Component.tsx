@@ -38,50 +38,86 @@ export function Footer({ contactInfo }: FooterProps) {
               avec soin et expertise.
             </p>
             <div className="flex gap-4 mt-6">
-              {contactInfo?.socialLinks?.instagram && (
-                <a
-                  href={contactInfo.socialLinks.instagram}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-primary text-primary-foreground p-2 rounded-full hover:scale-110 transition-transform"
-                  aria-label="Instagram"
-                >
-                  <Instagram className="h-5 w-5" />
-                </a>
-              )}
-              {contactInfo?.socialLinks?.facebook && (
-                <a
-                  href={contactInfo.socialLinks.facebook}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-primary text-primary-foreground p-2 rounded-full hover:scale-110 transition-transform"
-                  aria-label="Facebook"
-                >
-                  <Facebook className="h-5 w-5" />
-                </a>
-              )}
-              {contactInfo?.socialLinks?.twitter && (
-                <a
-                  href={contactInfo.socialLinks.twitter}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-primary text-primary-foreground p-2 rounded-full hover:scale-110 transition-transform"
-                  aria-label="Twitter/X"
-                >
-                  <Twitter className="h-5 w-5" />
-                </a>
-              )}
-              {contactInfo?.socialLinks?.linkedin && (
-                <a
-                  href={contactInfo.socialLinks.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-primary text-primary-foreground p-2 rounded-full hover:scale-110 transition-transform"
-                  aria-label="LinkedIn"
-                >
-                  <Linkedin className="h-5 w-5" />
-                </a>
-              )}
+              {contactInfo?.socialLinks?.instagram && contactInfo.socialLinks.instagram.trim() && (() => {
+                const url = contactInfo.socialLinks.instagram.trim()
+                const validUrl = url.startsWith('http://') || url.startsWith('https://') ? url : `https://${url}`
+                try {
+                  new URL(validUrl)
+                  return (
+                    <a
+                      href={validUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-primary text-primary-foreground p-2 rounded-full hover:scale-110 transition-transform"
+                      aria-label="Instagram"
+                    >
+                      <Instagram className="h-5 w-5" />
+                    </a>
+                  )
+                } catch {
+                  return null
+                }
+              })()}
+              {contactInfo?.socialLinks?.facebook && contactInfo.socialLinks.facebook.trim() && (() => {
+                const url = contactInfo.socialLinks.facebook.trim()
+                const validUrl = url.startsWith('http://') || url.startsWith('https://') ? url : `https://${url}`
+                try {
+                  new URL(validUrl)
+                  return (
+                    <a
+                      href={validUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-primary text-primary-foreground p-2 rounded-full hover:scale-110 transition-transform"
+                      aria-label="Facebook"
+                    >
+                      <Facebook className="h-5 w-5" />
+                    </a>
+                  )
+                } catch {
+                  return null
+                }
+              })()}
+              {contactInfo?.socialLinks?.twitter && contactInfo.socialLinks.twitter.trim() && (() => {
+                const url = contactInfo.socialLinks.twitter.trim()
+                const validUrl = url.startsWith('http://') || url.startsWith('https://') ? url : `https://${url}`
+                try {
+                  new URL(validUrl)
+                  return (
+                    <a
+                      href={validUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-primary text-primary-foreground p-2 rounded-full hover:scale-110 transition-transform"
+                      aria-label="Twitter/X"
+                    >
+                      <Twitter className="h-5 w-5" />
+                    </a>
+                  )
+                } catch {
+                  return null
+                }
+              })()}
+              {contactInfo?.socialLinks?.linkedin && contactInfo.socialLinks.linkedin.trim() && (() => {
+                const url = contactInfo.socialLinks.linkedin.trim()
+                const validUrl = url.startsWith('http://') || url.startsWith('https://') ? url : `https://${url}`
+                try {
+                  new URL(validUrl)
+                  return (
+                    <a
+                      href={validUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-primary text-primary-foreground p-2 rounded-full hover:scale-110 transition-transform"
+                      aria-label="LinkedIn"
+                    >
+                      <Linkedin className="h-5 w-5" />
+                    </a>
+                  )
+                } catch {
+                  return null
+                }
+              })()}
             </div>
           </div>
 
