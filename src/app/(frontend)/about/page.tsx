@@ -82,7 +82,7 @@ export default async function AboutPage() {
             <div className="order-1 md:order-2">
               <div className="rounded-3xl overflow-hidden shadow-2xl border-4 border-primary/20 organic-card transform md:rotate-2">
                 <img
-                  src="/friendly-bike-mechanic-man-standing-with-multiple-.jpg"
+                  src="/bike-about.jpg"
                   alt="Notre mécanicien avec des vélos"
                   className="w-full h-[500px] object-cover"
                 />
