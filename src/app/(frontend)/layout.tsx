@@ -1,6 +1,5 @@
 import React from 'react'
-import { GeistMono } from 'geist/font/mono'
-import { GeistSans } from 'geist/font/sans'
+import { Inter } from 'next/font/google'
 import { InitTheme } from '@/providers/Theme/InitTheme'
 import type { Metadata, Viewport } from 'next'
 import { getServerSideURL } from '@/utilities/getURL'
@@ -12,6 +11,12 @@ import { Providers } from '@/providers'
 import { LoadingProvider } from '@/providers/LoadingProvider'
 
 import '../globals.css'
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+})
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -29,7 +34,7 @@ export const metadata: Metadata = {
 export default function FrontendLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="fr" suppressHydrationWarning>
-      <body className={`${GeistSans.variable} ${GeistMono.variable}`} suppressHydrationWarning>
+      <body className={inter.variable} suppressHydrationWarning>
         <div className="bg-background text-foreground min-h-screen flex flex-col">
           <Providers>
             <LoadingProvider>

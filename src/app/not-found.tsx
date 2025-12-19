@@ -1,15 +1,20 @@
 import Link from 'next/link'
 import React from 'react'
 import { Home, Bike, Wrench, MapPin, ArrowLeft } from 'lucide-react'
-import { GeistMono } from 'geist/font/mono'
-import { GeistSans } from 'geist/font/sans'
+import { Inter } from 'next/font/google'
 
 import './globals.css'
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+})
 
 export default function NotFound() {
   return (
     <html lang="fr">
-      <body className={`${GeistSans.variable} ${GeistMono.variable}`}>
+      <body className={inter.variable}>
         <div className="bg-gradient-to-br from-orange-50 via-white to-orange-100 min-h-screen flex items-center justify-center">
           <div className="container px-4 py-16">
             <div className="max-w-2xl mx-auto text-center">
