@@ -119,12 +119,12 @@ export default async function AboutPage() {
               </CardContent>
             </Card>
 
-            <Card className="organic-card shadow-lg border-l-8 border-accent">
+            <Card className="organic-card shadow-lg border-l-8 border-primary">
               <CardContent className="p-8">
                 <div className="flex items-start gap-6">
                   <div className="flex-shrink-0">
-                    <div className="w-16 h-16 rounded-full bg-accent/20 flex items-center justify-center">
-                      <Trophy className="h-8 w-8 text-accent" />
+                    <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center">
+                      <Trophy className="h-8 w-8 text-primary" />
                     </div>
                   </div>
                   <div>
@@ -140,12 +140,12 @@ export default async function AboutPage() {
               </CardContent>
             </Card>
 
-            <Card className="organic-card shadow-lg border-l-8 border-secondary">
+            <Card className="organic-card shadow-lg border-l-8 border-primary">
               <CardContent className="p-8">
                 <div className="flex items-start gap-6">
                   <div className="flex-shrink-0">
-                    <div className="w-16 h-16 rounded-full bg-secondary/20 flex items-center justify-center">
-                      <MapPin className="h-8 w-8 text-secondary" />
+                    <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center">
+                      <MapPin className="h-8 w-8 text-primary" />
                     </div>
                   </div>
                   <div>
@@ -209,9 +209,9 @@ export default async function AboutPage() {
               </CardContent>
             </Card>
 
-            <Card className="organic-card shadow-xl border-4 border-accent/20 hover:shadow-2xl transition-shadow">
+            <Card className="organic-card shadow-xl border-4 border-primary/20 hover:shadow-2xl transition-shadow">
               <CardHeader>
-                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-accent to-secondary flex items-center justify-center mb-4 mx-auto shadow-lg">
+                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center mb-4 mx-auto shadow-lg">
                   <Wrench className="h-10 w-10 text-white" />
                 </div>
                 <CardTitle className="text-2xl handwritten-title text-center">Expertise</CardTitle>

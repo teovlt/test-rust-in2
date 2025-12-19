@@ -1,7 +1,7 @@
 {
   "name": "test-rust-in2",
   "version": "1.0.0",
-  "description": "Website template for Payload",
+  "description": "Rust-in website",
   "license": "MIT",
   "type": "module",
   "scripts": {
