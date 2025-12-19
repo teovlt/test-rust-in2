@@ -292,13 +292,13 @@ export function HomePageClient({ reviews, faq, openingHours, contactInfo }: Home
         </div>
 
         {/* Scroll indicator */}
-        <div className="absolute bottom-6 md:bottom-8 left-0 right-0 flex items-center justify-center animate-bounce z-20">
+        <div className="absolute bottom-6 md:bottom-8 left-0 right-0 flex items-center justify-center z-20">
           {/* Mobile: Arrow down icon */}
-          <div className="md:hidden">
-            <ChevronDown className="w-10 h-10 text-white/90" />
+          <div className="md:hidden animate-bounce">
+            <ChevronDown className="w-8 h-8 text-white/90 drop-shadow-lg" strokeWidth={2.5} />
           </div>
           {/* Desktop: Mouse icon */}
-          <div className="hidden md:block">
+          <div className="hidden md:block animate-bounce">
             <div className="w-8 h-12 border-2 border-white/50 rounded-full flex justify-center pt-2">
               <div className="w-1.5 h-3 bg-white/70 rounded-full animate-pulse" />
             </div>
