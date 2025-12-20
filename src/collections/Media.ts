@@ -20,7 +20,6 @@ export const Media: CollectionConfig = {
     singular: 'Media',
     plural: 'Media',
   },
-  folders: true,
   access: {
     create: authenticated,
     delete: authenticated,
