@@ -1,20 +1,21 @@
 import Link from 'next/link'
 import React from 'react'
 import { Home, Bike, Wrench, MapPin, ArrowLeft } from 'lucide-react'
-import { Inter } from 'next/font/google'
+import { Nunito } from 'next/font/google'
 
 import './globals.css'
 
-const inter = Inter({
+const nunito = Nunito({
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--font-nunito',
   display: 'swap',
+  weight: ['400', '500', '600', '700', '800', '900'],
 })
 
 export default function NotFound() {
   return (
     <html lang="fr">
-      <body className={inter.variable}>
+      <body className={`${nunito.className} ${nunito.variable}`}>
         <div className="bg-gradient-to-br from-orange-50 via-white to-orange-100 min-h-screen flex items-center justify-center">
           <div className="container px-4 py-16">
             <div className="max-w-2xl mx-auto text-center">

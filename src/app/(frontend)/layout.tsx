@@ -1,5 +1,5 @@
 import React from 'react'
-import { Inter } from 'next/font/google'
+import { Nunito } from 'next/font/google'
 import { InitTheme } from '@/providers/Theme/InitTheme'
 import type { Metadata, Viewport } from 'next'
 import { getServerSideURL } from '@/utilities/getURL'
@@ -12,10 +12,11 @@ import { LoadingProvider } from '@/providers/LoadingProvider'
 
 import '../globals.css'
 
-const inter = Inter({
+const nunito = Nunito({
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--font-nunito',
   display: 'swap',
+  weight: ['400', '500', '600', '700', '800', '900'],
 })
 
 export const viewport: Viewport = {
@@ -34,7 +35,7 @@ export const metadata: Metadata = {
 export default function FrontendLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="fr" suppressHydrationWarning>
-      <body className={inter.variable} suppressHydrationWarning>
+      <body className={`${nunito.className} ${nunito.variable}`} suppressHydrationWarning>
         <div className="bg-background text-foreground min-h-screen flex flex-col">
           <Providers>
             <LoadingProvider>

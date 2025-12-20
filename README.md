@@ -79,6 +79,7 @@ pnpm dev
 ```
 
 The application will be available at:
+
 - **Frontend**: http://localhost:3000
 - **Admin Panel**: http://localhost:3000/admin
 
@@ -227,16 +228,19 @@ You can deploy this application to any Node.js hosting platform:
 ### Common Issues
 
 **Database Connection Error**
+
 - Verify your `DATABASE_URI` is correct
 - Ensure MongoDB is running (if local)
 - Check network connectivity (if using cloud database)
 
 **Build Errors**
+
 - Clear `.next` folder: `rm -rf .next`
 - Reinstall dependencies: `rm -rf node_modules && pnpm install`
 - Check Node.js version matches requirements
 
 **Media Upload Issues**
+
 - Verify `BLOB_READ_WRITE_TOKEN` is set correctly
 - Check Vercel Blob Storage quota
 
@@ -254,6 +258,7 @@ MIT
 ## Support
 
 For issues or questions:
+
 - Check the [Payload CMS documentation](https://payloadcms.com/docs)
 - Check the [Next.js documentation](https://nextjs.org/docs)
 - Open an issue in the repository
