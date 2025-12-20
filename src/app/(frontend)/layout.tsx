@@ -26,8 +26,9 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  title: "Rust-in - Vélos d'occasion",
-  description: "Votre spécialiste vélos d'occasion et réparation à Toulouse",
+  title: "Rust-in - Vélos, Skis & Trottinettes d'occasion",
+  description:
+    "Votre spécialiste vélos, skis et trottinettes d'occasion. Vente, réparation et entretien à Toulouse.",
   metadataBase: new URL(getServerSideURL()),
   openGraph: mergeOpenGraph(),
   icons: {

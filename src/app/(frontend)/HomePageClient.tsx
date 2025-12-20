@@ -8,20 +8,19 @@ import {
   Mail,
   Wrench,
   Bike,
-  Award,
   ChevronLeft,
   ChevronRight,
   ChevronDownIcon,
   ChevronDown,
   MapPin,
   Star,
-  Users,
   CheckCircle2,
   ArrowRight,
   Sparkles,
-  Heart,
   Shield,
   Zap,
+  CableCar,
+  Scooter,
 } from 'lucide-react'
 import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
@@ -178,11 +177,11 @@ export function HomePageClient({ reviews, faq, openingHours, contactInfo }: Home
               </div>
 
               <h1 className="text-5xl sm:text-6xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 md:mb-6 text-balance handwritten-title leading-tight">
-                Remettez votre vélo sur la route !
+                Votre spécialiste mobilité !
               </h1>
 
               <p className="text-xl sm:text-2xl md:text-xl lg:text-2xl mb-6 md:mb-8 text-primary-foreground/90 leading-relaxed max-w-xl">
-                Réparations rapides, fiables et abordables. Votre vélo entre de bonnes mains.
+                Vente, réparation et entretien. Vos équipements entre de bonnes mains.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3 md:gap-4 mb-8 md:mb-12">
@@ -215,7 +214,7 @@ export function HomePageClient({ reviews, faq, openingHours, contactInfo }: Home
                 <div className="text-center">
                   <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">500+</div>
                   <div className="text-[10px] sm:text-xs md:text-sm text-primary-foreground/70">
-                    Vélos/mois
+                    Équipements/mois
                   </div>
                 </div>
                 <div className="text-center border-x border-white/20 px-2 sm:px-4">
@@ -345,69 +344,90 @@ export function HomePageClient({ reviews, faq, openingHours, contactInfo }: Home
           </div>
 
           {/* Mobile: Single column layout, Desktop: Grid */}
-          <div className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-            <Card className="group hover:shadow-xl transition-all hover:-translate-y-1 md:hover:-translate-y-2 border-2 border-transparent hover:border-primary/30">
-              <CardHeader className="p-6 md:p-6">
-                <div className="flex items-center gap-4 md:flex-col md:text-center">
-                  <div className="w-16 h-16 md:w-16 md:h-16 bg-primary/10 rounded-xl md:rounded-2xl flex items-center justify-center flex-shrink-0 md:mx-auto mb-0 md:mb-4 group-hover:bg-primary group-hover:text-white transition-colors">
-                    <Wrench className="w-8 h-8 md:w-8 md:h-8 text-primary group-hover:text-white transition-colors" />
-                  </div>
-                  <div className="flex-1 md:flex-none">
-                    <CardTitle className="text-lg md:text-xl mb-2 md:mb-0">Expertise</CardTitle>
-                    <CardDescription className="text-sm md:text-base block md:block">
-                      Mécaniciens certifiés avec 9+ ans d'expérience
-                    </CardDescription>
-                  </div>
+          <div className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            <Card className="group hover:shadow-xl transition-all hover:-translate-y-2 border-2 border-transparent hover:border-primary/30">
+              <CardHeader className="pb-2">
+                <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-4 group-hover:bg-primary transition-colors">
+                  <Bike className="w-7 h-7 text-primary group-hover:text-white transition-colors" />
                 </div>
+                <CardTitle className="text-xl">Vélos d'occasion</CardTitle>
               </CardHeader>
+              <CardContent>
+                <CardDescription className="text-base leading-relaxed">
+                  VTT, vélos de ville, électriques... Tous nos vélos sont révisés et garantis 3
+                  mois.
+                </CardDescription>
+                <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-primary" />
+                    Révision complète
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-primary" />
+                    Garantie 3 mois
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-primary" />
+                    Prix accessibles
+                  </li>
+                </ul>
+              </CardContent>
             </Card>
 
-            <Card className="group hover:shadow-xl transition-all hover:-translate-y-1 md:hover:-translate-y-2 border-2 border-transparent hover:border-primary/30">
-              <CardHeader className="p-6 md:p-6">
-                <div className="flex items-center gap-4 md:flex-col md:text-center">
-                  <div className="w-16 h-16 md:w-16 md:h-16 bg-primary/10 rounded-xl md:rounded-2xl flex items-center justify-center flex-shrink-0 md:mx-auto mb-0 md:mb-4 group-hover:bg-primary group-hover:text-white transition-colors">
-                    <Zap className="w-8 h-8 md:w-8 md:h-8 text-primary group-hover:text-white transition-colors" />
-                  </div>
-                  <div className="flex-1 md:flex-none">
-                    <CardTitle className="text-lg md:text-xl mb-2 md:mb-0">Rapidité</CardTitle>
-                    <CardDescription className="text-sm md:text-base block md:block">
-                      La plupart des réparations en moins de 24h
-                    </CardDescription>
-                  </div>
+            <Card className="group hover:shadow-xl transition-all hover:-translate-y-2 border-2 border-transparent hover:border-primary/30">
+              <CardHeader className="pb-2">
+                <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-4 group-hover:bg-primary transition-colors">
+                  <Scooter className="w-7 h-7 text-primary group-hover:text-white transition-colors" />
                 </div>
+                <CardTitle className="text-xl">Trottinettes</CardTitle>
               </CardHeader>
+              <CardContent>
+                <CardDescription className="text-base leading-relaxed">
+                  Électriques ou classiques, pour enfants ou adultes. Toutes vérifiées avant vente.
+                </CardDescription>
+                <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-primary" />
+                    Batterie testée
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-primary" />
+                    Réparation express
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-primary" />
+                    Pièces détachées
+                  </li>
+                </ul>
+              </CardContent>
             </Card>
 
-            <Card className="group hover:shadow-xl transition-all hover:-translate-y-1 md:hover:-translate-y-2 border-2 border-transparent hover:border-primary/30">
-              <CardHeader className="p-6 md:p-6">
-                <div className="flex items-center gap-4 md:flex-col md:text-center">
-                  <div className="w-16 h-16 md:w-16 md:h-16 bg-primary/10 rounded-xl md:rounded-2xl flex items-center justify-center flex-shrink-0 md:mx-auto mb-0 md:mb-4 group-hover:bg-primary group-hover:text-white transition-colors">
-                    <Heart className="w-8 h-8 md:w-8 md:h-8 text-primary group-hover:text-white transition-colors" />
-                  </div>
-                  <div className="flex-1 md:flex-none">
-                    <CardTitle className="text-lg md:text-xl mb-2 md:mb-0">Passion</CardTitle>
-                    <CardDescription className="text-sm md:text-base block md:block">
-                      On traite votre vélo comme le nôtre
-                    </CardDescription>
-                  </div>
+            <Card className="group hover:shadow-xl transition-all hover:-translate-y-2 border-2 border-transparent hover:border-primary/30">
+              <CardHeader className="pb-2">
+                <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-4 group-hover:bg-primary transition-colors">
+                  <CableCar className="w-7 h-7 text-primary group-hover:text-white transition-colors" />
                 </div>
+                <CardTitle className="text-xl">Skis & équipements</CardTitle>
               </CardHeader>
-            </Card>
-
-            <Card className="group hover:shadow-xl transition-all hover:-translate-y-1 md:hover:-translate-y-2 border-2 border-transparent hover:border-primary/30">
-              <CardHeader className="p-6 md:p-6">
-                <div className="flex items-center gap-4 md:flex-col md:text-center">
-                  <div className="w-16 h-16 md:w-16 md:h-16 bg-primary/10 rounded-xl md:rounded-2xl flex items-center justify-center flex-shrink-0 md:mx-auto mb-0 md:mb-4 group-hover:bg-primary group-hover:text-white transition-colors">
-                    <Award className="w-8 h-8 md:w-8 md:h-8 text-primary group-hover:text-white transition-colors" />
-                  </div>
-                  <div className="flex-1 md:flex-none">
-                    <CardTitle className="text-lg md:text-xl mb-2 md:mb-0">Qualité</CardTitle>
-                    <CardDescription className="text-sm md:text-base block md:block">
-                      Pièces de qualité et garantie 90 jours
-                    </CardDescription>
-                  </div>
-                </div>
-              </CardHeader>
+              <CardContent>
+                <CardDescription className="text-base leading-relaxed">
+                  Alpins, fond, freestyle... Skis d'occasion de qualité pour toutes les pratiques.
+                </CardDescription>
+                <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-primary" />
+                    Tous niveaux
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-primary" />
+                    Avec ou sans fixations
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-primary" />
+                    Conseil expert
+                  </li>
+                </ul>
+              </CardContent>
             </Card>
           </div>
 
@@ -644,10 +664,10 @@ export function HomePageClient({ reviews, faq, openingHours, contactInfo }: Home
           <div className="max-w-4xl mx-auto text-center">
             <Bike className="w-10 h-10 md:w-16 md:h-16 mx-auto mb-4 md:mb-6 opacity-80" />
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold mb-3 md:mb-6 handwritten-title">
-              Prêt à rouler ?
+              Prêt à vous équiper ?
             </h2>
             <p className="text-sm sm:text-base md:text-xl lg:text-2xl mb-6 md:mb-10 opacity-90 max-w-2xl mx-auto px-4">
-              Que ce soit pour une simple révision ou une réparation complète, on s'occupe de tout !
+              Vélo, ski ou trottinette : révision, réparation ou achat, on s'occupe de tout !
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center mb-8 md:mb-12">
