@@ -65,6 +65,7 @@ export default buildConfig({
       description: "Panneau d'administration du site Rust-in",
       icons: [{ url: '/favicon.png' }],
     },
+    dateFormat: 'dd/MM/yyyy à HH:mm',
   },
   i18n: {
     fallbackLanguage: 'fr',

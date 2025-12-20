@@ -1,21 +1,466 @@
-// Custom Rust-in Admin Theme
+// Custom Rust-in Admin Theme - Matching Website Design
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap');
 
-// Primary colors matching the website
+// ============================================
+// COLOR PALETTE (matching website)
+// ============================================
 $primary: #e05d38;
+$primary-dark: #c24a2a;
 $primary-light: rgba(224, 93, 56, 0.1);
+$primary-lighter: rgba(224, 93, 56, 0.05);
+
 $background-light: #e8ebed;
 $background-dark: #1c2433;
+$card-bg: #ffffff;
+$border-color: #dcdfe2;
+$text-primary: #333333;
+$text-muted: #6b7280;
 
-// Apply Nunito font globally
+// ============================================
+// GLOBAL STYLES
+// ============================================
 :root {
   --font-sans: 'Nunito', sans-serif !important;
+  --theme-success-500: #{$primary} !important;
+  --theme-elevation-0: #{$background-light} !important;
 }
 
-// Admin login page styling
+* {
+  font-family: 'Nunito', sans-serif !important;
+}
+
+// ============================================
+// HIDE THEME & LANGUAGE SELECTORS
+// ============================================
+.theme-selector,
+.theme-toggle,
+.language-selector,
+[class*='theme-switch'],
+[class*='lang-switch'],
+.payload-settings .theme,
+.payload-settings .language,
+.account-header .theme,
+.nav [class*='theme'],
+.nav [class*='language'],
+button[aria-label*='theme' i],
+button[aria-label*='langue' i],
+button[aria-label*='language' i] {
+  display: none !important;
+}
+
+// ============================================
+// HIDE PAYLOAD PREFERENCES IN USER ACCOUNT
+// ============================================
+.payload-settings,
+.account__payload-settings,
+[class*='payload-preferences'],
+[class*='preferences-section'],
+.field-type[data-path='_preference'],
+.account fieldset:has([class*='preference']),
+.account .preferences {
+  display: none !important;
+}
+
+// ============================================
+// DATE DISPLAY FORMATTING
+// ============================================
+.field-type--date,
+.date-time-picker,
+time,
+[class*='createdAt'],
+[class*='updatedAt'],
+.document-fields__header time {
+  font-family: 'Nunito', sans-serif !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+
+  // Make sure dates are readable
+  .date,
+  .time {
+    display: inline-block !important;
+  }
+}
+
+// ============================================
+// NAVIGATION SIDEBAR
+// ============================================
+.nav {
+  background: linear-gradient(180deg, #f8f9fa 0%, #e8ebed 100%) !important;
+  border-right: 1px solid $border-color !important;
+
+  // Nav header with logo area
+  .nav__header {
+    background: white !important;
+    border-bottom: 1px solid $border-color !important;
+    padding: 20px 16px !important;
+  }
+
+  // Nav groups
+  .nav-group {
+    margin: 8px !important;
+
+    .nav-group__toggle {
+      background: transparent !important;
+      border-radius: 10px !important;
+      font-weight: 700 !important;
+      color: $text-primary !important;
+      padding: 10px 12px !important;
+
+      &:hover {
+        background: $primary-light !important;
+        color: $primary !important;
+      }
+    }
+  }
+
+  // Nav links
+  a,
+  .nav-link {
+    border-radius: 10px !important;
+    margin: 4px 0 !important;
+    font-weight: 500 !important;
+    transition: all 0.2s ease !important;
+
+    &:hover {
+      background: $primary-light !important;
+      color: $primary !important;
+    }
+
+    &.active,
+    &[aria-current='page'] {
+      background: linear-gradient(135deg, $primary 0%, $primary-dark 100%) !important;
+      color: white !important;
+      font-weight: 600 !important;
+      box-shadow: 0 4px 12px rgba(224, 93, 56, 0.3) !important;
+    }
+  }
+}
+
+// Dark mode nav
+.theme-dark .nav {
+  background: linear-gradient(180deg, #2a3040 0%, #1c2433 100%) !important;
+  border-right-color: #3d4354 !important;
+
+  .nav__header {
+    background: #2a3040 !important;
+    border-bottom-color: #3d4354 !important;
+  }
+
+  a.active,
+  a[aria-current='page'] {
+    background: linear-gradient(135deg, $primary 0%, $primary-dark 100%) !important;
+  }
+}
+
+// ============================================
+// HEADER & TOOLBAR
+// ============================================
+.app-header,
+.collection-list__header {
+  background: white !important;
+  border-bottom: 1px solid $border-color !important;
+
+  h1 {
+    font-weight: 800 !important;
+    color: $text-primary !important;
+  }
+}
+
+// ============================================
+// MAIN CONTENT AREA
+// ============================================
+.template-default,
+.template-minimal {
+  background: $background-light !important;
+}
+
+.collection-list,
+.document-view {
+  padding: 24px !important;
+}
+
+// ============================================
+// CARDS & PANELS
+// ============================================
+.card,
+.document-fields,
+.field-type--group,
+.collapsible {
+  background: white !important;
+  border-radius: 16px !important;
+  border: 1px solid $border-color !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+  overflow: hidden !important;
+}
+
+// ============================================
+// BUTTONS
+// ============================================
+.btn {
+  border-radius: 10px !important;
+  font-weight: 600 !important;
+  font-family: 'Nunito', sans-serif !important;
+  transition: all 0.2s ease !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+}
+
+.btn--style-primary,
+.btn--style-actions {
+  background: linear-gradient(135deg, $primary 0%, $primary-dark 100%) !important;
+  border: none !important;
+  color: white !important;
+  box-shadow: 0 4px 12px rgba(224, 93, 56, 0.25) !important;
+
+  &:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 16px rgba(224, 93, 56, 0.35) !important;
+  }
+
+  &:active {
+    transform: translateY(0) !important;
+  }
+}
+
+.btn--style-secondary {
+  background: white !important;
+  border: 2px solid $border-color !important;
+  color: $text-primary !important;
+
+  &:hover {
+    border-color: $primary !important;
+    color: $primary !important;
+    background: $primary-lighter !important;
+  }
+}
+
+.btn--icon-style-without-border {
+  border-radius: 8px !important;
+
+  &:hover {
+    background: $primary-light !important;
+    color: $primary !important;
+  }
+}
+
+// ============================================
+// FORM INPUTS
+// ============================================
+.field-type {
+  // Only style native inputs and textareas
+  // Exclude React-Select inputs (they have id containing "react-select")
+  input:not([type='checkbox']):not([type='radio']):not([id*='react-select']),
+  textarea {
+    background: #f8f9fa !important;
+    border: 2px solid $border-color !important;
+    border-radius: 10px !important;
+    padding: 12px 14px !important;
+    font-size: 15px !important;
+    transition: all 0.2s ease !important;
+
+    &:focus {
+      border-color: $primary !important;
+      background: white !important;
+      box-shadow: 0 0 0 4px $primary-light !important;
+      outline: none !important;
+    }
+
+    &::placeholder {
+      color: $text-muted !important;
+    }
+  }
+
+  label {
+    font-weight: 600 !important;
+    color: $text-primary !important;
+    margin-bottom: 6px !important;
+  }
+
+  .field-description {
+    color: $text-muted !important;
+    font-size: 13px !important;
+  }
+}
+
+// Checkbox styling
+input[type='checkbox'] {
+  accent-color: $primary !important;
+}
+
+// Select dropdowns - Using Payload defaults (no custom styling)
+
+// ============================================
+// TABLE STYLING
+// ============================================
+.table {
+  border-radius: 12px !important;
+  overflow: hidden !important;
+
+  thead {
+    background: #f8f9fa !important;
+
+    th {
+      font-weight: 700 !important;
+      color: $text-primary !important;
+      border-bottom: 2px solid $border-color !important;
+    }
+  }
+
+  tbody {
+    tr {
+      transition: background 0.15s ease !important;
+
+      &:hover {
+        background: $primary-lighter !important;
+      }
+    }
+
+    td {
+      border-bottom: 1px solid lighten($border-color, 3%) !important;
+    }
+  }
+}
+
+// Row selection
+.select-row {
+  &.selected {
+    background: $primary-light !important;
+  }
+}
+
+// ============================================
+// SEARCH BAR
+// ============================================
+.search-filter,
+.list-controls__search {
+  position: relative !important;
+
+  input {
+    background: white !important;
+    border: 2px solid $border-color !important;
+    border-radius: 12px !important;
+    padding: 12px 16px 12px 44px !important;
+    min-width: 300px !important;
+    font-size: 14px !important;
+
+    &:focus {
+      border-color: $primary !important;
+      box-shadow: 0 0 0 4px $primary-light !important;
+    }
+  }
+
+  svg {
+    position: absolute !important;
+    left: 14px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    color: $text-muted !important;
+    z-index: 2 !important;
+  }
+}
+
+// ============================================
+// PILLS & BADGES
+// ============================================
+.pill,
+.tag,
+.status-pill {
+  border-radius: 20px !important;
+  font-weight: 600 !important;
+  font-size: 12px !important;
+}
+
+.pill--style-light-gray {
+  background: #f3f4f6 !important;
+  color: $text-muted !important;
+}
+
+.pill--has-action:hover {
+  background: $primary-light !important;
+  color: $primary !important;
+}
+
+// ============================================
+// MODALS & DRAWERS
+// ============================================
+.modal__content,
+.modal-content,
+.drawer__content {
+  border-radius: 20px !important;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.2) !important;
+  border: 1px solid $border-color !important;
+}
+
+.modal__header,
+.drawer__header {
+  border-bottom: 1px solid $border-color !important;
+
+  h2,
+  h3 {
+    font-weight: 800 !important;
+  }
+}
+
+// ============================================
+// TABS
+// ============================================
+.tabs {
+  .tabs__tab-button {
+    border-radius: 8px 8px 0 0 !important;
+    font-weight: 600 !important;
+    transition: all 0.2s ease !important;
+
+    &:hover {
+      background: $primary-lighter !important;
+    }
+
+    &.tabs__tab-button--active {
+      background: white !important;
+      border-bottom-color: white !important;
+      color: $primary !important;
+    }
+  }
+}
+
+// ============================================
+// PAGINATION
+// ============================================
+.pagination {
+  button,
+  a {
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+
+    &:hover:not(:disabled) {
+      background: $primary-light !important;
+      color: $primary !important;
+    }
+
+    &.pagination__page--is-current {
+      background: $primary !important;
+      color: white !important;
+    }
+  }
+}
+
+// ============================================
+// TOAST / NOTIFICATIONS
+// ============================================
+.toast {
+  border-radius: 12px !important;
+  font-weight: 500 !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15) !important;
+}
+
+.toast--success {
+  background: linear-gradient(135deg, $primary 0%, $primary-dark 100%) !important;
+}
+
+// ============================================
+// LOGIN PAGE
+// ============================================
 .login {
   background: linear-gradient(135deg, #fff5f2 0%, #ffffff 50%, #fff0eb 100%) !important;
-  font-family: 'Nunito', sans-serif !important;
 
   &::before {
     content: '';
@@ -32,130 +477,101 @@ $background-dark: #1c2433;
   }
 }
 
-// Login form container
 .login__wrap {
   z-index: 1;
   position: relative;
 }
 
-// Login card styling
 .login__form-wrap {
   background: white !important;
   border-radius: 24px !important;
   box-shadow:
-    0 20px 60px rgba(224, 93, 56, 0.1),
+    0 20px 60px rgba(224, 93, 56, 0.12),
     0 8px 20px rgba(0, 0, 0, 0.05) !important;
   border: 1px solid rgba(224, 93, 56, 0.1) !important;
   padding: 40px 32px !important;
-  backdrop-filter: blur(10px);
 }
 
-// Form inputs
-.login .field-type {
-  input {
-    background: #f8f9fa !important;
-    border: 2px solid #e5e7eb !important;
-    border-radius: 12px !important;
-    padding: 14px 16px !important;
-    font-family: 'Nunito', sans-serif !important;
-    font-size: 15px !important;
-    transition: all 0.3s ease !important;
-
-    &:focus {
-      border-color: $primary !important;
-      background: white !important;
-      box-shadow: 0 0 0 4px rgba(224, 93, 56, 0.1) !important;
-      outline: none !important;
-    }
-
-    &::placeholder {
-      color: #9ca3af !important;
-    }
-  }
-
-  label {
-    font-family: 'Nunito', sans-serif !important;
-    font-weight: 600 !important;
-    color: #374151 !important;
-    margin-bottom: 8px !important;
-  }
-}
-
-// Login button
-.login .btn {
-  background: linear-gradient(135deg, $primary 0%, darken($primary, 8%) 100%) !important;
-  border: none !important;
-  border-radius: 12px !important;
-  padding: 14px 24px !important;
-  font-family: 'Nunito', sans-serif !important;
-  font-weight: 700 !important;
-  font-size: 16px !important;
-  text-transform: none !important;
-  letter-spacing: 0 !important;
-  transition: all 0.3s ease !important;
-  box-shadow: 0 4px 15px rgba(224, 93, 56, 0.3) !important;
-
-  &:hover {
-    transform: translateY(-2px) !important;
-    box-shadow: 0 8px 25px rgba(224, 93, 56, 0.4) !important;
-    background: linear-gradient(135deg, lighten($primary, 5%) 0%, $primary 100%) !important;
-  }
-
-  &:active {
-    transform: translateY(0) !important;
-  }
-}
-
-// Payload logo area - hide default and show custom branding
 .login__brand {
-  margin-bottom: 0 !important;
-
   img,
   svg {
     display: none !important;
   }
 }
 
-// Link styling
-.login a {
-  color: $primary !important;
-  font-family: 'Nunito', sans-serif !important;
-  font-weight: 600 !important;
-  transition: color 0.2s ease !important;
+// ============================================
+// DASHBOARD
+// ============================================
+.dashboard {
+  padding: 32px !important;
+
+  .before-dashboard {
+    background: white !important;
+    border-radius: 16px !important;
+    padding: 24px !important;
+    border: 1px solid $border-color !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+  }
+}
+
+// Removed custom collection card hover - using Payload defaults
+
+// ============================================
+// COLLAPSIBLE / ACCORDION
+// ============================================
+.collapsible__toggle {
+  background: #f8f9fa !important;
+  border-radius: 12px 12px 0 0 !important;
+  font-weight: 700 !important;
 
   &:hover {
-    color: darken($primary, 10%) !important;
+    background: $primary-lighter !important;
   }
 }
 
-// Error/success messages
-.login .message {
-  border-radius: 12px !important;
-  font-family: 'Nunito', sans-serif !important;
+// ============================================
+// UPLOAD / MEDIA
+// ============================================
+.upload,
+.file-upload {
+  border: 2px dashed $border-color !important;
+  border-radius: 16px !important;
+  background: #fafafa !important;
+  transition: all 0.2s ease !important;
+
+  &:hover,
+  &.dragging {
+    border-color: $primary !important;
+    background: $primary-lighter !important;
+  }
 }
 
-// Dark mode support
-@media (prefers-color-scheme: dark) {
-  .login {
-    background: linear-gradient(135deg, #1c2433 0%, #2a3040 50%, #1c2433 100%) !important;
+.thumbnail {
+  border-radius: 10px !important;
+  overflow: hidden !important;
+}
 
-    &::before {
-      background:
-        radial-gradient(circle at 20% 80%, rgba(224, 93, 56, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(224, 93, 56, 0.1) 0%, transparent 50%);
-    }
+// ============================================
+// DARK MODE
+// ============================================
+.theme-dark {
+  .collection-list,
+  .document-view,
+  .template-default {
+    background: $background-dark !important;
   }
 
-  .login__form-wrap {
+  .card,
+  .document-fields,
+  .field-type--group,
+  .before-dashboard {
     background: #2a3040 !important;
-    border-color: rgba(224, 93, 56, 0.2) !important;
-    box-shadow:
-      0 20px 60px rgba(0, 0, 0, 0.3),
-      0 8px 20px rgba(224, 93, 56, 0.1) !important;
+    border-color: #3d4354 !important;
   }
 
-  .login .field-type {
-    input {
+  .field-type {
+    input,
+    textarea {
       background: #3d4354 !important;
       border-color: #4b5563 !important;
       color: #e5e5e5 !important;
@@ -169,172 +585,36 @@ $background-dark: #1c2433;
       color: #e5e5e5 !important;
     }
   }
-}
 
-// Fix search bar in admin collections
-.search-filter,
-.list-controls__search {
-  input {
-    background-color: var(--theme-elevation-50) !important;
-    border: 1px solid var(--theme-elevation-150) !important;
-    border-radius: 6px !important;
-    padding: 8px 12px !important;
-    width: 100% !important;
-    min-width: 200px !important;
-    font-family: 'Nunito', sans-serif !important;
+  .table thead {
+    background: #3d4354 !important;
+  }
 
-    &:focus {
-      border-color: $primary !important;
-      outline: none !important;
-      box-shadow: 0 0 0 2px rgba(224, 93, 56, 0.1) !important;
-    }
+  .login {
+    background: linear-gradient(135deg, #1c2433 0%, #2a3040 50%, #1c2433 100%) !important;
+  }
 
-    &::placeholder {
-      color: var(--theme-elevation-400) !important;
-    }
+  .login__form-wrap {
+    background: #2a3040 !important;
+    border-color: rgba(224, 93, 56, 0.2) !important;
   }
 }
 
-// Ensure search wrapper has proper layout
-.search-filter__wrapper,
-.list-controls {
-  display: flex !important;
-  align-items: center !important;
-  gap: 8px !important;
-}
-
-// Comprehensive search bar fix
-.search-filter {
-  position: relative !important;
-  display: flex !important;
-  align-items: center !important;
-  width: 100% !important;
-  max-width: 400px !important;
-
-  // Search input styling
-  input {
-    background-color: var(--theme-elevation-50) !important;
-    border: 2px solid var(--theme-elevation-150) !important;
-    border-radius: 12px !important;
-    padding: 12px 16px 12px 44px !important;
-    width: 100% !important;
-    min-width: 280px !important;
-    font-family: 'Nunito', sans-serif !important;
-    font-size: 14px !important;
-    transition: all 0.2s ease !important;
-
-    &:focus {
-      border-color: $primary !important;
-      outline: none !important;
-      box-shadow: 0 0 0 3px rgba(224, 93, 56, 0.15) !important;
-      background-color: white !important;
-    }
-
-    &::placeholder {
-      color: var(--theme-elevation-400) !important;
-      font-weight: 500 !important;
-    }
+// ============================================
+// ANIMATIONS
+// ============================================
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
   }
-
-  // Search icon styling
-  svg,
-  .search-filter__icon,
-  .icon {
-    position: absolute !important;
-    left: 14px !important;
-    top: 50% !important;
-    transform: translateY(-50%) !important;
-    z-index: 2 !important;
-    width: 18px !important;
-    height: 18px !important;
-    color: var(--theme-elevation-400) !important;
-    pointer-events: none !important;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-// List controls search bar
-.list-controls__search {
-  position: relative !important;
-
-  input {
-    background-color: var(--theme-elevation-50) !important;
-    border: 2px solid var(--theme-elevation-150) !important;
-    border-radius: 12px !important;
-    padding: 12px 16px 12px 44px !important;
-    width: 100% !important;
-    min-width: 280px !important;
-    font-family: 'Nunito', sans-serif !important;
-    font-size: 14px !important;
-    transition: all 0.2s ease !important;
-
-    &:focus {
-      border-color: $primary !important;
-      outline: none !important;
-      box-shadow: 0 0 0 3px rgba(224, 93, 56, 0.15) !important;
-      background-color: white !important;
-    }
-
-    &::placeholder {
-      color: var(--theme-elevation-400) !important;
-      font-weight: 500 !important;
-    }
-  }
-
-  svg {
-    position: absolute !important;
-    left: 14px !important;
-    top: 50% !important;
-    transform: translateY(-50%) !important;
-    z-index: 2 !important;
-    width: 18px !important;
-    height: 18px !important;
-    color: var(--theme-elevation-400) !important;
-  }
-}
-
-// Ensure proper z-index for input icons
-.list-header,
-.collection-list__header {
-  .search-filter,
-  .list-controls__search {
-    position: relative;
-
-    > svg:first-child {
-      position: absolute !important;
-      left: 14px !important;
-      top: 50% !important;
-      transform: translateY(-50%) !important;
-      z-index: 2 !important;
-    }
-  }
-}
-
-// General admin typography
-.payload-admin {
-  font-family: 'Nunito', sans-serif !important;
-}
-
-// Navigation styling
-.nav {
-  font-family: 'Nunito', sans-serif !important;
-}
-
-// Buttons throughout admin
-.btn--style-primary {
-  background: $primary !important;
-  border-radius: 8px !important;
-  font-family: 'Nunito', sans-serif !important;
-  font-weight: 600 !important;
-
-  &:hover {
-    background: darken($primary, 8%) !important;
-  }
-}
-
-// Header title
-.view-title,
-.collection-list__header h1,
-h1 {
-  font-family: 'Nunito', sans-serif !important;
-  font-weight: 800 !important;
+.collection-list__row,
+.document-fields > .field-type {
+  animation: fadeInUp 0.3s ease forwards;
 }
