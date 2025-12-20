@@ -3,6 +3,7 @@ import sharp from 'sharp'
 import path from 'path'
 import { buildConfig, PayloadRequest } from 'payload'
 import { fileURLToPath } from 'url'
+import { fr } from '@payloadcms/translations/languages/fr'
 
 import { Bikes } from './collections/Bikes'
 import { ContactInfo } from './collections/ContactInfo'
@@ -46,13 +47,13 @@ export default buildConfig({
           height: 667,
         },
         {
-          label: 'Tablet',
+          label: 'Tablette',
           name: 'tablet',
           width: 768,
           height: 1024,
         },
         {
-          label: 'Desktop',
+          label: 'Bureau',
           name: 'desktop',
           width: 1440,
           height: 900,
@@ -60,16 +61,33 @@ export default buildConfig({
       ],
     },
     meta: {
-      title: 'Rust-in - Admin',
-      description: 'Rust-in site administration panel',
+      title: 'Rust-in - Administration',
+      description: "Panneau d'administration du site Rust-in",
+      icons: [{ url: '/favicon.png' }],
     },
+  },
+  i18n: {
+    fallbackLanguage: 'fr',
+    supportedLanguages: { fr },
   },
   // Rich text editor configuration
   editor: defaultLexical,
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
   }),
-  collections: [Users, Bikes, Skis, Scooters, Media, Reviews, FAQ, Team, OpeningHours, ContactInfo, Prices],
+  collections: [
+    Users,
+    Bikes,
+    Skis,
+    Scooters,
+    Media,
+    Reviews,
+    FAQ,
+    Team,
+    OpeningHours,
+    ContactInfo,
+    Prices,
+  ],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [],
   plugins: [

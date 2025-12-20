@@ -167,20 +167,20 @@ export interface Bike {
   id: string;
   name: string;
   /**
-   * Price in euros
+   * Prix en euros
    */
   price: number;
   /**
-   * Number of kilometers already ridden
+   * Nombre de kilomètres déjà parcourus
    */
   kilometers: number;
   photo: string | Media;
   /**
-   * Size of person this bike is suitable for
+   * Taille de personne adaptée à ce vélo
    */
   humanSize: 'xs' | 's' | 'm' | 'l' | 'xl';
   /**
-   * Optional bike description
+   * Description optionnelle du vélo
    */
   description?: string | null;
   updatedAt: string;
@@ -193,7 +193,7 @@ export interface Bike {
 export interface Media {
   id: string;
   /**
-   * Image description for accessibility
+   * Description de l'image pour l'accessibilité
    */
   alt?: string | null;
   caption?: {
@@ -289,22 +289,22 @@ export interface Ski {
   id: string;
   name: string;
   /**
-   * Price in euros
+   * Prix en euros
    */
   price: number;
   skiType: 'alpine' | 'freestyle' | 'freeride' | 'cross-country' | 'touring';
   /**
-   * Ski length in centimeters
+   * Longueur du ski en centimètres
    */
   size: number;
   level: 'beginner' | 'intermediate' | 'advanced' | 'expert';
   photo: string | Media;
   /**
-   * Are bindings included?
+   * Les fixations sont-elles incluses ?
    */
   withBindings?: boolean | null;
   /**
-   * Optional ski description
+   * Description optionnelle du ski
    */
   description?: string | null;
   updatedAt: string;
@@ -318,29 +318,29 @@ export interface Scooter {
   id: string;
   name: string;
   /**
-   * Price in euros
+   * Prix en euros
    */
   price: number;
   scooterType: 'urban' | 'freestyle' | 'offroad' | 'kids';
   /**
-   * Is this an electric scooter?
+   * Est-ce une trottinette électrique ?
    */
   isElectric?: boolean | null;
   /**
-   * Maximum speed in km/h (for electric scooters)
+   * Vitesse maximale en km/h (pour trottinettes électriques)
    */
   maxSpeed?: number | null;
   /**
-   * Battery range in kilometers (for electric scooters)
+   * Autonomie de la batterie en kilomètres (pour trottinettes électriques)
    */
   range?: number | null;
   /**
-   * Maximum supported weight in kilograms
+   * Poids maximum supporté en kilogrammes
    */
   maxWeight?: number | null;
   photo: string | Media;
   /**
-   * Optional scooter description
+   * Description optionnelle de la trottinette
    */
   description?: string | null;
   updatedAt: string;
@@ -355,7 +355,7 @@ export interface Review {
   name: string;
   image: string | Media;
   /**
-   * Rating from 1 to 5 stars
+   * Note de 1 à 5 étoiles
    */
   rating: number;
   text: string;
@@ -371,7 +371,7 @@ export interface Faq {
   question: string;
   answer: string;
   /**
-   * Lower numbers appear first
+   * Les numéros les plus bas apparaissent en premier
    */
   order?: number | null;
   updatedAt: string;
@@ -386,15 +386,15 @@ export interface Team {
   name: string;
   photo: string | Media;
   /**
-   * E.g.: Mechanic, Founder, Workshop Manager...
+   * Ex : Mécanicien, Fondateur, Responsable atelier...
    */
   role: string;
   /**
-   * Short bio or presentation of the team member
+   * Courte bio ou présentation du membre de l'équipe
    */
   description: string;
   /**
-   * Lower numbers appear first
+   * Les numéros les plus bas apparaissent en premier
    */
   order?: number | null;
   updatedAt: string;
@@ -408,19 +408,19 @@ export interface OpeningHour {
   id: string;
   day: 'lundi' | 'mardi' | 'mercredi' | 'jeudi' | 'vendredi' | 'samedi' | 'dimanche';
   /**
-   * Check if closed on this day
+   * Cocher si fermé ce jour
    */
   isClosed?: boolean | null;
   /**
-   * E.g.: 9:00 AM
+   * Ex : 9h00
    */
   openTime?: string | null;
   /**
-   * E.g.: 6:00 PM
+   * Ex : 18h00
    */
   closeTime?: string | null;
   /**
-   * 0 = Monday, 1 = Tuesday, etc.
+   * 0 = Lundi, 1 = Mardi, etc.
    */
   order?: number | null;
   updatedAt: string;
@@ -433,7 +433,7 @@ export interface OpeningHour {
 export interface ContactInfo {
   id: string;
   /**
-   * Full address of the business
+   * Adresse complète de l'entreprise
    */
   address: string;
   city: string;
@@ -441,24 +441,24 @@ export interface ContactInfo {
   country: string;
   email: string;
   /**
-   * Phone number with format (e.g., (555) 123-4567)
+   * Numéro de téléphone (ex : 05 61 23 45 67)
    */
   phone: string;
   socialLinks?: {
     /**
-     * Optional Facebook page URL
+     * URL de la page Facebook (optionnel)
      */
     facebook?: string | null;
     /**
-     * Optional Instagram profile URL
+     * URL du profil Instagram (optionnel)
      */
     instagram?: string | null;
     /**
-     * Optional Twitter/X profile URL
+     * URL du profil Twitter/X (optionnel)
      */
     twitter?: string | null;
     /**
-     * Optional LinkedIn page URL
+     * URL de la page LinkedIn (optionnel)
      */
     linkedin?: string | null;
   };
@@ -472,19 +472,19 @@ export interface ContactInfo {
 export interface Price {
   id: string;
   /**
-   * Name of the service (e.g., "Révision complète", "Réparation freins")
+   * Nom de la prestation (ex : "Révision complète", "Réparation freins")
    */
   label: string;
   /**
-   * Price in euros
+   * Prix en euros
    */
   price: number;
   /**
-   * Estimated time for the service (e.g., "30 min", "1h", "2-3h")
+   * Durée estimée de la prestation (ex : "30 min", "1h", "2-3h")
    */
   time: string;
   /**
-   * Lower numbers appear first
+   * Les numéros les plus bas apparaissent en premier
    */
   order?: number | null;
   updatedAt: string;

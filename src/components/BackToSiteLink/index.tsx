@@ -15,7 +15,7 @@ export const BackToSiteLink = () => {
         <span>
           <ArrowLeft className="w-4 h-4" />
         </span>
-        Back to site
+        Retour au site
       </a>
 
       <style jsx>{`

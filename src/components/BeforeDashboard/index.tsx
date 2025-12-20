@@ -9,33 +9,40 @@ const BeforeDashboard: React.FC = () => {
   return (
     <div className={baseClass}>
       <Banner className={`${baseClass}__banner`} type="success">
-        <h4>Welcome to your Rust-in dashboard! 🚴</h4>
+        <h4>Bienvenue sur votre tableau de bord Rust-in ! 🚴</h4>
       </Banner>
-      <p style={{ marginTop: '1rem' }}>
-        From this space, you can manage:
-      </p>
+      <p style={{ marginTop: '1rem' }}>Depuis cet espace, vous pouvez gérer :</p>
       <ul className={`${baseClass}__instructions`}>
         <li>
-          <strong>Bikes</strong> - Add, edit or delete bikes for sale
+          <strong>Vélos</strong> - Ajouter, modifier ou supprimer les vélos en vente
         </li>
         <li>
-          <strong>Reviews</strong> - Manage customer testimonials displayed on the site
+          <strong>Skis</strong> - Gérer les skis disponibles
         </li>
         <li>
-          <strong>FAQ</strong> - Update frequently asked questions
+          <strong>Trottinettes</strong> - Gérer les trottinettes en stock
         </li>
         <li>
-          <strong>Team</strong> - Present your team members
+          <strong>Avis clients</strong> - Gérer les témoignages affichés sur le site
         </li>
         <li>
-          <strong>Opening Hours</strong> - Set your business hours
+          <strong>FAQ</strong> - Mettre à jour les questions fréquentes
         </li>
         <li>
-          <strong>Media</strong> - Manage all site images
+          <strong>Équipe</strong> - Présenter les membres de votre équipe
+        </li>
+        <li>
+          <strong>Horaires</strong> - Définir vos horaires d'ouverture
+        </li>
+        <li>
+          <strong>Tarifs</strong> - Gérer les tarifs des prestations
+        </li>
+        <li>
+          <strong>Médias</strong> - Gérer toutes les images du site
         </li>
       </ul>
       <p style={{ marginTop: '1rem', color: 'var(--theme-elevation-500)' }}>
-        💡 Tip: Use the left menu to navigate between sections.
+        💡 Astuce : Utilisez le menu de gauche pour naviguer entre les sections.
       </p>
     </div>
   )

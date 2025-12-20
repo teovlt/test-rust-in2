@@ -6,8 +6,8 @@ import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 export const Prices: CollectionConfig = {
   slug: 'prices',
   labels: {
-    singular: 'Price',
-    plural: 'Prices',
+    singular: 'Tarif',
+    plural: 'Tarifs',
   },
   access: {
     create: authenticated,
@@ -22,41 +22,40 @@ export const Prices: CollectionConfig = {
   fields: [
     {
       name: 'label',
-      label: 'Service Label',
+      label: 'Nom du service',
       type: 'text',
       required: true,
       admin: {
-        description: 'Name of the service (e.g., "Révision complète", "Réparation freins")',
+        description: 'Nom de la prestation (ex : "Révision complète", "Réparation freins")',
       },
     },
     {
       name: 'price',
-      label: 'Price',
+      label: 'Prix',
       type: 'number',
       required: true,
       min: 0,
       admin: {
-        description: 'Price in euros',
+        description: 'Prix en euros',
       },
     },
     {
       name: 'time',
-      label: 'Estimated Time',
+      label: 'Durée estimée',
       type: 'text',
       required: true,
       admin: {
-        description: 'Estimated time for the service (e.g., "30 min", "1h", "2-3h")',
+        description: 'Durée estimée de la prestation (ex : "30 min", "1h", "2-3h")',
       },
     },
     {
       name: 'order',
-      label: 'Display Order',
+      label: "Ordre d'affichage",
       type: 'number',
       defaultValue: 0,
       admin: {
-        description: 'Lower numbers appear first',
+        description: 'Les numéros les plus bas apparaissent en premier',
       },
     },
   ],
 }
-

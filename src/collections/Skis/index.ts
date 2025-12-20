@@ -26,53 +26,53 @@ export const Skis: CollectionConfig = {
   fields: [
     {
       name: 'name',
-      label: 'Name',
+      label: 'Nom',
       type: 'text',
       required: true,
     },
     {
       name: 'price',
-      label: 'Price',
+      label: 'Prix',
       type: 'number',
       required: true,
       min: 0,
       admin: {
-        description: 'Price in euros',
+        description: 'Prix en euros',
       },
     },
     {
       name: 'skiType',
-      label: 'Ski Type',
+      label: 'Type de ski',
       type: 'select',
       required: true,
       options: [
-        { label: 'Alpine', value: 'alpine' },
+        { label: 'Alpin', value: 'alpine' },
         { label: 'Freestyle', value: 'freestyle' },
         { label: 'Freeride', value: 'freeride' },
-        { label: 'Cross-country', value: 'cross-country' },
-        { label: 'Touring', value: 'touring' },
+        { label: 'Fond', value: 'cross-country' },
+        { label: 'Randonnée', value: 'touring' },
       ],
     },
     {
       name: 'size',
-      label: 'Size (cm)',
+      label: 'Taille (cm)',
       type: 'number',
       required: true,
       min: 100,
       max: 200,
       admin: {
-        description: 'Ski length in centimeters',
+        description: 'Longueur du ski en centimètres',
       },
     },
     {
       name: 'level',
-      label: 'Skill Level',
+      label: 'Niveau',
       type: 'select',
       required: true,
       options: [
-        { label: 'Beginner', value: 'beginner' },
-        { label: 'Intermediate', value: 'intermediate' },
-        { label: 'Advanced', value: 'advanced' },
+        { label: 'Débutant', value: 'beginner' },
+        { label: 'Intermédiaire', value: 'intermediate' },
+        { label: 'Avancé', value: 'advanced' },
         { label: 'Expert', value: 'expert' },
       ],
     },
@@ -85,11 +85,11 @@ export const Skis: CollectionConfig = {
     },
     {
       name: 'withBindings',
-      label: 'With Bindings',
+      label: 'Avec fixations',
       type: 'checkbox',
       defaultValue: false,
       admin: {
-        description: 'Are bindings included?',
+        description: 'Les fixations sont-elles incluses ?',
       },
     },
     {
@@ -97,9 +97,8 @@ export const Skis: CollectionConfig = {
       label: 'Description',
       type: 'textarea',
       admin: {
-        description: 'Optional ski description',
+        description: 'Description optionnelle du ski',
       },
     },
   ],
 }
-

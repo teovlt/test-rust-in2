@@ -6,8 +6,8 @@ import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 export const Scooters: CollectionConfig = {
   slug: 'scooters',
   labels: {
-    singular: 'Scooter',
-    plural: 'Scooters',
+    singular: 'Trottinette',
+    plural: 'Trottinettes',
   },
   access: {
     create: authenticated,
@@ -26,68 +26,68 @@ export const Scooters: CollectionConfig = {
   fields: [
     {
       name: 'name',
-      label: 'Name',
+      label: 'Nom',
       type: 'text',
       required: true,
     },
     {
       name: 'price',
-      label: 'Price',
+      label: 'Prix',
       type: 'number',
       required: true,
       min: 0,
       admin: {
-        description: 'Price in euros',
+        description: 'Prix en euros',
       },
     },
     {
       name: 'scooterType',
-      label: 'Scooter Type',
+      label: 'Type de trottinette',
       type: 'select',
       required: true,
       options: [
-        { label: 'Urban', value: 'urban' },
+        { label: 'Urbaine', value: 'urban' },
         { label: 'Freestyle', value: 'freestyle' },
-        { label: 'Off-road', value: 'offroad' },
-        { label: 'Kids', value: 'kids' },
+        { label: 'Tout-terrain', value: 'offroad' },
+        { label: 'Enfant', value: 'kids' },
       ],
     },
     {
       name: 'isElectric',
-      label: 'Electric',
+      label: 'Électrique',
       type: 'checkbox',
       defaultValue: false,
       admin: {
-        description: 'Is this an electric scooter?',
+        description: 'Est-ce une trottinette électrique ?',
       },
     },
     {
       name: 'maxSpeed',
-      label: 'Max Speed (km/h)',
+      label: 'Vitesse max (km/h)',
       type: 'number',
       min: 0,
       admin: {
-        description: 'Maximum speed in km/h (for electric scooters)',
+        description: 'Vitesse maximale en km/h (pour trottinettes électriques)',
         condition: (data) => data.isElectric,
       },
     },
     {
       name: 'range',
-      label: 'Range (km)',
+      label: 'Autonomie (km)',
       type: 'number',
       min: 0,
       admin: {
-        description: 'Battery range in kilometers (for electric scooters)',
+        description: 'Autonomie de la batterie en kilomètres (pour trottinettes électriques)',
         condition: (data) => data.isElectric,
       },
     },
     {
       name: 'maxWeight',
-      label: 'Max Weight (kg)',
+      label: 'Poids max (kg)',
       type: 'number',
       min: 0,
       admin: {
-        description: 'Maximum supported weight in kilograms',
+        description: 'Poids maximum supporté en kilogrammes',
       },
     },
     {
@@ -102,9 +102,8 @@ export const Scooters: CollectionConfig = {
       label: 'Description',
       type: 'textarea',
       admin: {
-        description: 'Optional scooter description',
+        description: 'Description optionnelle de la trottinette',
       },
     },
   ],
 }
-

@@ -30,6 +30,11 @@ export const metadata: Metadata = {
   description: "Votre spécialiste vélos d'occasion et réparation à Toulouse",
   metadataBase: new URL(getServerSideURL()),
   openGraph: mergeOpenGraph(),
+  icons: {
+    icon: '/favicon.png',
+    shortcut: '/favicon.png',
+    apple: '/favicon.png',
+  },
 }
 
 export default function FrontendLayout({ children }: { children: React.ReactNode }) {

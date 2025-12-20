@@ -6,8 +6,8 @@ import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 export const ContactInfo: CollectionConfig = {
   slug: 'contact-info',
   labels: {
-    singular: 'Contact Information',
-    plural: 'Contact Information',
+    singular: 'Coordonnées',
+    plural: 'Coordonnées',
   },
   access: {
     create: authenticated,
@@ -22,28 +22,28 @@ export const ContactInfo: CollectionConfig = {
   fields: [
     {
       name: 'address',
-      label: 'Address',
+      label: 'Adresse',
       type: 'text',
       required: true,
       admin: {
-        description: 'Full address of the business',
+        description: "Adresse complète de l'entreprise",
       },
     },
     {
       name: 'city',
-      label: 'City',
+      label: 'Ville',
       type: 'text',
       required: true,
     },
     {
       name: 'postalCode',
-      label: 'Postal Code',
+      label: 'Code postal',
       type: 'text',
       required: true,
     },
     {
       name: 'country',
-      label: 'Country',
+      label: 'Pays',
       type: 'text',
       required: true,
       defaultValue: 'France',
@@ -56,52 +56,51 @@ export const ContactInfo: CollectionConfig = {
     },
     {
       name: 'phone',
-      label: 'Phone',
+      label: 'Téléphone',
       type: 'text',
       required: true,
       admin: {
-        description: 'Phone number with format (e.g., (555) 123-4567)',
+        description: 'Numéro de téléphone (ex : 05 61 23 45 67)',
       },
     },
     {
       name: 'socialLinks',
-      label: 'Social Media Links',
+      label: 'Réseaux sociaux',
       type: 'group',
       fields: [
         {
           name: 'facebook',
-          label: 'Facebook URL',
+          label: 'URL Facebook',
           type: 'text',
           admin: {
-            description: 'Optional Facebook page URL',
+            description: 'URL de la page Facebook (optionnel)',
           },
         },
         {
           name: 'instagram',
-          label: 'Instagram URL',
+          label: 'URL Instagram',
           type: 'text',
           admin: {
-            description: 'Optional Instagram profile URL',
+            description: 'URL du profil Instagram (optionnel)',
           },
         },
         {
           name: 'twitter',
-          label: 'Twitter/X URL',
+          label: 'URL Twitter/X',
           type: 'text',
           admin: {
-            description: 'Optional Twitter/X profile URL',
+            description: 'URL du profil Twitter/X (optionnel)',
           },
         },
         {
           name: 'linkedin',
-          label: 'LinkedIn URL',
+          label: 'URL LinkedIn',
           type: 'text',
           admin: {
-            description: 'Optional LinkedIn page URL',
+            description: 'URL de la page LinkedIn (optionnel)',
           },
         },
       ],
     },
   ],
 }
-

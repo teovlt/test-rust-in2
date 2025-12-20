@@ -6,8 +6,8 @@ import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 export const OpeningHours: CollectionConfig = {
   slug: 'opening-hours',
   labels: {
-    singular: 'Opening Hour',
-    plural: 'Opening Hours',
+    singular: "Horaire d'ouverture",
+    plural: "Horaires d'ouverture",
   },
   access: {
     create: authenticated,
@@ -22,53 +22,53 @@ export const OpeningHours: CollectionConfig = {
   fields: [
     {
       name: 'day',
-      label: 'Day',
+      label: 'Jour',
       type: 'select',
       required: true,
       options: [
-        { label: 'Monday', value: 'lundi' },
-        { label: 'Tuesday', value: 'mardi' },
-        { label: 'Wednesday', value: 'mercredi' },
-        { label: 'Thursday', value: 'jeudi' },
-        { label: 'Friday', value: 'vendredi' },
-        { label: 'Saturday', value: 'samedi' },
-        { label: 'Sunday', value: 'dimanche' },
+        { label: 'Lundi', value: 'lundi' },
+        { label: 'Mardi', value: 'mardi' },
+        { label: 'Mercredi', value: 'mercredi' },
+        { label: 'Jeudi', value: 'jeudi' },
+        { label: 'Vendredi', value: 'vendredi' },
+        { label: 'Samedi', value: 'samedi' },
+        { label: 'Dimanche', value: 'dimanche' },
       ],
     },
     {
       name: 'isClosed',
-      label: 'Closed',
+      label: 'Fermé',
       type: 'checkbox',
       defaultValue: false,
       admin: {
-        description: 'Check if closed on this day',
+        description: 'Cocher si fermé ce jour',
       },
     },
     {
       name: 'openTime',
-      label: 'Opening Time',
+      label: "Heure d'ouverture",
       type: 'text',
       admin: {
-        description: 'E.g.: 9:00 AM',
+        description: 'Ex : 9h00',
         condition: (data) => !data.isClosed,
       },
     },
     {
       name: 'closeTime',
-      label: 'Closing Time',
+      label: 'Heure de fermeture',
       type: 'text',
       admin: {
-        description: 'E.g.: 6:00 PM',
+        description: 'Ex : 18h00',
         condition: (data) => !data.isClosed,
       },
     },
     {
       name: 'order',
-      label: 'Display Order',
+      label: "Ordre d'affichage",
       type: 'number',
       defaultValue: 0,
       admin: {
-        description: '0 = Monday, 1 = Tuesday, etc.',
+        description: '0 = Lundi, 1 = Mardi, etc.',
       },
     },
   ],

@@ -6,8 +6,8 @@ import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 export const Bikes: CollectionConfig = {
   slug: 'bikes',
   labels: {
-    singular: 'Bike',
-    plural: 'Bikes',
+    singular: 'Vélo',
+    plural: 'Vélos',
   },
   access: {
     create: authenticated,
@@ -26,29 +26,29 @@ export const Bikes: CollectionConfig = {
   fields: [
     {
       name: 'name',
-      label: 'Name',
+      label: 'Nom',
       type: 'text',
       required: true,
     },
     {
       name: 'price',
-      label: 'Price',
+      label: 'Prix',
       type: 'number',
       required: true,
       min: 0,
       admin: {
-        description: 'Price in euros',
+        description: 'Prix en euros',
       },
     },
     {
       name: 'kilometers',
-      label: 'Kilometers',
+      label: 'Kilomètres',
       type: 'number',
       required: true,
       min: 0,
       defaultValue: 0,
       admin: {
-        description: 'Number of kilometers already ridden',
+        description: 'Nombre de kilomètres déjà parcourus',
       },
     },
     {
@@ -60,7 +60,7 @@ export const Bikes: CollectionConfig = {
     },
     {
       name: 'humanSize',
-      label: 'Human Size',
+      label: 'Taille humaine',
       type: 'select',
       required: true,
       options: [
@@ -71,7 +71,7 @@ export const Bikes: CollectionConfig = {
         { label: 'XL (> 1m85)', value: 'xl' },
       ],
       admin: {
-        description: 'Size of person this bike is suitable for',
+        description: 'Taille de personne adaptée à ce vélo',
       },
     },
     {
@@ -79,7 +79,7 @@ export const Bikes: CollectionConfig = {
       label: 'Description',
       type: 'textarea',
       admin: {
-        description: 'Optional bike description',
+        description: 'Description optionnelle du vélo',
       },
     },
   ],

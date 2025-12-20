@@ -64,34 +64,42 @@ export default async function HomePage() {
   })
 
   // Transform Contact Info data
-  const contactInfo = contactInfoData.docs.length > 0
-    ? {
-        address: contactInfoData.docs[0].address || '',
-        city: contactInfoData.docs[0].city || '',
-        postalCode: contactInfoData.docs[0].postalCode || '',
-        country: contactInfoData.docs[0].country || '',
-        email: contactInfoData.docs[0].email || '',
-        phone: contactInfoData.docs[0].phone || '',
-        socialLinks: contactInfoData.docs[0].socialLinks
-          ? {
-              ...(contactInfoData.docs[0].socialLinks.facebook && {
-                facebook: contactInfoData.docs[0].socialLinks.facebook,
-              }),
-              ...(contactInfoData.docs[0].socialLinks.instagram && {
-                instagram: contactInfoData.docs[0].socialLinks.instagram,
-              }),
-              ...(contactInfoData.docs[0].socialLinks.twitter && {
-                twitter: contactInfoData.docs[0].socialLinks.twitter,
-              }),
-              ...(contactInfoData.docs[0].socialLinks.linkedin && {
-                linkedin: contactInfoData.docs[0].socialLinks.linkedin,
-              }),
-            }
-          : {},
-      }
-    : null
+  const contactInfo =
+    contactInfoData.docs.length > 0
+      ? {
+          address: contactInfoData.docs[0].address || '',
+          city: contactInfoData.docs[0].city || '',
+          postalCode: contactInfoData.docs[0].postalCode || '',
+          country: contactInfoData.docs[0].country || '',
+          email: contactInfoData.docs[0].email || '',
+          phone: contactInfoData.docs[0].phone || '',
+          socialLinks: contactInfoData.docs[0].socialLinks
+            ? {
+                ...(contactInfoData.docs[0].socialLinks.facebook && {
+                  facebook: contactInfoData.docs[0].socialLinks.facebook,
+                }),
+                ...(contactInfoData.docs[0].socialLinks.instagram && {
+                  instagram: contactInfoData.docs[0].socialLinks.instagram,
+                }),
+                ...(contactInfoData.docs[0].socialLinks.twitter && {
+                  twitter: contactInfoData.docs[0].socialLinks.twitter,
+                }),
+                ...(contactInfoData.docs[0].socialLinks.linkedin && {
+                  linkedin: contactInfoData.docs[0].socialLinks.linkedin,
+                }),
+              }
+            : {},
+        }
+      : null
 
-  return <HomePageClient reviews={reviews} faq={faq} openingHours={openingHours} contactInfo={contactInfo} />
+  return (
+    <HomePageClient
+      reviews={reviews}
+      faq={faq}
+      openingHours={openingHours}
+      contactInfo={contactInfo}
+    />
+  )
 }
 
 // Revalidate data every 60 seconds to pick up new content without redeploying
